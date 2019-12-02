@@ -305,6 +305,19 @@ public class guiMain extends JFrame
                         for (int i = 1; i < 35;i++) { Global.People.add(new Person(Global.People.size())); }
                         return;
                     }
+                    if (input.equals("///CIAAOPW")&Global.overridesActive)
+                    {
+                        Global.mp=new Map();
+                        updateMap();
+                    }
+                    if (input.equals("///CIAAOPW+")&Global.overridesActive)
+                    {
+                        Global.mp=new Map();
+                        updateMap();
+                        { for (Region reg:glb.regions){reg.discovered=true;}
+                            updateMap();
+                            return; }
+                    }
                 }
                 catch (Exception e){}
                 try {

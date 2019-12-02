@@ -22,6 +22,7 @@ public class Map extends Global{
 
     public Map()
     {
+        regions.clear();
         Random rand = new Random();
         oceanSideAlpha= rand.nextInt(3)+1; //makes a random corner a ocean and mountain
         if (oceanSideAlpha==1)

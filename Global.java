@@ -53,6 +53,7 @@ public class Global {
     static public ArrayList<ArrayList> events = new ArrayList<ArrayList>(); //todo
     static public Clip clip1;
     static public Clip clip;
+    static public Map mp = new Map();
 
     //food res (name of food, calories in thousands, lifespan in days)
 

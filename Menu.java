@@ -12,7 +12,6 @@ public class Menu extends Global{
     Boolean auto = false;
     Scanner reader = new Scanner(System.in);
     Population People=new Population();
-    Map mp = new Map();
     Science sci = new Science();
     boolean init=true;
     String inp="";
