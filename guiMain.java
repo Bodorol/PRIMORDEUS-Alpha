@@ -763,32 +763,51 @@ public class guiMain extends JFrame
             regionFetsLabel.setText(temp);
             if (reg.biome.equals("forest"))
             {
-                regionImageLabel.setIcon(new ImageIcon("treeRegionImage.png"));
+                regionImageLabel.setIcon(new ImageIcon("bin/treeRegionImage.png"));
             }
             if (reg.biome.equals("hills"))
             {
-                regionImageLabel.setIcon(new ImageIcon("hillRegionImage.png"));
+                regionImageLabel.setIcon(new ImageIcon("bin/hillRegionImage.png"));
             }
             if (reg.biome.equals("desert"))
             {
-                regionImageLabel.setIcon(new ImageIcon("desertRegionImage.png"));
+                regionImageLabel.setIcon(new ImageIcon("bin/desertRegionImage.png"));
             }
             if (reg.biome.equals("mountain"))
             {
-                regionImageLabel.setIcon(new ImageIcon("mountainRegionImage.png"));
+                regionImageLabel.setIcon(new ImageIcon("bin/mountainRegionImage.png"));
             }
             if (reg.biome.equals("alpine"))
             {
-                regionImageLabel.setIcon(new ImageIcon("alpineRegionImage.png"));
+                regionImageLabel.setIcon(new ImageIcon("bin/alpineRegionImage.png"));
+            }
+            if (reg.biome.equals("jungle"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/jungleRegionImage.png"));
+            }
+            if (reg.biome.equals("coast"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/coastRegionImage.png"));
             }
             if (reg.biome.equals("swamp"))
             {
-                regionImageLabel.setIcon(new ImageIcon("marshRegionImage.png"));
+                regionImageLabel.setIcon(new ImageIcon("bin/marshRegionImage.png"));
             }
-
+            if (reg.biome.equals("plains"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/plainRegionImage.png"));
+            }
+            if (reg.biome.equals("ocean"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/oceanRegionImage.png"));
+            }
             if (reg.features.contains("lake"))
             {
-                regionImageLabel.setIcon(new ImageIcon("lakeRegionImage.png"));
+                regionImageLabel.setIcon(new ImageIcon("bin/lakeRegionImage.png"));
+            }
+            if (reg.features.contains("village"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/villageRegionImage.png"));
             }
         }
         else

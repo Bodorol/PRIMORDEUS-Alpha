@@ -49,7 +49,7 @@ public class Menu extends Global{
             {
                 mainMenuGui.setImage("bin/mainMenuImageBW.png");
                 mainMenuGui.validate();
-                playSoundEasy("bin/thunderWav.wav");
+                playSoundEasy("thunderWav.wav");
                 Thread.sleep(190);
                 mainMenuGui.setImage("bin/mainMenuImage.png");
                 mainMenuGui.validate();
