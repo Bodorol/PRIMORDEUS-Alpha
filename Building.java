@@ -34,7 +34,6 @@ public class Building extends Global
     //Attributes
     private Scanner reader = new Scanner(System.in);
     int buildingID;
-    int uniqueID;
     String name;
     String description;
     int size;
@@ -52,7 +51,8 @@ public class Building extends Global
     int focus = 0;
     int upgradeLevel = 0;
     double upkeepCost = 0;
-    double efficiency = productivity/100.0; //todo: move this somewhere so it'll be updated when productivity increases
+    double efficiencyModifier = 0.01;
+    double efficiency = productivity*efficiencyModifier; //todo: move this somewhere so it'll be updated when productivity increases
     int maxUpgrade;
     Region region;
     String regionName = "null";
@@ -126,7 +126,7 @@ public class Building extends Global
         //7: Capacity. Determines the number of people that can have the occupation per building.
         //8: Limit. Determines the amount of this type of building that can be built.
         //9: Modifier. This determines how "powerful" the building is. In other words, how much of an effect it has. Look at the effect methods to get a better idea of what this does.
-        //10: Building ID. Just gives the building its own ID that allows it to be constructed. Must be unique for each building type, otherwise you end up overwriting buildings.
+        //10: Building ID. Just gives the building its own ID that allows it to be constructed. Must be unique for each building type, otherwise you end up overwriting buildings. //TODO: I REPEAT, MUST BE UNIQUE FOR EACH BUILDING. I HAVE MADE THIS MISTAKE BEFORE. IT MAKES THINGS REALLY NOT GOOD PLEASE DOnN'T DO IT
         //11: Max upgrade level. Allows multiple upgrades on this building type, with the max upgrade level being the maximum (I guess that's kinda obvious. Re-write explanation later.)
         //12: Prerequisites for constructing the building. Make as an arraylist with the science and resource prerequisites you want. (Note to self: it would be better if you did this like the effects parameter. Change later)
 
@@ -564,12 +564,6 @@ public class Building extends Global
         }
      }
 
-     public void upgradeMenu(){
-        //todo
-        //construction menu extension that allows you to upgrade a building
-        //displays list of constructed buildings and allows you to call upgradeBuilding() on it
-     }
-
      public void underConstructionMenu(){
         //todo
         //shows buildings that have had some progress or are the current focus
@@ -718,9 +712,9 @@ public class Building extends Global
             //todo
             //add guide on how to make an effect (including how to make it unique, manual, etc.)
             private void addRoad(){
-                //todo
-                //adds a road to the tile the building is made on
-                //Make this once you have region specificity
+                this.region.hasRoad = true;
+                //todo: Should run connectMap
+                //todo: changes effect ID afterwards so effect only runs once
             }
 
             private void testdelayEffect(){
@@ -917,6 +911,7 @@ public class Building extends Global
             private void addInfluence(){
                 influence += modifier + workers*efficiency;
             }
+
 
             private void abilityCureSick(){
                 //todo
