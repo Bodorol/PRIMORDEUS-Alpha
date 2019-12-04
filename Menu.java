@@ -13,6 +13,7 @@ public class Menu extends Global{
     Scanner reader = new Scanner(System.in);
     Population People=new Population();
     Science sci = new Science();
+    Building bld = new Building();
     boolean init=true;
     String inp="";
     String foodString="";
@@ -30,6 +31,7 @@ public class Menu extends Global{
     public Menu()
     {
         addPols();
+        bld.initializer();
     }
 
      /************************************************************************
@@ -226,6 +228,7 @@ public class Menu extends Global{
                         guiMain.addEventPanel(lesserEvents);
                         guiMain.updateScience();
                         guiMain.updatePopulation();
+                        bld.updateBuildings();
                         guiMain.mainPanel.repaint();
                         guiMain.mainPanel.revalidate();
                         tme=1;

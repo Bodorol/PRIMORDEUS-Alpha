@@ -689,10 +689,10 @@ public class guiMain extends JFrame
                     }
                 }
 
-                constructedBuildingsPane.setText(temp);
-                constructedBuildingsPane.invalidate();
-                constructedBuildingsPane.validate();
-                constructedBuildingsPane.repaint();
+                buildingQueuePane.setText(temp);
+                buildingQueuePane.invalidate();
+                buildingQueuePane.validate();
+                buildingQueuePane.repaint();
                 mainPanel.removeAll();
                 mainPanel.add(buildingQueuePanel);
                 mainPanel.repaint();
