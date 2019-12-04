@@ -1,21 +1,13 @@
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 //todo:
-//make it so buildings are assigned to a region
-//add more buildings
-//add more effects
-//Make it so you can only make one building at a time (use a focus variable like in science?) Do this after you move to GUI.
-//Make addInfluence method for town hall building
-//Add queue features to constructing buildings
-//Add abilities module. Not just for manual building effects, but for abilities in general (for example, allows you to spend influence to gain food or something). Might want to move to separate module later.
-//Add upkeep cost
 //Add some gosh-darned documentation to your methods, you slacker
 //Add region restrictions to buildings (e.g. can only be built near ocean, in forest, etc.)
 //Add a toString method
 //Add an autobuild method of some sort which automatically fills a region with buildings.
+//Make it so you can remove buildings from the queue
+//Add some notes on methods that would be useful for Ian to use
+//Make an abilityCheck method that tells you if you can use an ability or not
 
 //Ideas for Buildings:
 //Town hall, has a leader occupation and that's about it. (maybe produces influence?) Triggers the Leader effect which sets global hasLeader to true which enables certain abilities.
@@ -50,6 +42,7 @@ public class Building extends Global
     String occupation;
     int capacity;
     int workers = 0;
+    int productivity = 0;
     int limit;
     double modifier;
     int delay = 0;
@@ -58,10 +51,12 @@ public class Building extends Global
     int manualCounter = 0;
     int focus = 0;
     int upgradeLevel = 0;
-    double efficiency = 0.1;
+    double upkeepCost = 0;
+    double efficiency = productivity/100.0; //todo: move this somewhere so it'll be updated when productivity increases
     int maxUpgrade;
-    //todo: Region region;
-    ArrayList<String> preRecsNeeded = new ArrayList<String>();
+    Region region;
+    String regionName = "null";
+    public ArrayList<String> preRecsNeeded = new ArrayList<String>();
     ArrayList<Integer> effects = new ArrayList<Integer>();
     ArrayList<Person> workersList = new ArrayList<Person>();
 
@@ -69,7 +64,7 @@ public class Building extends Global
 
 
 
-    public Building(int buildingID){
+    public Building(int buildingID, Region region, String regionName){
         //todo:
         //Add a region parameter in the caller
         for (ArrayList b:buildings){
@@ -88,17 +83,36 @@ public class Building extends Global
                 this.modifier = Double.parseDouble((String)b.get(8));
                 this.maxUpgrade = Integer.parseInt((String)b.get(9));
                 this.preRecsNeeded = (ArrayList)b.get(10);
-                //todo: this.region = region;
+                this.upkeepCost = Integer.parseInt((String)b.get(11));
+                this.region = region;
+                this.region.slots -= size;
+                this.regionName = regionName;
                 this.buildingID = buildingID;
                 if (this.effects.contains(-1)){
                     initializer();
                 }
+                break;
             }
         }
 
         }
 
-    private void initializer(){
+    public Building(){
+        this.name = "Null";
+        this.description = "Null";
+        this.size = 0;
+        this.workNeeded = 0;
+        this.effects = new ArrayList<Integer>(Arrays.asList(new Integer[]{-1}));
+        this.occupation = "Null";
+        this.capacity = 0;
+        this.limit = 1;
+        this.modifier = 0;
+        this.buildingID = 0;
+        this.maxUpgrade = 0;
+        this.preRecsNeeded = new ArrayList<String>(Arrays.asList(new String[]{"Null"}));
+    }
+
+    public void initializer(){
         //todo
         //write explanation on how to create your own building and upgrade with explanations for each parameter
 
@@ -118,25 +132,64 @@ public class Building extends Global
 
         //Note to self: Do another explanation for addUpgrade and addOccupation
 
-        addBuilding("Null", "Important please do not delete, also if this shows up in game something is wrong", "0", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
-                "Null", "0", "1", "0", "0", "0",
+        addBuilding("Test Building", "For Testing", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1, 2})),
+                "Tester", "1", "1", "1", "1", "3", "5", "10",
                 new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
 
-        addBuilding("Test Building", "For Testing", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1, 2})),
-                "Tester", "1", "1", "1", "1", "3",
-                new ArrayList<String>(Arrays.asList(new String[]{"Stone", "science stuff"})));
-
         addBuilding("Town Hall", "Allows you to have a leader", "1", "1", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
-                "Leader", "1", "1", "1", "2", "3",
-                new ArrayList<String>(Arrays.asList(new String[]{"Stone", "science stuff"})));
+                "Leader", "1", "1", "1", "2", "3", "5", "10",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
 
         addBuilding("Farm", "Produces food", "1", "1", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
-                "Farmer", "1", "1", "1", "3", "3",
-                new ArrayList<String>(Arrays.asList(new String[]{"Stone", "science stuff"})));
+                "Farmer", "1", "1", "1", "3", "3", "5", "10",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+
+        addBuilding("Charcuterie", "Allows you to slaughter livestock to produce meat", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
+                "Butcher", "1", "1", "1", "4", "3", "5", "10",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+
+        addBuilding("Theater", "Provides happiness for your citizens", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
+                "Performer", "1", "1", "1", "5", "3", "5", "10",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+
+        addBuilding("Church", "Provides influence", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
+                "Priest", "1", "1", "1", "6", "3", "5", "10",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+
+        addBuilding("Hospital", "Treats sick people", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
+                "Doctor", "1", "1", "1", "7", "3", "5", "10",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+
+        addBuilding("Watch tower", "Provides defense", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
+                "Guard", "1", "1", "1", "8", "3", "5", "10",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+
+        addBuilding("Road", "Allows you to connect regions", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
+                "None", "1", "1", "1", "9", "3", "5", "10",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+
+        addOccupation("Test Occupation", "Test", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
+                new ArrayList(Arrays.asList(new String[]{"Strength"})), "1");
+
+        addOccupation("Leader", "Unlocks new abilities", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
+                new ArrayList(Arrays.asList(new String[]{"Strength"})), "2");
+
+        addOccupation("Butcher", "Works at the charcuterie", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
+                new ArrayList(Arrays.asList(new String[]{"Strength"})), "3");
+
+        addOccupation("Doctor", "Works at the hospital", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
+                new ArrayList(Arrays.asList(new String[]{"Strength"})), "4");
+
+        addOccupation("Farmer", "Works on a farm", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
+                new ArrayList(Arrays.asList(new String[]{"Strength"})), "5");
+
+        addOccupation("Guard", "Keeps watch over the village", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
+                new ArrayList(Arrays.asList(new String[]{"Strength"})), "6");
     }
 
 
-    private void addBuilding(String name, String description, String size, String workNeeded, ArrayList effectIDs, String occupation, String capacity, String limit, String modifier, String buildingID, String maxUpgradeLevel, ArrayList preRecsNeeded){
+    private void addBuilding(String name, String description, String size, String workNeeded, ArrayList effectIDs, String occupation, String capacity, String limit,
+                             String modifier, String buildingID, String maxUpgradeLevel, String upkeepCost, String initialCost, ArrayList preRecsNeeded){
         /************************************************************************
          * METHOD: addBuilding                                                  *
          * USE: creates and adds a Building with given strings                  *
@@ -156,19 +209,20 @@ public class Building extends Global
         out.add(modifier);
         out.add(maxUpgradeLevel);
         out.add(preRecsNeeded);
+        out.add(upkeepCost);
+        out.add(initialCost);
         out.add(buildingID);
         buildings.add(out);
         }
 
-    private void addUpgrade(String buildingID, String description, String newModifier, String newCapacity, String newEfficiency, String newDelay, String wokrRequired, ArrayList additionalEffects, ArrayList preRecsNeeded, String upgradeNumber){
+    private void addUpgrade(String buildingID, String description, String newModifier, String newCapacity, String newEfficiency, String newDelay, String wokrRequired,
+                            ArrayList additionalEffects, ArrayList preRecsNeeded, String upgradeNumber){
         /************************************************************************
          * METHOD: addBuilding                                                  *
          * USE: creates and adds a Building with given strings                  *
          * INPUT: Strings name, size, effect, occupation, buildingID            *
          ************************************************************************/
 
-        //todo
-        //needs to have a work required parameter
         ArrayList out = new ArrayList();
         out.add(buildingID);
         out.add(description);
@@ -184,16 +238,66 @@ public class Building extends Global
 
     }
 
-    private void addOccupation(String name, String description, ArrayList requiredBuildings, ArrayList statRequirements, String occupationID){
+    private void addOccupation(String name, String description, ArrayList requiredBuildings, ArrayList statRequirements, ArrayList relevantStats, String occupationID){
         ArrayList out = new ArrayList();
         out.add(name);
         out.add(description);
         out.add(requiredBuildings);
         out.add(statRequirements);
-        out.add("0"); //What the heck is this? I don't remember doing this. Maybe this was meant for something else?
+        out.add(relevantStats);
+        //out.add("0"); //What the heck is this? I don't remember doing this. Maybe this was meant for something else? Kinda afraid to remove it now. Gonna comment it out for now and see if anything goes wrong.
         out.add(occupationID);
         occupations.add(out);
     }
+
+    private void addAbility(String name, String description, ArrayList requiredBuildings, ArrayList requiredOccupations, ArrayList preRecsNeeded, String abilityID){
+        ArrayList out = new ArrayList();
+        out.add(name);
+        out.add(description);
+        out.add(requiredBuildings);
+        out.add(requiredOccupations);
+        out.add(preRecsNeeded);
+        out.add(abilityID);
+        abilities.add(out);
+    }
+
+    public static String bestOccupation(Person person) {
+        int maxRank = 0;
+        String occupationName = "None";
+        for (ArrayList occupation : occupations) {
+            ArrayList statRequirements = (ArrayList) (occupation.get(3));
+                if (assignCheck(person, occupation)) {
+                    int rank = 0;
+                    for (Object s : (ArrayList) occupation.get(4)) {
+                        String stat = (String) s;
+                        if (stat.equals("Strength")) {
+                            rank += person.strength - (int) statRequirements.get(0);
+                        }
+                        if (stat.equals("Perception")) {
+                            rank += person.perception - (int) statRequirements.get(1);
+                        }
+                        if (stat.equals("Intelligence")) {
+                            rank += person.intelligence - (int) statRequirements.get(2);
+                        }
+                        if (stat.equals("Martial")) {
+                            rank += person.martial - (int) statRequirements.get(3);
+                        }
+                        if (stat.equals("Charisma")) {
+                            rank += person.charisma - (int) statRequirements.get(4);
+                        }
+                        if (stat.equals("Dexterity")) {
+                            rank += person.dexterity - (int) statRequirements.get(5);
+                    }
+                }
+                    if(rank > maxRank){
+                        maxRank = rank;
+                        occupationName = (String)occupation.get(0);
+                    }
+            }
+        }
+        return occupationName;
+    }
+
 
     public void assignOccupationAuto(ArrayList occupation){
         for (Person p: People){
@@ -206,6 +310,106 @@ public class Building extends Global
         }
     }
 
+    public void assignOccupationAutoNoReassign(ArrayList occupation){
+        //Same as assignOccupationAuto but doesn't reassign workers if they already have a job.
+        for (Person p: People){
+            if(assignCheck(p, occupation) && this.capacity > 0 && p.occupation.equals("None")){
+                p.occupation = (String)occupation.get(0);
+                this.capacity -= 1;
+                this.workers += 1;
+                this.workersList.add(p);
+            }
+        }
+    }
+
+    public void assignOccupationAutoBestNoReassign(ArrayList occupation){
+        //Same as assignOccupationAutoBest but doesn't reassign workers if they already have a job.
+        ArrayList<ArrayList> bestWorkers = occupationOptimizerBest(occupation);
+        for(ArrayList workerList: bestWorkers){
+            Person worker = (Person)workersList.get(0);
+            int rank = (int)workerList.get(1);
+            if(this.capacity > 0 && worker.occupation.equals("None")){
+                worker.occupation = (String)occupation.get(0);
+                this.capacity -= 1;
+                this.workers += 1;
+                this.productivity += rank;
+                this.workersList.add(worker);
+            }
+        }
+    }
+
+    public void assignOccupationAutoBest(ArrayList occupation){
+        ArrayList<ArrayList> bestWorkers = occupationOptimizerBest(occupation);
+        for(ArrayList workerList: bestWorkers){
+            Person worker = (Person)workerList.get(0);
+            int rank = (int)workerList.get(1);
+            if(this.capacity > 0){
+                worker.occupation = (String)occupation.get(0);
+                this.capacity -= 1;
+                this.workers += 1;
+                this.productivity += rank;
+                this.workersList.add(worker);
+            }
+        }
+    }
+
+    public ArrayList occupationOptimizerBest(ArrayList occupation){
+        ArrayList statRequirements = (ArrayList)(occupation.get(3));
+        ArrayList<ArrayList> bestWorkers = new ArrayList<ArrayList>();
+        for(Person p: People){
+            if(assignCheck(p, occupation)){
+                int rank = 0;
+                ArrayList out = new ArrayList();
+                for(Object s: (ArrayList)occupation.get(4)) {
+                    String stat = (String) s;
+                    if (stat.equals("Strength")) {
+                        rank +=  p.strength - (int) statRequirements.get(0);
+                    }
+                    if (stat.equals("Perception")) {
+                        rank +=  p.perception - (int) statRequirements.get(1);
+                    }
+                    if (stat.equals("Intelligence")) {
+                        rank += p.intelligence- (int) statRequirements.get(2);
+                    }
+                    if (stat.equals("Martial")) {
+                        rank += p.martial- (int)statRequirements.get(3);
+                    }
+                    if (stat.equals("Charisma")) {
+                        rank +=  p.charisma - (int) statRequirements.get(4);
+                    }
+                    if (stat.equals("Dexterity")) {
+                        rank +=  p.dexterity - (int) statRequirements.get(5);
+                    }
+                }
+                out.add(p);
+                out.add(rank);
+                bestWorkers.add(out);
+            }
+        }
+        ArrayList<ArrayList> tempList = new ArrayList<ArrayList>();
+        tempList.add(new ArrayList(Arrays.asList(new String[]{"None"})));
+        tempList.get(0).add(0);
+        for(ArrayList x: bestWorkers){
+           for(int i = 0; i < tempList.size(); i++){
+                if((int)x.get(1) >= (int)tempList.get(i).get(1)){
+                    tempList.add(i, x);
+                    break;
+                }
+            }
+        }
+        int removalIndex = -1;
+        for(ArrayList t: tempList){
+            if(t.get(0).equals("None") && (int)t.get(1) == 0){
+                removalIndex = tempList.indexOf(t);
+            }
+        }
+        if(removalIndex != -1) {
+            tempList.remove(removalIndex);
+        }
+        bestWorkers = tempList;
+        return bestWorkers;
+    }
+
     public void assignOccupationManual(Person person, ArrayList occupation){
         if(assignCheck(person, occupation)){
             person.occupation = (String)occupation.get(0);
@@ -215,7 +419,7 @@ public class Building extends Global
         }
     }
 
-    public boolean assignCheck(Person person, ArrayList occupation){
+    public static boolean assignCheck(Person person, ArrayList occupation){
         //checks stats and tells you if they can take the job. Returns true if they meet requirements, returns false if they don't
         ArrayList statRequirements = (ArrayList)(occupation.get(3));
         if(person.strength >= (int)statRequirements.get(0) && person.perception >= (int)statRequirements.get(1) && person.intelligence >= (int)statRequirements.get(2) &&
@@ -247,7 +451,6 @@ public class Building extends Global
     }
 
     public boolean canUpgrade(){
-        //todo
         for(ArrayList u: upgrades){
             if (Integer.parseInt((String)u.get(0)) == this.buildingID && Integer.parseInt((String)u.get(u.size() - 1)) == this.upgradeLevel + 1){
                     for(Object p: (ArrayList)u.get(8)){
@@ -355,7 +558,7 @@ public class Building extends Global
              for (Building b: constructedBuildings){
                  b.focus = 0;
              }
-             constructedBuildings.add(new Building(buildingChoice));
+             //constructedBuildings.add(new Building(buildingChoice));
          }
          break;
         }
@@ -406,7 +609,10 @@ public class Building extends Global
                 b.work(10);
              }
              else {
-                 b.callEffect();
+                 if(gold >= b.upkeepCost) {
+                     b.callEffect();
+                     gold -= b.upkeepCost;
+                 }
              }
         }
      }
@@ -442,7 +648,7 @@ public class Building extends Global
         for (int e: effects){
             if (e != -1) {
                 if (e == 1) {
-                    produceResource();
+                    //produceResource();
                 }
                 if (e == 2) {
                     addHappiness();
@@ -471,14 +677,11 @@ public class Building extends Global
     }
 
     public void removeBuilding(){
-        //todo
-        //make it so it actually removes building
         reverseEffects();
         constructedBuildings.remove(this);
-        //and then it removes building from building list
     }
 
-    public boolean buildCheck(int buildingID) {
+    public static boolean buildCheck(int buildingID) {
         for (ArrayList b: buildings) {
             if (Integer.parseInt((String) b.get(b.size() - 1)) == buildingID) {
                 for (Object p : (ArrayList)b.get(10)) {
@@ -558,57 +761,180 @@ public class Building extends Global
             }
 
             private void addHousing(){
-                //todo
-                //adds housings slots
+                housingAvailable += modifier;
             }
 
             private void foodPreservation () {
-                //todo
-                //find food lifespan variable
-                //Might have to modify the addFood method. Talk with Ian before doing anything.
-                //foodLifeSpan = modifier + efficiency*workers;
+                foodPreservation = modifier;
             }
 
             private void addScience () {
-                //todo
-                //find science variable (or make global science variable? Feel like I need to talk to Ian about this before doing anything.)
-                //science += modifier + efficiency*workers;
+                scienceWork += modifier + efficiency*workers;
             }
 
             private void addWork () {
-                //todo
-                //find work variable (or make global work variable? Feel like I need to talk to Ian about this before doing anything.)
-                //work += modifier + efficiency*workers;
+                productionWork += modifier + efficiency*workers;
             }
 
             private void addHappiness () {
                 this.popHappiness += modifier + efficiency*workers;
             }
 
-            private void produceResource () {
-                //todo
-                //need to make new method for each individual resource
-                //need to figure out how to add resources
-                //resource += modifier;
-                //or for food:
-                //food.add(something or other);
-                //Do I have to do that for all resource types?
-                //I'm not sure yet, need to ask Ian
+            private void produceClay(){
+                if(discResources.contains("Clay")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Clay")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
             }
 
-            private void AbilityCureSick(){
+            private void produceWood(){
+                if(discResources.contains("Wood")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Wood")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void produceWater(){
+                water += modifier + efficiency*workers;
+            }
+
+            private void produceObsidian(){
+                if(discResources.contains("Obsidian")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Obsidian")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void produceGalena(){
+                if(discResources.contains("Galena")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Galena")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void produceGoethite(){
+                if(discResources.contains("Goethite")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Goethite")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void produceChalcopyrite(){
+                if(discResources.contains("Chalcopyrite")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Chalcopyrite")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void produceSphalerite(){
+                if(discResources.contains("Sphalerite")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Sphalerite")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void produceSilicaSand(){
+                if(discResources.contains("Silica Sand")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Silica Sand")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void produceQuartz(){
+                if(discResources.contains("Quartz")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Quartz")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void produceFish(){
+                if(discResources.contains("Fish")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Fish")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void produceShellfish(){
+                if(discResources.contains("Shellfish")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Shellfish")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void produceSmallGame(){
+                if(discResources.contains("Small game")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Small game")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void produceLargeGame(){
+                if(discResources.contains("Large game")){
+                    for(ArrayList resource: ownedResources){
+                        if(resource.get(0).equals("Large game")){
+                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+                        }
+                    }
+                }
+            }
+
+            private void addInfluence(){
+                influence += modifier + workers*efficiency;
+            }
+
+            private void abilityCureSick(){
                 //todo
                 //Ability that allows you to spend influence to cure one sick person of any disease. Will require some sort of temple or holy building or something
                 //Probably has to take in a person as parameter
             }
 
-            private void AbilityCureAllSick(){
+            private void abilityCureAllSick(){
                 //todo
                 //Stronger version of cure sick that allows you to cure everyone in your village for a large amount of influence. Requires and upgrade probably.
             }
 
+            private void abilityAddHappiness(){
+                //todo
+            }
+
             private void produceGold () {
-                this.gold += modifier + efficiency*workers ;
+                this.gold += modifier + efficiency*workers;
             }
 
             public String getName () {

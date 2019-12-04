@@ -1,9 +1,5 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicScrollBarUI;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +27,7 @@ public class guiMain extends JFrame
     private JButton populationButton;
     private JButton buildingAndConstructionButton;
     private JButton policiesAndInfluenceButton;
-    private JButton projectButton;
+    private JButton abilityButton;
     private JButton mapButton;
     private JButton diplomacyButton;
     private JButton governmentButton;
@@ -85,6 +81,32 @@ public class guiMain extends JFrame
     private JLabel regionImageLabel;
     private JPanel greaterEventPanel;
     private JPanel buildingPanel;
+    private JButton ConstructBuildingsButton;
+    private JButton SeeBuildingQueueButton;
+    private JButton UpgradeBuildingsButton;
+    private JButton SeeConstructedBuildingsButton;
+    private JPanel constructionMenuPanel;
+    private JTextPane buildingListPane;
+    private JButton ConstructBuildingButton;
+    private JPanel upgradeMenuPanel;
+    private JTextPane instructionTextPane;
+    private JPanel abilityPanel;
+    private JPanel constructedMenuPanel;
+    private JPanel buildingQueuePanel;
+    private JTextPane textPane1;
+    private JComboBox abilitySelector;
+    private JButton UseAbilityButton;
+    private JTextPane constructedBuildingsPane;
+    private JTextPane buildingQueuePane;
+    private JTextPane buildingHeaderPane;
+    private JButton constructBuildingsButton;
+    private JButton upgradeBuildingsButton;
+    private JButton buildingQueueButton;
+    private JButton constructedBuildingsButton;
+    private JTextField buildingRegionSelector;
+    private JComboBox comboBox2;
+    private JButton BuyUpgradeButton;
+    private JComboBox buildingTypeSelector;
     private JLabel resScrollLabel;
     private JLabel regionResPanel;
     public String focusPanel = "eve";
@@ -171,6 +193,20 @@ public class guiMain extends JFrame
                 glb.buttonClicked="5";
                 glb.playSoundEasy("click.wav");
                 focusPanel="building";
+                String temp = "";
+                temp += "╔══════════════════════════════════════════════════════════════════════════════════════╗\n";
+                temp += "║                                                                                      ║\n";
+                temp += "║                                                                                      ║\n";
+                temp += "║   ____     _    _   _____   _        _____    _____   _    _   _____     _____       ║\n";
+                temp += "║  |  _ \\\\  | |  | | |_   _| | |      |  __ \\\\  |_  _| | \\\\ | | / ____|   / ____|      ║\n";
+                temp += "║  | |_) |  | |  | |   | |   | |      | |  | |   | |   |  \\\\| | | |__    | (___        ║\n";
+                temp += "║  |   _ <  | |  | |   | |   | |      | |  | |   | |   | .` | | | |_ |   \\\\___ \\\\      ║\n";
+                temp += "║  | |_) |  | |__| |  _| |_  | |____  | |__| |  _| |_  | |\\\\  | | |__| |  ____) |      ║\n";
+                temp += "║  |____/   \\\\____/  |_____| |______| |_____/  |_____| |_| \\\\_| \\\\_____| |_____/       ║\n";
+                temp += "║                                                                                      ║\n";
+                temp += "║                                                                                      ║\n";
+                temp += "╚══════════════════════════════════════════════════════════════════════════════════════╝\n";
+                buildingHeaderPane.setText(temp);
                 mainPanel.removeAll();
                 mainPanel.add(buildingPanel);
                 mainPanel.repaint();
@@ -192,7 +228,7 @@ public class guiMain extends JFrame
             }
         });
 
-        projectButton.addActionListener(new ActionListener() {
+        abilityButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 glb.buttonClicked="7";
@@ -516,6 +552,246 @@ public class guiMain extends JFrame
                     }
                 repaint();
                 revalidate();
+            }
+        });
+        constructBuildingsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    glb.buttonClicked="5";
+                    glb.playSoundEasy("click.wav");
+                    focusPanel="construction";
+                    constructBuildings();
+                    mainPanel.removeAll();
+                    mainPanel.add(constructionMenuPanel);
+                    mainPanel.repaint();
+                    mainPanel.revalidate();
+            }
+        });
+        upgradeBuildingsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                glb.buttonClicked="5";
+                glb.playSoundEasy("click.wav");
+                focusPanel="upgrade";
+                String temp = "";
+                int index = 1;
+                for (Building b: Global.constructedBuildings){
+                    if(b.buildingID != 0){
+                        if (b.workNeeded == 0 && b.canUpgrade()) {
+                            temp+="\n";
+                            temp+="======================================================";
+                            temp+="\n";
+                            temp+=index + ".";
+                            temp+="\n";
+                            temp+="Name: " + b.name;
+                            temp+="\n";
+                            temp+="Description: " + b.description;
+                            temp+="\n";
+                            temp+="Size: " + b.size;
+                            temp+="\n";
+                            temp+="Region: " + b.regionName;
+                            temp+="\n";
+                            temp+="Upkeep Cost: " + b.upkeepCost;
+                            temp+="\n";
+                            temp+="Capacity: " + b.capacity;
+                            temp+="\n";
+                            temp+="Workers: " + b.workers;
+                            temp+="\n";
+                            index++;
+                        }
+                    }
+                }
+                constructedBuildingsPane.setText(temp);
+                constructedBuildingsPane.invalidate();
+                constructedBuildingsPane.validate();
+                constructedBuildingsPane.repaint();
+                mainPanel.removeAll();
+                mainPanel.add(upgradeMenuPanel);
+                mainPanel.repaint();
+                mainPanel.revalidate();
+            }
+        });
+        constructedBuildingsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                glb.buttonClicked="5";
+                glb.playSoundEasy("click.wav");
+                focusPanel="constructed";
+                String temp = "";
+                int index = 1;
+                for (Building b: Global.constructedBuildings){
+                    if(b.buildingID != 0){
+                        if (b.workNeeded == 0) {
+                            temp+="\n";
+                            temp+="======================================================";
+                            temp+="\n";
+                            temp+=index + ".";
+                            temp+="\n";
+                            temp+="Name: " + b.name;
+                            temp+="\n";
+                            temp+="Description: " + b.description;
+                            temp+="\n";
+                            temp+="Size: " + b.size;
+                            temp+="\n";
+                            temp+="Region: " + b.regionName;
+                            temp+="\n";
+                            temp+="Upkeep Cost: " + b.upkeepCost;
+                            temp+="\n";
+                            temp+="Capacity: " + b.capacity;
+                            temp+="\n";
+                            temp+="Workers: " + b.workers;
+                            temp+="\n";
+                            index++;
+                        }
+                    }
+                }
+
+                constructedBuildingsPane.setText(temp);
+                constructedBuildingsPane.invalidate();
+                constructedBuildingsPane.validate();
+                constructedBuildingsPane.repaint();
+                mainPanel.removeAll();
+                mainPanel.add(constructedMenuPanel);
+                mainPanel.repaint();
+                mainPanel.revalidate();
+            }
+        });
+        buildingQueueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                glb.playSoundEasy("click.wav");
+                focusPanel="queue";
+                glb.buttonClicked="5";
+                glb.playSoundEasy("click.wav");
+                focusPanel="constructed";
+                String temp = "";
+                int index = 1;
+                for (Building b: Global.constructedBuildings){
+                    if(b.buildingID != 0){
+                        if (b.workNeeded > 0) {
+                            temp+="\n";
+                            temp+="======================================================";
+                            temp+="\n";
+                            temp+=index + ".";
+                            temp+="\n";
+                            temp+="Name: " + b.name;
+                            temp+="\n";
+                            temp+="Description: " + b.description;
+                            temp+="\n";
+                            temp+="Size: " + b.size;
+                            temp+="\n";
+                            temp+="Region: " + b.regionName;
+                            temp+="\n";
+                            temp+="Work Left: " + b.workNeeded;
+                            temp+="\n";
+                            index++;
+                        }
+                    }
+                }
+
+                constructedBuildingsPane.setText(temp);
+                constructedBuildingsPane.invalidate();
+                constructedBuildingsPane.validate();
+                constructedBuildingsPane.repaint();
+                mainPanel.removeAll();
+                mainPanel.add(buildingQueuePanel);
+                mainPanel.repaint();
+                mainPanel.revalidate();
+            }
+        });
+        ConstructBuildingButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String buildingChoice = (String)buildingTypeSelector.getItemAt(buildingTypeSelector.getSelectedIndex());
+                String input = buildingRegionSelector.getText();
+                String originalInput = input;
+                String buildingName = "Null";
+                String temp = "Null";
+                int buildingID = -1;
+                try {
+                    int rw = 0;
+                    int ps;
+                    if (input.contains("a")) {
+                        rw = 0;
+                    }
+                    if (input.contains("b")) {
+                        rw = 1;
+                    }
+                    if (input.contains("c")) {
+                        rw = 2;
+                    }
+                    if (input.contains("d")) {
+                        rw = 3;
+                    }
+                    if (input.contains("e")) {
+                        rw = 4;
+                    }
+                    if (input.contains("f")) {
+                        rw = 5;
+                    }
+                    if (input.contains("g")) {
+                        rw = 6;
+                    }
+                    if (input.contains("h")) {
+                        rw = 7;
+                    }
+                    if (input.contains("i")) {
+                        rw = 8;
+                    }
+                    if (input.contains("j")) {
+                        rw = 9;
+                    }
+                    if (input.contains("k")) {
+                        rw = 10;
+                    }
+                    if (input.contains("l")) {
+                        rw = 11;
+                    }
+                    if (input.contains("m")) {
+                        rw = 12;
+                    }
+                    if (input.contains("n")) {
+                        rw = 13;
+                    }
+                    if (input.contains("o")) {
+                        rw = 14;
+                    }
+                    if (input.contains("p")) {
+                        rw = 15;
+                    }
+                    input = input.replaceAll("[^\\d]", "");
+                    ps = Integer.parseInt(input) - 1;
+                    if (rw >= 0 & rw <= 15 & ps >= 0 & ps <= 31) {
+                        Region reg = glb.regions.get(glb.find(rw, ps));
+                        for (ArrayList building : glb.buildings) {
+                            if (buildingChoice.equals((String) building.get(0))) {
+                                buildingID = Integer.parseInt((String) building.get(building.size() - 1));
+                                buildingName = (String) building.get(0);
+                                break;
+                            }
+
+                        }
+                        if (buildingID != -1 && reg.discovered) {
+                            Global.constructedBuildings.add(new Building(buildingID, reg, originalInput));
+                            temp = "Constructing ";
+                            temp += buildingName;
+                            temp += " at ";
+                            temp += originalInput;
+                        } else {
+                            temp = "Region not discovered";
+                        }
+                        instructionTextPane.setText(temp);
+                        instructionTextPane.invalidate();
+                        instructionTextPane.validate();
+                        instructionTextPane.repaint();
+                    }
+                }
+                catch(Exception b){
+                    instructionTextPane.setText("Invalid Region");
+                    instructionTextPane.invalidate();
+                    instructionTextPane.validate();
+                    instructionTextPane.repaint();
+                }
             }
         });
     }
@@ -980,10 +1256,52 @@ public class guiMain extends JFrame
         policyTextPane.repaint();
     }
 
+    public void constructBuildings(){
+        String temp = "";
+        buildingTypeSelector.removeAllItems();
+        int index = 1;
+        for (ArrayList b: Global.buildings){
+            if(Integer.parseInt((String)b.get(b.size() - 1)) != 0 && Building.buildCheck(Integer.parseInt((String)b.get(b.size() - 1)))){
+                temp+="\n";
+                temp+="======================================================";
+                temp+="\n";
+                temp+=index + ".";
+                temp+="\n";
+                temp+="Name: " + (String)b.get(0);
+                temp+="\n";
+                temp+="Description: " + (String)b.get(1);
+                temp+="\n";
+                temp+="Output: " + (String)b.get(8);
+                temp+="\n";
+                temp+="Size: " + (String)b.get(2);
+                temp+="\n";
+                temp+="Work Required: " + (String)b.get(3);
+                temp+="\n";
+                temp+="Occupation: " + (String)b.get(5);
+                temp+="\n";
+                temp+="Capacity: " + (String)b.get(6);
+                temp+="\n";
+                temp+="Cost: " + (String)b.get(12);
+                index++;
+                buildingTypeSelector.addItem((String)b.get(0));
+            }
+
+        }
+        buildingListPane.setText(temp);
+        buildingListPane.invalidate();
+        buildingListPane.validate();
+        buildingListPane.repaint();
+    }
+
+
     public void guiCorrection()
     {
         mainPanel.invalidate();
         mainPanel.validate();
         mainPanel.repaint();
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }

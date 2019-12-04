@@ -12,8 +12,10 @@ public class Global {
     static double waterProduction=1000;
     static double foodMade=0;
     static double foodProduction=0;
+    static double foodPreservation=0;
     static double unrest=0;
     static double popHappiness=0;
+    static int housingAvailable;
     static double influence=100;
     static double influenceMade=0.01;
     static int day=1;
@@ -28,6 +30,8 @@ public class Global {
     static int stone=0;
     static Boolean overridesActive;
     static Boolean turnTimer=false;
+    static double productionWork;
+    static double scienceWork;
     static int focusRegion;
     static int focusScience=-1;
     static int focusPerson=-1;
@@ -35,6 +39,7 @@ public class Global {
     static public ArrayList<String> preRecsAttained=new ArrayList<String>();
     static public ArrayList<String> sciencesAttained=new ArrayList<String>();
     static public ArrayList<String> discResources = new ArrayList<>();
+    static public ArrayList<ArrayList> ownedResources = new ArrayList<ArrayList>();
     static public ArrayList<Region> regions = new ArrayList<Region>();
     static public ArrayList<Policy> policies = new ArrayList<Policy>();
     static public ArrayList<Person> People=new ArrayList<Person>();
@@ -155,6 +160,7 @@ public class Global {
     public void addFood(String name,double cal, int days)
     {
         ArrayList hm = new ArrayList();
+        //days += this.foodPreservation;
         hm.add(name);
         hm.add(cal);
         hm.add(days);
