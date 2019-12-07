@@ -881,29 +881,33 @@ public class guiMain extends JFrame
         choice1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Events.firstChoice = true;
+                Events.choice = "choice1";
                 updateMap();
                 mainPanel.removeAll();
                 mainPanel.add(mapPanel);
                 mainPanel.repaint();
                 mainPanel.revalidate();
                 glb.playSoundEasy("click.wav");
-                focusPanel="map";
-                Events.reset();
+                focusPanel = "map";
+                if(Events.choices == 0) {
+                    Events.reset();
+                }
             }
         });
         choice2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Events.secondChoice = true;
+                Events.choice = "choice2";
                 updateMap();
                 mainPanel.removeAll();
                 mainPanel.add(mapPanel);
                 mainPanel.repaint();
                 mainPanel.revalidate();
                 glb.playSoundEasy("click.wav");
-                focusPanel="map";
-                Events.reset();
+                focusPanel = "map";
+                if(Events.choices == 0) {
+                    Events.reset();
+                }
             }
         });
         regionNameButton.addActionListener(new ActionListener() {

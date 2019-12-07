@@ -9,15 +9,20 @@ import java.util.Random;
 
 public class Events extends Global{
 
+    static int eventID = -1;
+    static int choices = 0;
     static String name = "none";
     static String description = "none";
-    static boolean choice1 = false;
+    static boolean choice1 = true;
     static boolean choice2 = false;
+    static boolean choice3 = false;
+    static boolean choice4 = false;
     static Logistics log = new Logistics(); //Note, this is temporary. Move all the logistics stuff to regions later.
-    static boolean firstChoice = false;
-    static boolean secondChoice = false;
+    static String choice = "";
     static String firstChoiceText = "";
     static String secondChoiceText = "";
+    static String thirdChoiceText = "";
+    static String fourthChoiceText = "";
     double chanceModifierGlobal = 0;
     double getChanceModifierAggression = 0;
     int currentEventID = 0;
@@ -27,7 +32,8 @@ public class Events extends Global{
     public static void initializer(){
         addEvent("Region Discovery", "Map", "0.005", "1");
 
-        addEvent("Test", "None", "0.0", "2");
+        addEvent("Fish Fiasco", "Fish", "0.5", "2");
+
     }
 
 
@@ -54,14 +60,18 @@ public class Events extends Global{
     }
 
     public static void reset(){
+        eventID = -1;
+        choices = 0;
         name = "none";
         description = "none";
-        choice1 = false;
         choice2 = false;
-        firstChoice = false;
-        secondChoice = false;
+        choice3 = false;
+        choice4 = false;
+        choice = "";
         firstChoiceText = "";
         secondChoiceText = "";
+        thirdChoiceText = "";
+        fourthChoiceText = "";
         Global.currentEvent = false;
     }
 
@@ -70,7 +80,7 @@ public class Events extends Global{
         ArrayList event = new ArrayList();
         int choice;
         if (genre.equals("Any")){
-            choice = ran.nextInt(events.size()-1);
+            choice = ran.nextInt(events.size());
             event = events.get(choice);
             callEvent(Integer.parseInt((String) event.get(event.size()-1)));
         }
@@ -103,7 +113,7 @@ public class Events extends Global{
         }
     }
 
-    public static void callEvent(int eventID){
+    private static void callEvent(int eventID){
         double chance = ran.nextDouble();
         for (ArrayList e: events){
             if (Integer.parseInt((String)e.get(e.size()-1)) == eventID && chance <= Double.parseDouble((String)e.get(2))){
@@ -111,21 +121,44 @@ public class Events extends Global{
                         discoverTileEvent();
                     }
                     if (eventID == 2){
-                        break;
-
+                        fishFiascoEvent();
                 }
             }
         }
+    }
+
+    public static void choiceEvent(){
+        eventID = -1;
+        System.out.println("Hi23");
+        System.out.println(choice);
+        firstChoiceText = "Ok!";
+        choice2 = false;
+        choice3 = false;
+        choice4 = false;
+        choice = "";
+        choices = 0;
     }
 
     private static void discoverTileEvent(){
         reset();
         name = "Region Discovery";
         description = "You discovered a nearby region";
-        choice1 = true;
         firstChoiceText="Ok!";
-        discoverTileEffect();
         Global.currentEvent = true;
+        discoverTileEffect();
+    }
+
+    private static void fishFiascoEvent(){
+        reset();
+        choices = 2;
+        name = "Fish Fiasco!";
+        System.out.println("Hi");
+        choice2 = true;
+        description = "The sky suddenly turns dark as thousands of fish appear in the sky and blot out the sun.\nA moment passes and the fish begin to rain down upon your village.";
+        firstChoiceText = "Try to salvage what you can as food";
+        secondChoiceText = "These fish are clearly cursed. Remove them from the village immediately";
+        Global.currentEvent = true;
+        fishFiascoEffect();
     }
 
     private static void discoverTileEffect(){
@@ -202,6 +235,16 @@ public class Events extends Global{
                 }
             }
         }
+    }
+
+    public static void fishFiascoEffect(){
+            if (choice.equals("choice1")) {
+                description = "You managed to salvage 30 fish";
+                choiceEvent();
+            } else if (choice.equals("choice2")) {
+                description = "You managed to clear the fish out of your village. The smell, however, remains.";
+                choiceEvent();
+            }
     }
 
     private void infectRandomEvent(){
