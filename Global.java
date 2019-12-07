@@ -246,4 +246,33 @@ public class Global {
         if (reg._8!=-1){if (regions.get(reg._8).discovered){return true;}}
         return false;
     }
+
+    public double getRes(String res)
+    {
+        for (ArrayList ar:ownedResources)
+        {
+            if (ar.get(0).equals(res))
+            {
+                try
+                {
+                    return Double.parseDouble(""+ar.get(1));}
+                catch (Exception e){}
+            }
+        }
+        return 0.0;
+    }
+
+    public void setRes(String res, double am)
+    {
+        for (ArrayList ar:ownedResources)
+        {
+            if (ar.get(0).equals(res))
+            {
+                try
+                {
+                    ar.set(1,am);}
+                catch (Exception e){}
+            }
+        }
+    }
 }
