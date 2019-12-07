@@ -1,5 +1,3 @@
-import sun.rmi.runtime.Log;
-
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.lang.reflect.Array;
@@ -240,7 +238,7 @@ public class Menu extends Global{
                 }
                 else
                     {
-                        if (turnTimer)
+                        if (turnTimer&!guiMain.focusPanel.equals("majorEvent"))
                         {
                             turnTimerInt+=10;
                             Thread.sleep(10);
@@ -407,11 +405,12 @@ public class Menu extends Global{
         lab+="<br/>";
         lab+=(String.format("    Water: %-52s          ",""+Math.round(water)+"g")+"<br/>");
 
-        if (discResources.contains("firewood"))
+        for (ArrayList res:ownedResources)
         {
-            lab+=(String.format("    Firewood: %-26d       ",firewood)+"<br/>");
+            lab+=(String.format("    "+res.get(0)+": %-26f       ",res.get(1))+"<br/>");
             lab+="<br/>";
         }
+        
         lab += "</html>";
         guiMain.setResPanel(lab);
     }

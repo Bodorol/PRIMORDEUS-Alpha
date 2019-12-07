@@ -25,7 +25,7 @@ public class Events extends Global{
     ArrayList<Integer> effects = new ArrayList<Integer>();
 
     public static void initializer(){
-        addEvent("Region Discovery", "Map", "0.005", "1");
+        addEvent("Region Discovery", "Map", "1", "1");
 
         addEvent("Test", "None", "0.0", "2");
     }
@@ -129,10 +129,12 @@ public class Events extends Global{
     }
 
     private static void discoverTileEffect(){
+        //todo: you can discover the same tile twice. Fix this later.
         Region randomRegion;
         Region discoveredRegion;
         ArrayList<Region> discRegions = new ArrayList<Region>();
         ArrayList<Region> possibleTiles = new ArrayList<Region>();
+        int counter;
         for(Region r: regions){
             if(r.discovered){
                 discRegions.add(r);
@@ -141,9 +143,28 @@ public class Events extends Global{
         if (discRegions.size()> 1) {
             randomRegion = discRegions.get(ran.nextInt(discRegions.size() - 1));
             possibleTiles = log.getNearbyTiles(randomRegion, 1);
+            while(true) {
+                counter = 0;
+                for (Region reg : possibleTiles) {
+                    if (reg.discovered) {
+                        counter++;
+                        System.out.println(counter);
+                    }
+                }
+                if (counter >= possibleTiles.size()) {
+                    randomRegion = discRegions.get(ran.nextInt(discRegions.size() - 1));
+                    possibleTiles = log.getNearbyTiles(randomRegion, 1);
+                }
+                else if(counter < possibleTiles.size()){break;}
+            }
             discoveredRegion = possibleTiles.get(ran.nextInt(possibleTiles.size() - 1));
-            if(discoveredRegion.discovered){
+            counter = 0;
+            while(discoveredRegion.discovered || counter == 30){
+                counter++;
                 discoveredRegion = possibleTiles.get(ran.nextInt(possibleTiles.size() - 1));
+                if(!discoveredRegion.discovered){
+                    break;
+                }
             }
             discoveredRegion.discovered = true;
         }
@@ -154,10 +175,29 @@ public class Events extends Global{
                 {
                     possibleTiles = log.getNearbyTiles(reg, 1);
                     discoveredRegion = possibleTiles.get(ran.nextInt(possibleTiles.size() - 1));
-                    if((discoveredRegion.row == 8 && discoveredRegion.pos == 16) || discoveredRegion.discovered ){
+                    while(true) {
+                        counter = 0;
+                        for (Region region : possibleTiles) {
+                            if (region.discovered) {
+                                counter++;
+                            }
+                        }
+                        if (counter == possibleTiles.size()) {
+                            randomRegion = discRegions.get(ran.nextInt(discRegions.size() - 1));
+                            possibleTiles = log.getNearbyTiles(randomRegion, 1);
+                        }
+                        else{break;}
+                    }
+                    counter = 0;
+                    while((discoveredRegion.row == 8 && discoveredRegion.pos == 16) || discoveredRegion.discovered || counter == 30){
+                        counter++;
                         discoveredRegion = possibleTiles.get(ran.nextInt(possibleTiles.size() - 1));
+                        if(!discoveredRegion.discovered && !(discoveredRegion.row == 8 && discoveredRegion.pos == 16)){
+                           break;
+                        }
                     }
                     discoveredRegion.discovered = true;
+                    break;
                 }
             }
         }

@@ -133,70 +133,76 @@ public class guiMain extends JFrame
         nextDayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="main";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="main";}
             }
         });
 
         eventLogButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="1";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="1";
                 focusPanel="eve";
                 mainPanel.removeAll();
                 mainPanel.add(eventPanel);
                 mainPanel.repaint();
-                mainPanel.revalidate();
+                mainPanel.revalidate();}
             }
         });
 
         resourcesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="2";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="2";
                 focusPanel="res";
                 mainPanel.removeAll();
                 mainPanel.add(resPanel);
                 mainPanel.repaint();
-                mainPanel.revalidate();
+                mainPanel.revalidate();}
             }
         });
 
         sciencesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="3";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="3";
                 focusPanel="sci";
                 updateScience();
                 mainPanel.removeAll();
                 mainPanel.add(sciPanel);
                 mainPanel.repaint();
-                mainPanel.revalidate();
+                mainPanel.revalidate();}
             }
         });
 
         populationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="";
                 updatePopulation();
                 focusPanel="pop";
                 mainPanel.removeAll();
                 mainPanel.add(popPanel);
                 mainPanel.repaint();
-                mainPanel.revalidate();
+                mainPanel.revalidate();}
             }
         });
 
         buildingAndConstructionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="5";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="5";
                 focusPanel="building";
                 String temp = "";
                 temp += "╔══════════════════════════════════════════════════════════════════════════════════════╗\n";
@@ -215,82 +221,93 @@ public class guiMain extends JFrame
                 mainPanel.removeAll();
                 mainPanel.add(buildingPanel);
                 mainPanel.repaint();
-                mainPanel.revalidate();
+                mainPanel.revalidate();}
             }
         });
 
         policiesAndInfluenceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
                 glb.buttonClicked="6";
                 focusPanel="pol";
-                glb.playSoundEasy("click.wav");
                 mainPanel.removeAll();
                 updatePolicy();
                 mainPanel.add(policyPanel);
                 mainPanel.repaint();
-                mainPanel.revalidate();
+                mainPanel.revalidate();}
             }
         });
 
         abilityButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="7";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="7"; }
             }
         });
         mapButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="";
                 focusPanel="map";
                 updateMap();
                 mainPanel.removeAll();
                 mainPanel.add(mapPanel);
                 mainPanel.repaint();
-                mainPanel.revalidate();
+                mainPanel.revalidate();}
             }
         });
 
         diplomacyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="9";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="9";
+                }
             }
         });
 
         governmentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="10";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="10";
+                }
             }
         });
 
         changeGameSpeedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="11";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="11";
+                }
             }
         });
 
         mainMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="12";
                 glb.playSoundEasy("click.wav");
+                glb.buttonClicked="12";
             }
         });
 
         clearEventLogButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                glb.buttonClicked="clearEvents";
                 glb.playSoundEasy("click.wav");
+                if (!focusPanel.equals("majorEvent")){
+                glb.buttonClicked="clearEvents";
+                }
             }
         });
 
@@ -813,6 +830,8 @@ public class guiMain extends JFrame
                 mainPanel.add(mapPanel);
                 mainPanel.repaint();
                 mainPanel.revalidate();
+                glb.playSoundEasy("click.wav");
+                focusPanel="map";
                 Events.reset();
             }
         });
@@ -825,6 +844,8 @@ public class guiMain extends JFrame
                 mainPanel.add(mapPanel);
                 mainPanel.repaint();
                 mainPanel.revalidate();
+                glb.playSoundEasy("click.wav");
+                focusPanel="map";
                 Events.reset();
             }
         });
@@ -1392,6 +1413,7 @@ public class guiMain extends JFrame
         }
         mainPanel.removeAll();
         mainPanel.add(greaterEventPanel);
+        focusPanel="majorEvent";
         mainPanel.repaint();
         mainPanel.revalidate();
     }
