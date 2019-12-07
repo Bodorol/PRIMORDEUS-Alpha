@@ -656,21 +656,15 @@ public class Person extends Global
                     unrest+=tmp;
                     addFood("human meat", 81.5, 2);
                 }
-                else if (policies.get(2).active)
+                else if (policies.get(2).active&getRes("wood")>=15)
                 {
-                    if (firewood>=100)
-                    {
-                        influence+=.3;
-                        firewood+=-100;
-                    }
+                    setRes("wood",getRes("wood")-15.0);
+                    influence+=.3;
                 }
-                else if (policies.get(3).active)
+                else if (policies.get(3).active&getRes("stone")>250.0)
                 {
-                    if (stone>=35)
-                    {
-                        influence+=.6;
-                        firewood+=35;
-                    }
+                    setRes("stone",getRes("stone")-250.0);
+                    influence+=.6;
                 }
                 else
                     {
