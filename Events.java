@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -8,22 +9,29 @@ import java.util.Random;
 
 public class Events extends Global{
 
-
+    static String name = "none";
+    static String description = "none";
+    static boolean choice1 = false;
+    static boolean choice2 = false;
+    static Logistics log = new Logistics(); //Note, this is temporary. Move all the logistics stuff to regions later.
+    static boolean firstChoice = false;
+    static boolean secondChoice = false;
+    static String firstChoiceText = "";
+    static String secondChoiceText = "";
     double chanceModifierGlobal = 0;
     double getChanceModifierAggression = 0;
     int currentEventID = 0;
-    Random ran = new Random();
+    static Random ran = new Random();
     ArrayList<Integer> effects = new ArrayList<Integer>();
 
-    public Events(){
-        addEvent("Outbreak With Doctors", "Disease", "Three doctors arrive in your town... However, something seems wrong.",
-                "A citizen has contracted the plague!", "0.1", "2", "1", new ArrayList(Arrays.asList(new String[]{"0"})), "1");
+    public static void initializer(){
+        addEvent("Region Discovery", "Map", "0.5", "1");
 
-
+        addEvent("Test", "None", "0.0", "2");
     }
 
 
-    private void addEvent(String name, String genre, String description1, String description2, String chance, String delay, String uniqueness, ArrayList effectIDs, String EventID){
+    private static void addEvent(String name, String genre, String chance, String EventID){
         /************************************************************************
          * METHOD: addBuilding                                                  *
          * USE: creates and adds a Building with given strings                  *
@@ -34,36 +42,35 @@ public class Events extends Global{
         //Name: Obvious
         //EventID: Obvious (well, maybe not. It's like the building ID.)
         //Genre: Type of event (aggression event, resource event, etc.)
-        //Description1: Description that shows when event is initially called
-        //Description2: Description that shows when effect is called (after delay)
         //EffectID: Obvious.
         //Chance: Determines how likely it is for the event to occur. Percentage.
-        //Delay: Determines how long for the effect to take place after event is called
-        //Uniqueness: 0 if the event can be called multiple times, 1 if it can only be called/occur once.
         //And I'm sure some other stuff too
-        //todo
         ArrayList out = new ArrayList();
         out.add(name);
         out.add(genre);
-        out.add(description1);
-        out.add(description2);
         out.add(chance);
-        out.add(delay);
-        out.add(uniqueness);
-        out.add(effectIDs);
         out.add(EventID);
         events.add(out);
     }
 
-    private void callRandomEvent(String genre){
+    public static void reset(){
+        name = "none";
+        description = "none";
+        choice1 = false;
+        choice2 = false;
+        firstChoice = false;
+        secondChoice = false;
+        Global.currentEvent = false;
+    }
+
+    public static void callRandomEvent(String genre){
         //todo
-        //make sure you have the bound on the random number right
         ArrayList event = new ArrayList();
         int choice;
-        if (genre.toLowerCase().equals("any")){
-            choice = ran.nextInt(events.size() - 2) + 1;
+        if (genre.equals("Any")){
+            choice = ran.nextInt(events.size()-1);
             event = events.get(choice);
-            callEvent(Integer.parseInt((String)event.get(0)));
+            callEvent(Integer.parseInt((String) event.get(event.size()-1)));
         }
         else{
             ArrayList genreBasedList = new ArrayList();
@@ -72,9 +79,9 @@ public class Events extends Global{
                     genreBasedList.add(e);
                 }
             }
-            choice = ran.nextInt(genreBasedList.size() - 2) + 1;
+            choice = ran.nextInt(genreBasedList.size() - 1);
             event = (ArrayList)genreBasedList.get(choice);
-            callEvent(Integer.parseInt((String)event.get(0)));
+            callEvent(Integer.parseInt((String)event.get(event.size()-1)));
         }
     }
 
@@ -85,39 +92,67 @@ public class Events extends Global{
             for(Object x: (ArrayList)e.get(7)){
                 int effect = Integer.parseInt((String)x);
                 if (effect == 1){
-                    testEffect();
+
                 }
                 if (effect == 2){
-                    testEffect2();
+
                 }
             }
         }
     }
 
-    public void callEvent(int eventID){
+    public static void callEvent(int eventID){
         double chance = ran.nextDouble();
         for (ArrayList e: events){
-            if ((int)e.get(0) == eventID && chance <= (double)e.get(4)){
-                for(Object x: (ArrayList)e.get(7)){
-                    int effect = Integer.parseInt((String)x);
-                        if (effect == 1){
-                            testEffect();
-                        }
-                        if (effect == 2){
-                            testEffect2();
-                        }
+            if (Integer.parseInt((String)e.get(e.size()-1)) == eventID && chance <= Double.parseDouble((String)e.get(2))){
+                    if (eventID == 1){
+                        discoverTileEvent();
+                    }
+                    if (eventID == 2){
+                        break;
+
                 }
             }
         }
     }
 
-    public void testEffect(){
-        this.popHappiness += 10;
+    private static void discoverTileEvent(){
+        reset();
+        name = "Region Discovery";
+        description = "You discovered region: ";
+        choice1 = true;
+        firstChoiceText="Ok!";
+        discoverTileEffect();
+        Global.currentEvent = true;
     }
 
-    public void testEffect2(){
-        this.gold += 100;
+    private static void discoverTileEffect(){
+        Region randomRegion;
+        ArrayList<Region> discRegions = new ArrayList<Region>();
+        ArrayList<Region> possibleTiles = new ArrayList<Region>();
+        for(Region r: regions){
+            if(r.discovered){
+                discRegions.add(r);
+            }
+        }
+        if (discRegions.size()> 1) {
+            randomRegion = discRegions.get(ran.nextInt(discRegions.size() - 1));
+            possibleTiles = log.getNearbyTiles(randomRegion, 1);
+            possibleTiles.get(ran.nextInt(possibleTiles.size() - 1)).discovered = true;
+        }
+        else{
+            //todo: set this up for if you only have the home region
+        }
     }
+
+    private void infectRandomEvent(){
+        //todo
+    }
+
+    private void choiceTestEvent(){
+
+    }
+
 
     //todo
     //make some event effects (e.g. infectRandom(disease type), killRandom(number of people), findResource, come up with some more later.)

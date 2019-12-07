@@ -1,3 +1,5 @@
+import sun.rmi.runtime.Log;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.lang.reflect.Array;
@@ -32,6 +34,7 @@ public class Menu extends Global{
     {
         addPols();
         bld.initializer();
+        Events.initializer();
     }
 
      /************************************************************************
@@ -264,6 +267,10 @@ public class Menu extends Global{
 
             //End of day stuff
             day++;
+            Events.callRandomEvent("Any");
+            if(Global.currentEvent){
+                guiMain.event();
+            }
             water+=waterProduction;
             food+=foodProduction;
             String sciwork = sci.work(150);

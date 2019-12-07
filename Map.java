@@ -461,16 +461,16 @@ public class Map extends Global{
 
             for (Region reg : regions) {
                 boolean alert = true;
-                if (reg.biome.equals(highB) & highBc > 20) {
+                if (reg.biome.equals(highB) & highBc > 28) {
                     alert = false;
                 }
-                if (reg.biome.equals(lowB) & lowBc > 20) {
+                if (reg.biome.equals(lowB) & lowBc > 28) {
                     alert = false;
                 }
 
                 if ((!reg.seeded) & alert & (reg.biome.equals(lowB)||reg.biome.equals(highB))) {
                     int choice = rand.nextInt(100);
-                    if (choice > 96) {
+                    if (choice > 95) {
                         if (reg._5 != -1) {
                             if (regions.get(reg._5).biome.equals("plains")) {
                                 regions.get(reg._5).biome = reg.biome;
@@ -478,7 +478,7 @@ public class Map extends Global{
                             }
                         }
                         seeded++;
-                    } else if (choice > 91) {
+                    } else if (choice > 90) {
                         if (reg._1 != -1) {
                             if (regions.get(reg._1).biome.equals("plains")) {
                                 regions.get(reg._1).biome = reg.biome;
@@ -486,7 +486,7 @@ public class Map extends Global{
                             }
                         }
                         seeded++;
-                    } else if (choice > 89) {
+                    } else if (choice > 87) {
                         if (reg._3 != -1) {
                             if (regions.get(reg._3).biome.equals("plains")) {
                                 regions.get(reg._3).biome = reg.biome;
@@ -494,7 +494,7 @@ public class Map extends Global{
                             }
                         }
                         seeded++;
-                    } else if (choice > 85) {
+                    } else if (choice > 82) {
                         if (reg._7 != -1) {
                             if (regions.get(reg._7).biome.equals("plains")) {
                                 regions.get(reg._7).biome = reg.biome;
@@ -502,7 +502,7 @@ public class Map extends Global{
                             }
                         }
                         seeded++;
-                    } else if (choice > 65) {
+                    } else if (choice > 62) {
                         if (reg._2 != -1) {
                             if (regions.get(reg._2).biome.equals("plains")) {
                                 regions.get(reg._2).biome = reg.biome;
@@ -510,7 +510,7 @@ public class Map extends Global{
                             }
                         }
                         seeded++;
-                    } else if (choice > 45) {
+                    } else if (choice > 42) {
                         if (reg._4 != -1) {
                             if (regions.get(reg._4).biome.equals("plains")) {
                                 regions.get(reg._4).biome = reg.biome;
@@ -518,7 +518,7 @@ public class Map extends Global{
                             }
                         }
                         seeded++;
-                    } else if (choice > 25) {
+                    } else if (choice > 22) {
                         if (reg._6 != -1) {
                             if (regions.get(reg._6).biome.equals("plains")) {
                                 regions.get(reg._6).biome = reg.biome;
@@ -526,7 +526,7 @@ public class Map extends Global{
                             }
                         }
                         seeded++;
-                    } else if (choice > 10) {
+                    } else if (choice > 7) {
                         if (reg._8 != -1) {
                             if (regions.get(reg._8).biome.equals("plains")) {
                                 regions.get(reg._8).biome = reg.biome;
@@ -567,7 +567,7 @@ public class Map extends Global{
             if (reg.biome.equals("desert"))
             {
                 reg.setAll("\uD83C\uDF35");
-                if (rand.nextInt(100)>15)
+                if (rand.nextInt(100)>75)
                 {
                     int tempRand = rand.nextInt(10);
                     if (tempRand==1) { reg.a1="desertCact"; }
@@ -627,7 +627,7 @@ public class Map extends Global{
             }
         }
 
-        String riverico="\uD83D\uDCA2";
+        String riverico="riverR";
 
         //Sets village region
 
@@ -642,6 +642,7 @@ public class Map extends Global{
         {
             int riveramount=rand.nextInt(2)+1;
             riverDirection=1;
+            riverico="riverL";
             for (int x = 0 ; x < riveramount;x++)
             {
                 int randrow=rand.nextInt(5)+5;
@@ -660,6 +661,7 @@ public class Map extends Global{
         {
             int riveramount=rand.nextInt(2)+1;
             riverDirection=2;
+            riverico="riverL";
             for (int x = 0 ; x < riveramount;x++)
             {
                 int randrow=rand.nextInt(5);
@@ -678,6 +680,7 @@ public class Map extends Global{
         {
             int riveramount=rand.nextInt(2)+1;
             riverDirection=3;
+            riverico="riverR";
             for (int x = 0 ; x < riveramount;x++)
             {
                 int randrow=rand.nextInt(5)+5;
@@ -696,6 +699,7 @@ public class Map extends Global{
         {
             int riveramount=rand.nextInt(2)+1;
             riverDirection=4;
+            riverico="riverR";
             for (int x = 0 ; x < riveramount;x++)
             {
                 int randrow=rand.nextInt(5);
@@ -847,12 +851,27 @@ public class Map extends Global{
 
         for (Region reg:regions)
         {
-            if (reg.mainFeature.equals("")&(rand.nextInt(100)>94)&
+            if (reg.mainFeature.equals("")&(rand.nextInt(100)>95)&
                     (reg.biome.equals("plains")||reg.biome.equals("forest")||reg.biome.equals("jungle")||reg.biome.equals("alpine")))
             {
                 reg.mainFeature="lake";
                 reg.features.add("lake");
-                reg.b2="\uD83C\uDF00";
+                if (reg.biome.equals("alpine"))
+                {
+                    reg.b2="lakeAlp";
+                }
+                else if (reg.biome.equals("jungle"))
+                {
+                    reg.b2="lakeJun";
+                }
+                else if (reg.biome.equals("swamp"))
+                {
+                    reg.b2="lakeMar";
+                }
+                else
+                {
+                    reg.b2="lakeDef";
+                }
             }
         }
         for (Region reg:regions)
@@ -865,7 +884,7 @@ public class Map extends Global{
         }
         for (Region reg:regions)
         {
-            if ((rand.nextInt(100)>96)&
+            if ((rand.nextInt(100)>97)&
                     (reg.biome.equals("plains")||reg.biome.equals("forest")||
                             reg.biome.equals("hills")||reg.biome.equals("mountain")||reg.biome.equals("jungle")
                             ||reg.biome.equals("desert")||reg.biome.equals("alpine")||reg.biome.equals("swamp")))
@@ -878,7 +897,58 @@ public class Map extends Global{
         {
             if (reg.mainFeature.equals("")&reg.features.contains("cave"))
             {
-                reg.b2="\uD83C\uDF59";
+                if (reg.biome.equals("desert"))
+                {
+                    reg.b2="caveDes";
+                }
+                else if (reg.biome.equals("alpine"))
+                {
+                    reg.b2="caveAlp";
+                }
+                else if (reg.biome.equals("jungle"))
+                {
+                    reg.b2="caveJun";
+                }
+                else if (reg.biome.equals("swamp"))
+                {
+                    reg.b2="caveMar";
+                }
+                else
+                    {
+                        reg.b2="caveDef";
+                    }
+            }
+        }
+
+        //Special region features
+
+        for (Region reg:regions)
+        {
+            if (reg.biome.equals("desert")&reg.mainFeature.equals("")&(rand.nextInt(1000)>990))
+            {
+                reg.mainFeature="oasis";
+                reg.features.add("oasis");
+                for (int x = 0; x < rand.nextInt(15);x++)
+                {
+                    reg.resources.add("water");
+                }
+                for (int x = 0; x < rand.nextInt(6);x++)
+                {
+                    reg.resources.add("wood");
+                }
+                for (int x = 0; x < rand.nextInt(4);x++)
+                {
+                    reg.resources.add("small game");
+                }
+                for (int x = 0; x < rand.nextInt(5);x++)
+                {
+                    reg.resources.add("fish");
+                }
+                for (int x = 0; x < rand.nextInt(2);x++)
+                {
+                    reg.resources.add("rare gemstones");
+                }
+                reg.b2="oasis";
             }
         }
 
@@ -891,14 +961,18 @@ public class Map extends Global{
             if (reg.biome.equals("hills")){reg.slots=12+rand.nextInt(10);}
             if (reg.biome.equals("mountain")){reg.slots=2+rand.nextInt(10);}
             if (reg.biome.equals("coast")){reg.slots=12+rand.nextInt(10);}
+            if (reg.biome.equals("alpine")){reg.slots=8+rand.nextInt(10);}
+            if (reg.biome.equals("desert")){reg.slots=18+rand.nextInt(10);}
+            if (reg.biome.equals("jungle")){reg.slots=4+rand.nextInt(8);}
+            if (reg.biome.equals("swamp")){reg.slots=6+rand.nextInt(6);}
         }
 
         //Determine disc cost
 
         for (Region reg:regions)
         {
-            if (reg.biome.equals("plains")){reg.disccost=15+rand.nextInt(10);}
-            if (reg.biome.equals("forest")){reg.disccost=15+rand.nextInt(10);}
+            if (reg.biome.equals("plains")){reg.disccost=14+rand.nextInt(10);}
+            if (reg.biome.equals("forest")){reg.disccost=16+rand.nextInt(10);}
             if (reg.biome.equals("hills")){reg.disccost=17+rand.nextInt(10);}
             if (reg.biome.equals("mountain")){reg.disccost=25+rand.nextInt(10);}
             if (reg.biome.equals("coast")){reg.disccost=17+rand.nextInt(10);}
@@ -921,6 +995,11 @@ public class Map extends Global{
                 0, 100, 16, 30, 2,70,8,70,6,
                 30,4,-100,0,70,7,90,10,70,
                 10,20,3);
+
+        populateRegions("wild edibles", 30, 6,30, 4, 30, 3, 0,
+                0, 70, 5, 30, 5,50,4,70,4,
+                30,0,-100,0,70,7,90,10,70,
+                10,0,0);
 
         populateRegions("water", 100, 14,100, 12, 100, 8, 0,
                 0, 15, 3, 15, 3,15,3,15,3,
@@ -996,6 +1075,8 @@ public class Map extends Global{
         discoverResource("shellfish");
         discoverResource("small game");
         discoverResource("large game");
+        discoverResource("rare gemstones");
+        discoverResource("wild edibles");
 
         regions.get(find(7,15)).b2="\uD83C\uDFEF";
         regions.get(find(7,15)).slots+=10;
@@ -1004,7 +1085,7 @@ public class Map extends Global{
 
      /************************************************************************
      * METHOD: countBiome                                                    *
-     * USE: counts the number of region with a give biome                    *
+     * USE: counts the number of region with a given biome                   *
      * INPUT: String (a biome)                                               *
      ************************************************************************/
 

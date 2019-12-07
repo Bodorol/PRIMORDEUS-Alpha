@@ -107,6 +107,9 @@ public class guiMain extends JFrame
     private JComboBox comboBox2;
     private JButton BuyUpgradeButton;
     private JComboBox buildingTypeSelector;
+    private JButton choice1;
+    private JButton choice2;
+    private JTextPane eventTextPane;
     private JLabel resScrollLabel;
     private JLabel regionResPanel;
     public String focusPanel = "eve";
@@ -570,7 +573,6 @@ public class guiMain extends JFrame
         upgradeBuildingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                glb.buttonClicked="5";
                 glb.playSoundEasy("click.wav");
                 focusPanel="upgrade";
                 String temp = "";
@@ -614,7 +616,6 @@ public class guiMain extends JFrame
         constructedBuildingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                glb.buttonClicked="5";
                 glb.playSoundEasy("click.wav");
                 focusPanel="constructed";
                 String temp = "";
@@ -661,9 +662,6 @@ public class guiMain extends JFrame
             public void actionPerformed(ActionEvent e) {
                 glb.playSoundEasy("click.wav");
                 focusPanel="queue";
-                glb.buttonClicked="5";
-                glb.playSoundEasy("click.wav");
-                focusPanel="constructed";
                 String temp = "";
                 int index = 1;
                 for (Building b: Global.constructedBuildings){
@@ -792,6 +790,28 @@ public class guiMain extends JFrame
                     instructionTextPane.validate();
                     instructionTextPane.repaint();
                 }
+            }
+        });
+        choice1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Events.firstChoice = true;
+                mainPanel.removeAll();
+                mainPanel.add(mapPanel);
+                mainPanel.repaint();
+                mainPanel.revalidate();
+                Events.reset();
+            }
+        });
+        choice2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Events.secondChoice = true;
+                mainPanel.removeAll();
+                mainPanel.add(mapPanel);
+                mainPanel.repaint();
+                mainPanel.revalidate();
+                Events.reset();
             }
         });
     }
@@ -1014,6 +1034,18 @@ public class guiMain extends JFrame
         else if (x.equals("\uD83C\uDF32")) { return "bin/pineTreesTile.gif";}
         else if (x.equals("\uD83C\uDF35")) { return "bin/desertTile.gif";}
         else if (x.equals("\uD83C\uDF0A")) { return "bin/oceanTile.gif";}
+        else if (x.equals("caveDef")) { return "bin/caveTileGreen.gif";}
+        else if (x.equals("caveAlp")) { return "bin/caveTileTundra.gif";}
+        else if (x.equals("caveJun")) { return "bin/caveTileJungle.gif";}
+        else if (x.equals("caveMar")) { return "bin/caveTileMarsh.gif";}
+        else if (x.equals("caveDes")) { return "bin/caveTileDesert.gif";}
+        else if (x.equals("lakeDef")) { return "bin/lakeTileGreen.gif";}
+        else if (x.equals("lakeAlp")) { return "bin/lakeTileTundra.gif";}
+        else if (x.equals("lakeJun")) { return "bin/lakeTileJungle.gif";}
+        else if (x.equals("lakeMar")) { return "bin/lakeTileMarsh.gif";}
+        else if (x.equals("riverL")) { return "bin/riverTileL.gif";}
+        else if (x.equals("riverR")) { return "bin/riverTileR.gif";}
+        else if (x.equals("oasis")) { return "bin/oasisTile.gif";}
         else if (x.equals("\uD83C\uDFD4")) { return "bin/coastTile.gif";}
         else if (x.equals("⛰")) { return "bin/mountainTile.gif";}
         else if (x.equals("\uD83D\uDCA2")) { return "bin/riverTile.gif";}
@@ -1299,6 +1331,36 @@ public class guiMain extends JFrame
         mainPanel.invalidate();
         mainPanel.validate();
         mainPanel.repaint();
+    }
+
+    public void event(){
+        String temp ="";
+        temp+="======================================================";
+        temp+="\n";
+        temp+=Events.name;
+        temp+="\n";
+        temp+=Events.description;
+        temp+="\n";
+        temp+="======================================================";
+        eventTextPane.setText(temp);
+        if(Events.choice1){
+            choice1.setVisible(true);
+            choice1.setText(Events.firstChoiceText);
+        }
+        else{
+            choice1.setVisible(false);
+        }
+        if(Events.choice2){
+            choice2.setVisible(true);
+            choice2.setText(Events.secondChoiceText);
+        }
+        else{
+            choice2.setVisible(false);
+        }
+        mainPanel.removeAll();
+        mainPanel.add(greaterEventPanel);
+        mainPanel.repaint();
+        mainPanel.revalidate();
     }
 
     private void createUIComponents() {

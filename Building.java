@@ -88,9 +88,6 @@ public class Building extends Global
                 this.region.slots -= size;
                 this.regionName = regionName;
                 this.buildingID = buildingID;
-                if (this.effects.contains(-1)){
-                    initializer();
-                }
                 break;
             }
         }

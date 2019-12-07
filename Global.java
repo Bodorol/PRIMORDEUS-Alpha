@@ -30,6 +30,7 @@ public class Global {
     static int stone=0;
     static Boolean overridesActive;
     static Boolean turnTimer=false;
+    static Boolean currentEvent = false;
     static double productionWork;
     static double scienceWork;
     static int focusRegion;
