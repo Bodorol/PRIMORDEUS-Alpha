@@ -82,6 +82,7 @@ Jaidyn
 Devin
 Maverick
 Deegan
+Giorno
 Salvatore
 Derrick
 Aditya
@@ -123,6 +124,7 @@ Milo
 Kristian
 Keith
 Logan
+Josuke
 Rafael
 Dwayne
 Brycen
@@ -149,6 +151,7 @@ Sergio
 Marley
 Ivan
 Ezra
+Ainz
 Makai
 Walker
 Jovanny
@@ -282,6 +285,7 @@ Kameron
 Ryker
 Ayden
 Cohen
+Jotaro
 River
 Tony
 Terrell
@@ -931,6 +935,7 @@ Branden
 Marques
 Rocco
 Zayden
+Brenner
 Matias
 Franco
 Phoenix
@@ -941,6 +946,7 @@ Ruben
 Colton
 Jaime
 Tate
+Gyro
 Marcel
 Lee
 Rhys
