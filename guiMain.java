@@ -112,10 +112,12 @@ public class guiMain extends JFrame
     private JTextPane eventTextPane;
     private JTextField regionNameField;
     private JButton regionNameButton;
+    private JComboBox buildingRegionSelectorCombo;
     private JLabel resScrollLabel;
     private JLabel regionResPanel;
     public String focusPanel = "eve";
     public EmptyBorder border = new EmptyBorder(1,1,1,1);
+    public ArrayList<Integer> namedRegions = new ArrayList<Integer>();
 
     public  guiMain()
     {
@@ -589,6 +591,18 @@ public class guiMain extends JFrame
         constructBuildingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                    namedRegions.clear();
+                    buildingRegionSelectorCombo.removeAll();
+                    namedRegions.add(-1);
+                    buildingRegionSelectorCombo.addItem("");
+                    for (Region reg:glb.regions)
+                    {
+                        if (!reg.regionName.equals(""))
+                        {
+                            buildingRegionSelectorCombo.addItem(reg.regionName);
+                            namedRegions.add(reg.index);
+                        }
+                    }
                     glb.buttonClicked="5";
                     glb.playSoundEasy("click.wav");
                     focusPanel="construction";
@@ -740,7 +754,7 @@ public class guiMain extends JFrame
                 int buildingID = -1;
                 try {
                     int rw = 0;
-                    int ps;
+                    int ps = 0;
                     if (input.contains("a")) {
                         rw = 0;
                     }
@@ -789,27 +803,55 @@ public class guiMain extends JFrame
                     if (input.contains("p")) {
                         rw = 15;
                     }
-                    input = input.replaceAll("[^\\d]", "");
-                    ps = Integer.parseInt(input) - 1;
+                    if (!input.equals(""))
+                    {
+                        input = input.replaceAll("[^\\d]", "");
+                        ps = Integer.parseInt(input) - 1;
+                    }
                     if (rw >= 0 & rw <= 15 & ps >= 0 & ps <= 31) {
-                        Region reg = glb.regions.get(glb.find(rw, ps));
+                        Region reg;
+                        boolean named = false;
+                        if (buildingRegionSelectorCombo.getSelectedIndex()!=0)
+                        {
+                            reg = glb.regions.get(namedRegions.get(buildingRegionSelectorCombo.getSelectedIndex()));
+                            rw = glb.regions.get(namedRegions.get(buildingRegionSelectorCombo.getSelectedIndex())).row;
+                            ps = glb.regions.get(namedRegions.get(buildingRegionSelectorCombo.getSelectedIndex())).pos;
+                            named=true;
+                        }
+                        else
+                        {
+                            reg = glb.regions.get(glb.find(rw, ps));
+                        }
                         for (ArrayList building : glb.buildings) {
                             if (buildingChoice.equals((String) building.get(0))) {
                                 buildingID = Integer.parseInt((String) building.get(building.size() - 1));
                                 buildingName = (String) building.get(0);
                                 break;
                             }
-
                         }
                         if (buildingID != -1 && reg.discovered) {
                             if(Building.regionCheck(buildingID, reg)) {
                                 if(Building.materialsCheck(buildingID)){
-                                    Global.constructedBuildings.add(new Building(buildingID, reg, originalInput));
+                                    if (originalInput.equals(""))
+                                    {
+                                        Global.constructedBuildings.add(new Building(buildingID, reg, reg.regionName));
+                                    }
+                                    else
+                                        {
+                                            Global.constructedBuildings.add(new Building(buildingID, reg, originalInput));
+                                        }
                                     Building.deductMaterials(buildingID);
                                     temp = "Constructing ";
                                     temp += buildingName;
                                     temp += " at ";
-                                    temp += originalInput;
+                                    if (named)
+                                    {
+                                        temp += reg.regionName;
+                                    }
+                                    else
+                                        {
+                                            temp += originalInput;
+                                        }
                                 }
                                 else{
                                     temp = "You lack the required resources";
