@@ -403,8 +403,11 @@ public class Menu extends Global{
 
         for (ArrayList res:ownedResources)
         {
-            lab+=(String.format("    "+res.get(0)+": %-26f       ",res.get(1))+"<br/>");
-            lab+="<br/>";
+            if (Double.parseDouble(""+res.get(1))>0.001)
+            {
+                lab+=(String.format("    "+res.get(0)+": %-26f       ",res.get(1))+"<br/>");
+                lab+="<br/>";
+            }
         }
         
         lab += "</html>";
