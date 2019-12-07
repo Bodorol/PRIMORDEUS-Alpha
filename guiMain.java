@@ -805,13 +805,14 @@ public class guiMain extends JFrame
                             if(Building.regionCheck(buildingID, reg)) {
                                 if(Building.materialsCheck(buildingID)){
                                     Global.constructedBuildings.add(new Building(buildingID, reg, originalInput));
+                                    Building.deductMaterials(buildingID);
                                     temp = "Constructing ";
                                     temp += buildingName;
                                     temp += " at ";
                                     temp += originalInput;
                                 }
                                 else{
-                                    System.out.println("You lack the required resources");
+                                    temp = "You lack the required resources";
                                 }
                             }
                             else{

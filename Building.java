@@ -194,6 +194,14 @@ public class Building extends Global
 
         addOccupation("Guard", "Keeps watch over the village", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
                 new ArrayList(Arrays.asList(new String[]{"Strength"})), "6");
+
+        ownedResources.add(new ArrayList(Arrays.asList(new String[]{"Fish"})));
+        for (ArrayList resource : ownedResources) {
+            if (resource.get(0).equals("Fish")) {
+                resource.add(1, 0.0);
+            }
+        }
+
     }
 
 
@@ -735,7 +743,7 @@ public class Building extends Global
 
     public static boolean materialsCheck(int buildingID){
         String resourceName;
-        int resourceAmount;
+        double resourceAmount;
         ArrayList resourceCost = new ArrayList();
         for (ArrayList b: buildings) {
             if (Integer.parseInt((String) b.get(b.size() - 1)) == buildingID) {
@@ -743,15 +751,13 @@ public class Building extends Global
                 for(Object r: resourceCost){
                     String resource = (String)r;
                     resourceName = resource.replaceAll("[^A-Za-z]+", "");
-                    System.out.println(resourceName);
                     if(resourceName.equals("None")){
                         return true;
                     }
-                    resourceAmount = Integer.parseInt(resource.replaceAll("[^\\d]", ""));
-                    System.out.println(resourceAmount);
+                    resourceAmount = Double.parseDouble(resource.replaceAll("[^\\d]", ""));
                     for(ArrayList o: ownedResources){
                         if(((String)o.get(0)).equals(resourceName)){
-                            if(resourceAmount > (int)o.get(1)){
+                            if(resourceAmount > (double)o.get(1)){
                                 return false;
                             }
                         }
@@ -764,7 +770,7 @@ public class Building extends Global
 
     public static void deductMaterials(int buildingID){
         String resourceName;
-        String resourceAmount;
+        double resourceAmount;
         ArrayList resourceCost = new ArrayList();
         for (ArrayList b: buildings) {
             if (Integer.parseInt((String) b.get(b.size() - 1)) == buildingID) {
@@ -772,7 +778,15 @@ public class Building extends Global
                 for(Object r: resourceCost){
                     String resource = (String)r;
                     resourceName = resource.replaceAll("[^A-Za-z]+", "");
-                    resourceAmount = resource.replaceAll("[^\\d]", "");
+                    System.out.println(resourceName);
+                    if(!resourceName.equals("None")){
+                        resourceAmount = Double.parseDouble(resource.replaceAll("[^\\d]", ""));
+                        for(ArrayList o: ownedResources){
+                            if(((String)o.get(0)).equals(resourceName)) {
+                                o.set(1, (double)o.get(1)-resourceAmount);
+                            }
+                        }
+                    }
                 }
             }
         }
