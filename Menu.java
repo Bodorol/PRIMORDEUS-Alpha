@@ -112,6 +112,8 @@ public class Menu extends Global{
         //Add people
         for (int i = 1; i < 24;i++) { People.addPerson(new Person(i)); }
 
+        housingAvailable=30;
+
         //Main loop
         while (true)
         {
@@ -127,8 +129,12 @@ public class Menu extends Global{
                 }
             }
 
+            //addFood("ambrosia", 970,350);
+            //water+=1000;
+
             //Event gathering
-            People.pollinate();
+            if (popSize()<housingAvailable){
+            People.pollinate();}
             ArrayList temp = People.hungerThePeople();
             for (int x=0; x<temp.size();x++) { if (!(temp.get(x).equals(""))){lesserEvents.add(date+" "+temp.get(x));} }
             temp.clear();
@@ -380,7 +386,7 @@ public class Menu extends Global{
         guiMain.setDateLabel(String.format(" %-30s ","   Date: "+date));
         guiMain.setFoodLabel(String.format(" %-30s ","Food: "+foodString));
         guiMain.setWaterLabel(String.format(" %-30s ","Water: "+waterString));
-        guiMain.setPopLabel(String.format(" %-30s ","Population: "+People.popSize()));
+        guiMain.setPopLabel(String.format(" %-30s ","Population: "+People.popSize()+"/"+housingAvailable));
         guiMain.setInfLabel(String.format(" %-30s ","Influence: "+infString));
         guiMain.setHapLabel(String.format(" %-30s ","Happiness: "+pophap));
         guiMain.setUnrestLabel(String.format(" %-30s ","Unrest: "+popunr));
