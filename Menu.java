@@ -107,8 +107,7 @@ public class Menu extends Global{
         People.addPerson(Jo);
 
 
-        addFood("pizza", 1000,500000);
-        addFood("lettuce", 1000, 1200000);
+        addFood("ambrosia", 970,350);
 
         //Add people
         for (int i = 1; i < 24;i++) { People.addPerson(new Person(i)); }
@@ -127,8 +126,6 @@ public class Menu extends Global{
                     year++;
                 }
             }
-
-            addFood("pizza", 1000,5);
 
             //Event gathering
             People.pollinate();
