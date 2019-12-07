@@ -171,6 +171,10 @@ public class Building extends Global
                 "None", "1", "1", "1", "9", "3", "5", "10",
                 new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
 
+        addBuilding("Water Gathering Station", "Allows you to gather water", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1})),
+                "None", "1", "1", "1", "10", "3", "5", "10",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+
         addOccupation("Test Occupation", "Test", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
                 new ArrayList(Arrays.asList(new String[]{"Strength"})), "1");
 
@@ -606,10 +610,7 @@ public class Building extends Global
                 b.work(10);
              }
              else {
-                 if(gold >= b.upkeepCost) {
-                     b.callEffect();
-                     gold -= b.upkeepCost;
-                 }
+                b.callEffect();
              }
         }
      }
@@ -645,7 +646,7 @@ public class Building extends Global
         for (int e: effects){
             if (e != -1) {
                 if (e == 1) {
-                    //produceResource();
+                    produceFish();
                 }
                 if (e == 2) {
                     addHappiness();
@@ -871,15 +872,25 @@ public class Building extends Global
                 }
             }
 
-            private void produceFish(){
-                if(discResources.contains("Fish")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Fish")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+            private void produceFish() {
+                    System.out.println("fish");
+                    Boolean temp = false;
+                    for (ArrayList resource : ownedResources) {
+                        if (resource.get(0).equals("Fish")) {
+                            resource.set(1, (double) resource.get(1) + modifier + efficiency * workers);
+                            temp=true;
+                        }
+                    }
+                    if (!temp)
+                    {
+                        ownedResources.add(new ArrayList(Arrays.asList(new String[]{"Fish"})));
+                        for (ArrayList resource : ownedResources) {
+                            if (resource.get(0).equals("Fish")) {
+                                resource.add(1, modifier + efficiency * workers);
+                            }
                         }
                     }
                 }
-            }
 
             private void produceShellfish(){
                 if(discResources.contains("Shellfish")){

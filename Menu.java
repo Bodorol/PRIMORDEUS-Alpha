@@ -229,7 +229,6 @@ public class Menu extends Global{
                         guiMain.addEventPanel(lesserEvents);
                         guiMain.updateScience();
                         guiMain.updatePopulation();
-                        bld.updateBuildings();
                         guiMain.mainPanel.repaint();
                         guiMain.mainPanel.revalidate();
                         tme=1;
