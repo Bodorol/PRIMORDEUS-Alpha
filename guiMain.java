@@ -881,15 +881,19 @@ public class guiMain extends JFrame
         choice1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Events.choice = "choice1";
                 updateMap();
-                mainPanel.removeAll();
-                mainPanel.add(mapPanel);
-                mainPanel.repaint();
-                mainPanel.revalidate();
-                glb.playSoundEasy("click.wav");
-                focusPanel = "map";
-                if(Events.choices == 0) {
+                if(Events.eventID == 2){
+                    Events.fishFiascoEffect("choice1");
+                    event();
+                    Events.reset();
+                }
+                if(Events.eventID == 0) {
+                    mainPanel.removeAll();
+                    mainPanel.add(mapPanel);
+                    mainPanel.repaint();
+                    mainPanel.revalidate();
+                    glb.playSoundEasy("click.wav");
+                    focusPanel = "map";
                     Events.reset();
                 }
             }
@@ -897,15 +901,19 @@ public class guiMain extends JFrame
         choice2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Events.choice = "choice2";
                 updateMap();
-                mainPanel.removeAll();
-                mainPanel.add(mapPanel);
-                mainPanel.repaint();
-                mainPanel.revalidate();
-                glb.playSoundEasy("click.wav");
-                focusPanel = "map";
-                if(Events.choices == 0) {
+                if(Events.eventID == 2){
+                    Events.fishFiascoEffect("choice2");
+                    event();
+                    Events.reset();
+                }
+                if(Events.eventID == -1) {
+                    mainPanel.removeAll();
+                    mainPanel.add(mapPanel);
+                    mainPanel.repaint();
+                    mainPanel.revalidate();
+                    glb.playSoundEasy("click.wav");
+                    focusPanel = "map";
                     Events.reset();
                 }
             }

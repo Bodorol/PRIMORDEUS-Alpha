@@ -18,7 +18,6 @@ public class Events extends Global{
     static boolean choice3 = false;
     static boolean choice4 = false;
     static Logistics log = new Logistics(); //Note, this is temporary. Move all the logistics stuff to regions later.
-    static String choice = "";
     static String firstChoiceText = "";
     static String secondChoiceText = "";
     static String thirdChoiceText = "";
@@ -67,7 +66,6 @@ public class Events extends Global{
         choice2 = false;
         choice3 = false;
         choice4 = false;
-        choice = "";
         firstChoiceText = "";
         secondChoiceText = "";
         thirdChoiceText = "";
@@ -127,30 +125,17 @@ public class Events extends Global{
         }
     }
 
-    public static void choiceEvent(){
-        eventID = -1;
-        System.out.println("Hi23");
-        System.out.println(choice);
-        firstChoiceText = "Ok!";
-        choice2 = false;
-        choice3 = false;
-        choice4 = false;
-        choice = "";
-        choices = 0;
-    }
-
     private static void discoverTileEvent(){
         reset();
         name = "Region Discovery";
         description = "You discovered a nearby region";
         firstChoiceText="Ok!";
         Global.currentEvent = true;
-        discoverTileEffect();
     }
 
     private static void fishFiascoEvent(){
         reset();
-        choices = 2;
+        eventID = 2;
         name = "Fish Fiasco!";
         System.out.println("Hi");
         choice2 = true;
@@ -158,7 +143,6 @@ public class Events extends Global{
         firstChoiceText = "Try to salvage what you can as food";
         secondChoiceText = "These fish are clearly cursed. Remove them from the village immediately";
         Global.currentEvent = true;
-        fishFiascoEffect();
     }
 
     private static void discoverTileEffect(){
@@ -237,13 +221,20 @@ public class Events extends Global{
         }
     }
 
-    public static void fishFiascoEffect(){
+    public static void fishFiascoEffect(String choice){
+        System.out.println("Hi2");
             if (choice.equals("choice1")) {
                 description = "You managed to salvage 30 fish";
-                choiceEvent();
+                firstChoiceText = "Ok!";
+                choice2 = false;
+                choice3 = false;
+                choice4 = false;
             } else if (choice.equals("choice2")) {
                 description = "You managed to clear the fish out of your village. The smell, however, remains.";
-                choiceEvent();
+                firstChoiceText = "Ok!";
+                choice2 = false;
+                choice3 = false;
+                choice4 = false;
             }
     }
 
@@ -254,7 +245,6 @@ public class Events extends Global{
     private void choiceTestEvent(){
 
     }
-
 
     //todo
     //make some event effects (e.g. infectRandom(disease type), killRandom(number of people), findResource, come up with some more later.)
