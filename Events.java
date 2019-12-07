@@ -25,7 +25,7 @@ public class Events extends Global{
     ArrayList<Integer> effects = new ArrayList<Integer>();
 
     public static void initializer(){
-        addEvent("Region Discovery", "Map", "0.5", "1");
+        addEvent("Region Discovery", "Map", "0.005", "1");
 
         addEvent("Test", "None", "0.0", "2");
     }
@@ -60,6 +60,8 @@ public class Events extends Global{
         choice2 = false;
         firstChoice = false;
         secondChoice = false;
+        firstChoiceText = "";
+        secondChoiceText = "";
         Global.currentEvent = false;
     }
 
@@ -119,7 +121,7 @@ public class Events extends Global{
     private static void discoverTileEvent(){
         reset();
         name = "Region Discovery";
-        description = "You discovered region: ";
+        description = "You discovered a nearby region";
         choice1 = true;
         firstChoiceText="Ok!";
         discoverTileEffect();
@@ -128,6 +130,7 @@ public class Events extends Global{
 
     private static void discoverTileEffect(){
         Region randomRegion;
+        Region discoveredRegion;
         ArrayList<Region> discRegions = new ArrayList<Region>();
         ArrayList<Region> possibleTiles = new ArrayList<Region>();
         for(Region r: regions){
@@ -138,10 +141,25 @@ public class Events extends Global{
         if (discRegions.size()> 1) {
             randomRegion = discRegions.get(ran.nextInt(discRegions.size() - 1));
             possibleTiles = log.getNearbyTiles(randomRegion, 1);
-            possibleTiles.get(ran.nextInt(possibleTiles.size() - 1)).discovered = true;
+            discoveredRegion = possibleTiles.get(ran.nextInt(possibleTiles.size() - 1));
+            if(discoveredRegion.discovered){
+                discoveredRegion = possibleTiles.get(ran.nextInt(possibleTiles.size() - 1));
+            }
+            discoveredRegion.discovered = true;
         }
         else{
-            //todo: set this up for if you only have the home region
+            for (Region reg:regions)
+            {
+                if ((reg.row==7)&(reg.pos==15))
+                {
+                    possibleTiles = log.getNearbyTiles(reg, 1);
+                    discoveredRegion = possibleTiles.get(ran.nextInt(possibleTiles.size() - 1));
+                    if((discoveredRegion.row == 8 && discoveredRegion.pos == 16) || discoveredRegion.discovered ){
+                        discoveredRegion = possibleTiles.get(ran.nextInt(possibleTiles.size() - 1));
+                    }
+                    discoveredRegion.discovered = true;
+                }
+            }
         }
     }
 

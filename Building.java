@@ -88,6 +88,12 @@ public class Building extends Global
                 this.region.slots -= size;
                 this.regionName = regionName;
                 this.buildingID = buildingID;
+                for (Building bld: constructedBuildings){
+                    if (bld.focus == 1){
+                        bld.focus = 0;
+                    }
+                }
+                this.focus = 1;
                 break;
             }
         }

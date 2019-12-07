@@ -110,6 +110,8 @@ public class guiMain extends JFrame
     private JButton choice1;
     private JButton choice2;
     private JTextPane eventTextPane;
+    private JTextField regionNameField;
+    private JButton regionNameButton;
     private JLabel resScrollLabel;
     private JLabel regionResPanel;
     public String focusPanel = "eve";
@@ -316,7 +318,7 @@ public class guiMain extends JFrame
                         return; }
                     if (input.equals("///addfood")&Global.overridesActive)
                     {
-                        glb.addFood("Super Food", 100000,500);
+                        glb.addFood("Ambrosia", 100000,500);
                         return;
                     }
                     if (input.equals("///addwater")&Global.overridesActive)
@@ -386,15 +388,22 @@ public class guiMain extends JFrame
                         Region reg = glb.regions.get(glb.find(rw, ps));
                         glb.focusRegion=glb.find(rw, ps);
 
-                        regionHeader.setText(reg.biome);
+                        regionHeader.setText("Biome: "+reg.biome +" | Name: "+ reg.regionName);
                         if (glb.discoverable(reg)&!reg.discovered)
                         {
+                            regionNameButton.setVisible(false);
+                            regionNameField.setVisible(false);
+                            regionHeader.setVisible(false);
                             regionDiscButton.setVisible(true);
                             regionDiscButton.setText(" Discover Region ("+reg.disccost+" influence) ");
                         }
                         else
                         {
                             regionDiscButton.setVisible(false);
+                            regionNameButton.setVisible(true);
+                            regionNameField.setVisible(true);
+                            regionHeader.setVisible(true);
+
                         }
                         updateRegion();
                     }
@@ -427,6 +436,9 @@ public class guiMain extends JFrame
                         temp+=" "+reg.features.get(x);
                     }
                     regionFetsLabel.setText(temp);
+                    regionNameButton.setVisible(true);
+                    regionHeader.setVisible(true);
+                    regionNameField.setVisible(true);
                     updateRegion();
                 }
             }
@@ -796,6 +808,7 @@ public class guiMain extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
                 Events.firstChoice = true;
+                updateMap();
                 mainPanel.removeAll();
                 mainPanel.add(mapPanel);
                 mainPanel.repaint();
@@ -807,11 +820,28 @@ public class guiMain extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
                 Events.secondChoice = true;
+                updateMap();
                 mainPanel.removeAll();
                 mainPanel.add(mapPanel);
                 mainPanel.repaint();
                 mainPanel.revalidate();
                 Events.reset();
+            }
+        });
+        regionNameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                glb.playSoundEasy("click.wav");
+                if (glb.influence>=1.0&!regionNameField.getText().equals(""))
+                {
+                    glb.regions.get(glb.focusRegion).regionName=regionNameField.getText();
+                    glb.influence+=-1;
+                    regionNameField.setText("");
+                    regionHeader.setText("Biome: "+glb.regions.get(glb.focusRegion).biome +" | Name: "+
+                            glb.regions.get(glb.focusRegion).regionName);
+                }
+                mainPanel.repaint();
+                mainPanel.revalidate();
             }
         });
     }
@@ -866,9 +896,92 @@ public class guiMain extends JFrame
         temp.setBackground(Color.BLUE);
         return temp;
     }
+
     public void setResPanel(String x)
     {
         resScrollCont.setText(x);
+    }
+
+    public void updateRegion()
+    {
+        Global glb = new Global();
+        mainPanel.removeAll();
+        Region reg = glb.regions.get(glb.focusRegion);
+        if (reg.discovered)
+        {
+            String temp = "";
+            for (int x = 0; x<reg.discresources.size();x++)
+            {
+                temp+=" ";
+                temp+=(""+reg.discresources.get(x)+" ("+reg.discresourcesaman.get(x)+") ");
+            }
+            regionRessLabel.setText(temp);
+            temp = "   Building Slots: (";
+            temp+=reg.slots+") ";
+            for (int x = 0; x<reg.features.size();x++)
+            {
+                temp+=", "+reg.features.get(x);
+            }
+            regionFetsLabel.setText(temp);
+
+            if (reg.biome.equals("forest"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/treeRegionImage.png"));
+            }
+            if (reg.biome.equals("hills"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/hillRegionImage.png"));
+            }
+            if (reg.biome.equals("desert"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/desertRegionImage.png"));
+            }
+            if (reg.biome.equals("mountain"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/mountainRegionImage.png"));
+            }
+            if (reg.biome.equals("alpine"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/alpineRegionImage.png"));
+            }
+            if (reg.biome.equals("jungle"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/jungleRegionImage.png"));
+            }
+            if (reg.biome.equals("coast"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/coastRegionImage.png"));
+            }
+            if (reg.biome.equals("swamp"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/marshRegionImage.png"));
+            }
+            if (reg.biome.equals("plains"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/plainRegionImage.png"));
+            }
+            if (reg.biome.equals("ocean"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/oceanRegionImage.png"));
+            }
+            if (reg.features.contains("lake"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/lakeRegionImage.png"));
+            }
+            if (reg.features.contains("village"))
+            {
+                regionImageLabel.setIcon(new ImageIcon("bin/villageRegionImage.png"));
+            }
+        }
+        else
+        {
+            regionRessLabel.setText("");
+            regionFetsLabel.setText("");
+            regionImageLabel.setIcon(new ImageIcon("bin/fogRegionImage.png"));
+        }
+        mainPanel.add(regionPanel);
+        mainPanel.repaint();
+        mainPanel.revalidate();
     }
 
     public void updateMap()
@@ -1059,86 +1172,6 @@ public class guiMain extends JFrame
         else if (x.equals("desertCact")) { return "bin/desertCactusTile.gif";}
         else if (x.equals("fog")) { return "bin/fogTile.gif";}
         else {return "bin/grassTile.gif";}
-    }
-
-    public void updateRegion()
-    {
-        Global glb = new Global();
-        mainPanel.removeAll();
-        Region reg = glb.regions.get(glb.focusRegion);
-        if (reg.discovered)
-        {
-            String temp = "";
-            for (int x = 0; x<reg.discresources.size();x++)
-            {
-                temp+=" ";
-                temp+=(""+reg.discresources.get(x)+" ("+reg.discresourcesaman.get(x)+") ");
-            }
-            regionRessLabel.setText(temp);
-            temp = "   Building Slots: (";
-            temp+=reg.slots+") ";
-            for (int x = 0; x<reg.features.size();x++)
-            {
-                temp+=", "+reg.features.get(x);
-            }
-            regionFetsLabel.setText(temp);
-            if (reg.biome.equals("forest"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/treeRegionImage.png"));
-            }
-            if (reg.biome.equals("hills"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/hillRegionImage.png"));
-            }
-            if (reg.biome.equals("desert"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/desertRegionImage.png"));
-            }
-            if (reg.biome.equals("mountain"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/mountainRegionImage.png"));
-            }
-            if (reg.biome.equals("alpine"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/alpineRegionImage.png"));
-            }
-            if (reg.biome.equals("jungle"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/jungleRegionImage.png"));
-            }
-            if (reg.biome.equals("coast"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/coastRegionImage.png"));
-            }
-            if (reg.biome.equals("swamp"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/marshRegionImage.png"));
-            }
-            if (reg.biome.equals("plains"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/plainRegionImage.png"));
-            }
-            if (reg.biome.equals("ocean"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/oceanRegionImage.png"));
-            }
-            if (reg.features.contains("lake"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/lakeRegionImage.png"));
-            }
-            if (reg.features.contains("village"))
-            {
-                regionImageLabel.setIcon(new ImageIcon("bin/villageRegionImage.png"));
-            }
-        }
-        else
-        {
-            regionRessLabel.setText("");
-            regionFetsLabel.setText("");
-        }
-        mainPanel.add(regionPanel);
-        mainPanel.repaint();
-        mainPanel.revalidate();
     }
 
     public void updatePopulation()

@@ -21,7 +21,7 @@ public class Logistics extends Global {
         int centerPos = center.pos;
         ArrayList<Region> tilesWithinRadius = new ArrayList<Region>();
         for(int i = -radius; i<=radius; i++){
-            for(int j = -radius; i<=radius; i++){
+            for(int j = -radius; j<=radius; j++){
                 try{
                     Region reg = regions.get(find(centerRow + i, centerPos + j));
                     tilesWithinRadius.add(reg);
