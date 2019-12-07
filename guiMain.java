@@ -797,18 +797,22 @@ public class guiMain extends JFrame
                             if (buildingChoice.equals((String) building.get(0))) {
                                 buildingID = Integer.parseInt((String) building.get(building.size() - 1));
                                 buildingName = (String) building.get(0);
-                                Building.materialsCheck(buildingID);
                                 break;
                             }
 
                         }
                         if (buildingID != -1 && reg.discovered) {
                             if(Building.regionCheck(buildingID, reg)) {
-                                Global.constructedBuildings.add(new Building(buildingID, reg, originalInput));
-                                temp = "Constructing ";
-                                temp += buildingName;
-                                temp += " at ";
-                                temp += originalInput;
+                                if(Building.materialsCheck(buildingID)){
+                                    Global.constructedBuildings.add(new Building(buildingID, reg, originalInput));
+                                    temp = "Constructing ";
+                                    temp += buildingName;
+                                    temp += " at ";
+                                    temp += originalInput;
+                                }
+                                else{
+                                    System.out.println("You lack the required resources");
+                                }
                             }
                             else{
                                 temp = "Cannot construct this building in this region: wrong biome type or lacks the required resources";
@@ -823,6 +827,7 @@ public class guiMain extends JFrame
                     }
                 }
                 catch(Exception b){
+                    System.out.println(b);
                     instructionTextPane.setText("Invalid Region");
                     instructionTextPane.invalidate();
                     instructionTextPane.validate();

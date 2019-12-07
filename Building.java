@@ -155,7 +155,7 @@ public class Building extends Global
 
         addBuilding("Theater", "Provides happiness for your citizens", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Performer", "1", "1", "1", "5", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
 
         addBuilding("Church", "Provides influence", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Priest", "1", "1", "1", "6", "3", "5", "10",
@@ -175,7 +175,7 @@ public class Building extends Global
 
         addBuilding("Water Gathering Station", "Allows you to gather water", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1})),
                 "None", "1", "1", "1", "10", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
 
         addOccupation("Test Occupation", "Test", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
                 new ArrayList(Arrays.asList(new String[]{"Strength"})), "1");
@@ -735,6 +735,35 @@ public class Building extends Global
 
     public static boolean materialsCheck(int buildingID){
         String resourceName;
+        int resourceAmount;
+        ArrayList resourceCost = new ArrayList();
+        for (ArrayList b: buildings) {
+            if (Integer.parseInt((String) b.get(b.size() - 1)) == buildingID) {
+                resourceCost = (ArrayList)b.get(13);
+                for(Object r: resourceCost){
+                    String resource = (String)r;
+                    resourceName = resource.replaceAll("[^A-Za-z]+", "");
+                    System.out.println(resourceName);
+                    if(resourceName.equals("None")){
+                        return true;
+                    }
+                    resourceAmount = Integer.parseInt(resource.replaceAll("[^\\d]", ""));
+                    System.out.println(resourceAmount);
+                    for(ArrayList o: ownedResources){
+                        if(((String)o.get(0)).equals(resourceName)){
+                            if(resourceAmount > (int)o.get(1)){
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public static void deductMaterials(int buildingID){
+        String resourceName;
         String resourceAmount;
         ArrayList resourceCost = new ArrayList();
         for (ArrayList b: buildings) {
@@ -744,11 +773,9 @@ public class Building extends Global
                     String resource = (String)r;
                     resourceName = resource.replaceAll("[^A-Za-z]+", "");
                     resourceAmount = resource.replaceAll("[^\\d]", "");
-
                 }
             }
         }
-        return true;
     }
 
     public boolean buildCheck() {
