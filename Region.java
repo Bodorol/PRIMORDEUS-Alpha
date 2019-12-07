@@ -20,8 +20,10 @@ public class Region {
     int index;
     int slots=0;
     boolean seeded=true;
+    String regionName = "";
     boolean riverSeeded=true;
     boolean discovered=false;
+    boolean hasRoad = false;
     int disccost=0;
     int _1;
     int _2;
@@ -35,6 +37,7 @@ public class Region {
     ArrayList<String> resources = new ArrayList<>();
     ArrayList<String> discresources = new ArrayList<>();
     ArrayList<Integer> discresourcesaman = new ArrayList<>();
+    ArrayList<Region> connectedRegions = new ArrayList<Region>();
 
     public Region(int r, int p, int ind)
     {
