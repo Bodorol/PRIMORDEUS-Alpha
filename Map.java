@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -1138,12 +1136,6 @@ public class Map extends Global{
                     reg.discresources.add(res);
                     reg.discresourcesaman.add(amount);
                 }
-            }
-        }
-        ownedResources.add(new ArrayList(Arrays.asList(new String[]{res})));
-        for (ArrayList resource : ownedResources) {
-            if (resource.get(0).equals(res)) {
-                resource.add(1, 0.0);
             }
         }
         Global.preRecsAttained.add("D_"+res);
