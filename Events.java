@@ -25,7 +25,7 @@ public class Events extends Global{
     ArrayList<Integer> effects = new ArrayList<Integer>();
 
     public static void initializer(){
-        addEvent("Region Discovery", "Map", "1", "1");
+        addEvent("Region Discovery", "Map", "0.005", "1");
 
         addEvent("Test", "None", "0.0", "2");
     }
@@ -148,18 +148,19 @@ public class Events extends Global{
                 for (Region reg : possibleTiles) {
                     if (reg.discovered) {
                         counter++;
-                        System.out.println(counter);
                     }
                 }
-                if (counter >= possibleTiles.size()) {
+                if (counter >= possibleTiles.size()-1) {
                     randomRegion = discRegions.get(ran.nextInt(discRegions.size() - 1));
                     possibleTiles = log.getNearbyTiles(randomRegion, 1);
                 }
-                else if(counter < possibleTiles.size()){break;}
+                else if(counter < possibleTiles.size()){
+                    break;
+                }
             }
             discoveredRegion = possibleTiles.get(ran.nextInt(possibleTiles.size() - 1));
             counter = 0;
-            while(discoveredRegion.discovered || counter == 30){
+            while(discoveredRegion.discovered || counter >= 30){
                 counter++;
                 discoveredRegion = possibleTiles.get(ran.nextInt(possibleTiles.size() - 1));
                 if(!discoveredRegion.discovered){
@@ -214,4 +215,6 @@ public class Events extends Global{
 
     //todo
     //make some event effects (e.g. infectRandom(disease type), killRandom(number of people), findResource, come up with some more later.)
+
+    //Event: Fish rain from sky, you gain 100 resources
 }

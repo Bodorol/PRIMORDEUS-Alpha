@@ -57,6 +57,7 @@ public class Building extends Global
     Region region;
     String regionName = "null";
     public ArrayList<String> preRecsNeeded = new ArrayList<String>();
+    public ArrayList<String> resourceCost = new ArrayList<String>();
     ArrayList<Integer> effects = new ArrayList<Integer>();
     ArrayList<Person> workersList = new ArrayList<Person>();
 
@@ -84,6 +85,7 @@ public class Building extends Global
                 this.maxUpgrade = Integer.parseInt((String)b.get(9));
                 this.preRecsNeeded = (ArrayList)b.get(10);
                 this.upkeepCost = Integer.parseInt((String)b.get(11));
+                this.resourceCost = (ArrayList)b.get(13);
                 this.region = region;
                 this.region.slots -= size;
                 this.regionName = regionName;
@@ -129,7 +131,7 @@ public class Building extends Global
         //7: Capacity. Determines the number of people that can have the occupation per building.
         //8: Limit. Determines the amount of this type of building that can be built.
         //9: Modifier. This determines how "powerful" the building is. In other words, how much of an effect it has. Look at the effect methods to get a better idea of what this does.
-        //10: Building ID. Just gives the building its own ID that allows it to be constructed. Must be unique for each building type, otherwise you end up overwriting buildings. //TODO: I REPEAT, MUST BE UNIQUE FOR EACH BUILDING. I HAVE MADE THIS MISTAKE BEFORE. IT MAKES THINGS REALLY NOT GOOD PLEASE DOnN'T DO IT
+        //10: Building ID. Just gives the building its own ID that allows it to be constructed. Must be unique for each building type, otherwise you end up overwriting buildings.
         //11: Max upgrade level. Allows multiple upgrades on this building type, with the max upgrade level being the maximum (I guess that's kinda obvious. Re-write explanation later.)
         //12: Prerequisites for constructing the building. Make as an arraylist with the science and resource prerequisites you want. (Note to self: it would be better if you did this like the effects parameter. Change later)
 
@@ -137,43 +139,43 @@ public class Building extends Global
 
         addBuilding("Test Building", "For Testing", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1, 2})),
                 "Tester", "1", "1", "1", "1", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
 
         addBuilding("Town Hall", "Allows you to have a leader", "1", "1", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Leader", "1", "1", "1", "2", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Farm", "Produces food", "1", "1", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Farmer", "1", "1", "1", "3", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Charcuterie", "Allows you to slaughter livestock to produce meat", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Butcher", "1", "1", "1", "4", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Theater", "Provides happiness for your citizens", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Performer", "1", "1", "1", "5", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Church", "Provides influence", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Priest", "1", "1", "1", "6", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Hospital", "Treats sick people", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Doctor", "1", "1", "1", "7", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Watch tower", "Provides defense", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Guard", "1", "1", "1", "8", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Road", "Allows you to connect regions", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "None", "1", "1", "1", "9", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Water Gathering Station", "Allows you to gather water", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1})),
                 "None", "1", "1", "1", "10", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})));
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addOccupation("Test Occupation", "Test", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
                 new ArrayList(Arrays.asList(new String[]{"Strength"})), "1");
@@ -196,7 +198,7 @@ public class Building extends Global
 
 
     private void addBuilding(String name, String description, String size, String workNeeded, ArrayList effectIDs, String occupation, String capacity, String limit,
-                             String modifier, String buildingID, String maxUpgradeLevel, String upkeepCost, String initialCost, ArrayList preRecsNeeded){
+                             String modifier, String buildingID, String maxUpgradeLevel, String upkeepCost, String initialCost, ArrayList preRecsNeeded, ArrayList resourceCost, ArrayList resourceRequirements, String biomeRestriction){
         /************************************************************************
          * METHOD: addBuilding                                                  *
          * USE: creates and adds a Building with given strings                  *
@@ -205,20 +207,23 @@ public class Building extends Global
         //addBuilding("Name", "Description", "Size", "Work needed", "Effect ID", "Occupation", "Capacity", "Limit", "Building ID", "Prerequirements needed")
         //add description of what each of these does
         ArrayList out = new ArrayList();
-        out.add(name);
-        out.add(description);
-        out.add(size);
-        out.add(workNeeded);
-        out.add(effectIDs);
-        out.add(occupation);
-        out.add(capacity);
-        out.add(limit);
-        out.add(modifier);
-        out.add(maxUpgradeLevel);
-        out.add(preRecsNeeded);
-        out.add(upkeepCost);
-        out.add(initialCost);
-        out.add(buildingID);
+        out.add(name); //0
+        out.add(description); //1
+        out.add(size); //2
+        out.add(workNeeded); //3
+        out.add(effectIDs); //4
+        out.add(occupation); //5
+        out.add(capacity); //6
+        out.add(limit); //7
+        out.add(modifier); //8
+        out.add(maxUpgradeLevel); //9
+        out.add(preRecsNeeded); //10
+        out.add(upkeepCost); //11
+        out.add(initialCost); //12
+        out.add(resourceCost); //13
+        out.add(resourceRequirements); //14
+        out.add(biomeRestriction); //15
+        out.add(buildingID); //16
         buildings.add(out);
         }
 
@@ -242,7 +247,6 @@ public class Building extends Global
         out.add(preRecsNeeded);
         out.add(upgradeNumber);
         upgrades.add(out);
-
     }
 
     private void addOccupation(String name, String description, ArrayList requiredBuildings, ArrayList statRequirements, ArrayList relevantStats, String occupationID){
@@ -610,7 +614,10 @@ public class Building extends Global
                 b.work(10);
              }
              else {
-                b.callEffect();
+                //if(gold >= b.upkeepCost) {
+                    b.callEffect();
+                    //gold -= b.upkeepCost;
+                //}
              }
         }
      }
@@ -634,6 +641,7 @@ public class Building extends Global
             }
         }
      }
+
 
      public void countBuildings(int buildingID){
         //todo
@@ -697,6 +705,52 @@ public class Building extends Global
         return false;
     }
 
+    public static boolean regionCheck(int buildingID, Region region){
+        String biome = "";
+        String resource = "";
+        ArrayList resourceRequirements = new ArrayList();
+        for (ArrayList b: buildings) {
+            if (Integer.parseInt((String) b.get(b.size() - 1)) == buildingID){
+                biome = (String)b.get(15);
+                resourceRequirements = (ArrayList)b.get(14);
+                if(biome.equals("None") || biome.equals(region.biome)){
+                    for(Object r: resourceRequirements){
+                        resource = (String)r;
+                        if(resource.equals("None")){
+                            return true;
+                        }
+                        //ASK IAN IF THIS IS RIGHT
+                        else if(!region.resources.contains(resource)){
+                            return false;
+                }
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean materialsCheck(int buildingID){
+        String resourceName;
+        String resourceAmount;
+        ArrayList resourceCost = new ArrayList();
+        for (ArrayList b: buildings) {
+            if (Integer.parseInt((String) b.get(b.size() - 1)) == buildingID) {
+                resourceCost = (ArrayList)b.get(13);
+                for(Object r: resourceCost){
+                    String resource = (String)r;
+                    resourceName = resource.replaceAll("[^A-Za-z]+", "");
+                    resourceAmount = resource.replaceAll("[^\\d]", "");
+
+                }
+            }
+        }
+        return true;
+    }
+
     public boolean buildCheck() {
         //todo
         //make it so it checks limit
@@ -741,7 +795,6 @@ public class Building extends Global
             }
 
           //  private void testuniqueEffect(){
-                //todo: just do this later
                 //make an effect to text an effect that can only be used once
                 //Idea: make it so it changes the effect id for the unique effect to the negative of the effect id
                 //then reverseEffects checks for that negative number when it's called

@@ -1138,6 +1138,7 @@ public class Map extends Global{
                 }
             }
         }
+        Global.preRecsAttained.add("D_"+res);
     }
 
      /************************************************************************

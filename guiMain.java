@@ -729,10 +729,13 @@ public class guiMain extends JFrame
         ConstructBuildingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ArrayList<String> resourceRequirements = new ArrayList<String>();
+                ArrayList<String> resourceCost = new ArrayList<String>();
                 String buildingChoice = (String)buildingTypeSelector.getItemAt(buildingTypeSelector.getSelectedIndex());
                 String input = buildingRegionSelector.getText();
                 String originalInput = input;
                 String buildingName = "Null";
+                String biomeRequired = "";
                 String temp = "Null";
                 int buildingID = -1;
                 try {
@@ -794,16 +797,22 @@ public class guiMain extends JFrame
                             if (buildingChoice.equals((String) building.get(0))) {
                                 buildingID = Integer.parseInt((String) building.get(building.size() - 1));
                                 buildingName = (String) building.get(0);
+                                Building.materialsCheck(buildingID);
                                 break;
                             }
 
                         }
                         if (buildingID != -1 && reg.discovered) {
-                            Global.constructedBuildings.add(new Building(buildingID, reg, originalInput));
-                            temp = "Constructing ";
-                            temp += buildingName;
-                            temp += " at ";
-                            temp += originalInput;
+                            if(Building.regionCheck(buildingID, reg)) {
+                                Global.constructedBuildings.add(new Building(buildingID, reg, originalInput));
+                                temp = "Constructing ";
+                                temp += buildingName;
+                                temp += " at ";
+                                temp += originalInput;
+                            }
+                            else{
+                                temp = "Cannot construct this building in this region: wrong biome type or lacks the required resources";
+                            }
                         } else {
                             temp = "Region not discovered";
                         }
