@@ -40,6 +40,7 @@ public class Building extends Global
     double workNeeded;
     String occupation;
     int capacity;
+    Boolean init = false;
     int workers = 0;
     int productivity = 0;
     int limit;
@@ -210,6 +211,14 @@ public class Building extends Global
         addBuilding("Herbalists Hut", "Heals people and produces science", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{4})),
                 "Herbalist", "1", "0", "0", "18", "3", "0", "0",
                 new ArrayList<String>(Arrays.asList(new String[]{"R_Basic Construction","R_Herbalism"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 80","mud 45"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
+
+        addBuilding("Mud Gathering Spot", "Allows people to gather mud", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1})),
+                "Water Collector", "0", "1", "1", "19", "3", "0", "0",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"water"})), "None");
+
+        addBuilding("Wood Gathering Spot", "Allows people to gather mud", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1})),
+                "Water Collector", "0", "1", "1", "20", "3", "0", "0",
+                new ArrayList<String>(Arrays.asList(new String[]{"R_Mudworking"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"wood"})), "None");
 
 
 
@@ -672,7 +681,15 @@ public class Building extends Global
              }
              else {
                 //if(gold >= b.upkeepCost) {
+                    if (!b.init)
+                    {
+                        if (b.name.equals("Hovel")) { housingAvailable+=2; }
+                        if (b.name.equals("Hut")) { housingAvailable+=4; }
+                        if (b.name.equals("Herbalists Hut")) {scienceWork+=2;}
+                        b.init=true;
+                    }
                     b.callEffect();
+
                     //gold -= b.upkeepCost;
                 //}
              }
@@ -928,13 +945,51 @@ public class Building extends Global
             }
 
             private void addHappiness () {
-                this.popHappiness += modifier + efficiency*workers;
+                if (this.name.equals("Hovel"))
+                {
+                    hapPeople(2,-10,2,"Lives in Hovel");
+                }
+                if (this.name.equals("Hut"))
+                {
+                    hapPeople(4,-5,2,"Lives in Hut");
+                }
+                if (this.name.equals("Grand Hall"))
+                {
+                    hapPeople(10,4,3,"Wined and Dined at Grand Hall");
+                }
+            }
+
+            private void hapPeople(int amonPep, double hap, int days,String reason)
+            {
+                Random rand = new Random();
+                int counter = 0;
+                while (true)
+                {
+                    Person p = People.get(rand.nextInt(People.size()));
+                    if (!p.lifestage.equals("Deceased"))
+                    {
+                        double decay=0;
+                        if (hap>0)
+                        {
+                            decay=hap/days;
+                        }
+                        else
+                            {
+                                decay=0-hap/days;
+                            }
+                        p.addEffect(reason, "Happy", ""+hap,""+decay,"100","0","0","0","0","false");
+                        counter++;
+                    }
+                    if (counter>=amonPep){break;}
+                }
             }
 
             private void produceRes(String x)
             {
                 String res="super fish";
                 if (x.equals("clay gathering spot")){res="clay";}
+                if (x.equals("Mud Gathering Spot")){res="mud";}
+                if (x.equals("Wood Gathering Spot")){res="wood";}
                 if (x.equals("Hunting Spot")){res="animal products";}
                 Boolean temp = false;
                 for (ArrayList resource : ownedResources) {
