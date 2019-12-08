@@ -9,7 +9,7 @@ public class Global {
     static double food=10000;
     static double water=1000;
     static double waterMade=0;
-    static double waterProduction=1000;
+    static double waterProduction=0;
     static double foodMade=0;
     static double foodProduction=0;
     static double foodPreservation=0;
@@ -31,8 +31,8 @@ public class Global {
     static Boolean overridesActive;
     static Boolean turnTimer=false;
     static Boolean currentEvent = false;
-    static double productionWork;
-    static double scienceWork;
+    static double productionWork=1.0;
+    static double scienceWork=1.0;
     static int focusRegion;
     static int focusScience=-1;
     static int focusPerson=-1;
