@@ -1671,7 +1671,22 @@ public class guiMain extends JFrame
                 temp+="\n";
                 temp+="Capacity: " + (String)b.get(6);
                 temp+="\n";
-                temp+="Cost: " + (String)b.get(12);
+                //temp+="Cost: " + (String)b.get(12);
+                temp+= "Biome Required: " + (String)b.get(15);
+                temp+="\n";
+                temp+="Resources Required: ";
+                for(Object s: (ArrayList)b.get(14)){
+                    String resource = (String)s;
+                    temp+=resource;
+                    temp+="\n";
+                }
+                temp+="\n";
+                temp+="Resource Cost: ";
+                for(Object r: (ArrayList)b.get(13)){
+                    String x = (String)r;
+                    temp+=x;
+                    temp+="\n";
+                }
                 index++;
                 buildingTypeSelector.addItem((String)b.get(0));
             }
