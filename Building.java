@@ -215,7 +215,7 @@ public class Building extends Global
                 "Water Collector", "0", "1", "1", "19", "3", "0", "0",
                 new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"water"})), "None");
 
-        addBuilding("Wood Gathering Spot", "Allows people to gather mud", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1})),
+        addBuilding("Wood Gathering Spot", "Allows people to gather mud", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{7})),
                 "Water Collector", "0", "1", "1", "20", "3", "0", "0",
                 new ArrayList<String>(Arrays.asList(new String[]{"R_Mudworking"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"wood"})), "None");
 
