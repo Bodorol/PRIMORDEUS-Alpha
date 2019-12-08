@@ -82,7 +82,9 @@ public class Building extends Global
                 this.occupation = (String)b.get(5);
                 this.capacity = Integer.parseInt((String)b.get(6));
                 if(this.capacity > 0){
-                    availableOccupations.add(occupation);
+                    if(!availableOccupations.contains(occupation)) {
+                        availableOccupations.add(occupation);
+                    }
                 }
                 this.limit = Integer.parseInt((String)b.get(7));
                 this.modifier = Double.parseDouble((String)b.get(8));
@@ -141,10 +143,6 @@ public class Building extends Global
 
         //Note to self: Do another explanation for addUpgrade and addOccupation
 
-        addBuilding("Test Building", "For Testing", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1, 2})),
-                "Tester", "1", "1", "1", "1", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
-
         addBuilding("Town Hall", "Allows you to have a leader", "1", "1", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Leader", "1", "1", "1", "2", "3", "5", "10",
                 new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
@@ -177,19 +175,17 @@ public class Building extends Global
                 "None", "1", "1", "1", "9", "3", "5", "10",
                 new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
-
-
         addBuilding("Water Gathering Spot", "Allows people to gather water", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1})),
                 "Water Collector", "0", "1", "1", "10", "3", "0", "0",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 25"})), new ArrayList<String>(Arrays.asList(new String[]{"water"})), "None");
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"water"})), "None");
 
         addBuilding("Foraging Spot", "Allows people to forage for food", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{8})),
                 "Forager", "2", "0", "1", "11", "3", "0", "0",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 25"})), new ArrayList<String>(Arrays.asList(new String[]{"wild edibles"})), "None");
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"wild edibles"})), "None");
 
         addBuilding("Hunting Spot", "Allows people to hunt for food", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{8,1})),
                 "Forager", "3", "0", "1", "12", "3", "0", "0",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 25"})), new ArrayList<String>(Arrays.asList(new String[]{"small game"})), "None");
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"small game"})), "None");
 
         addBuilding("Hovel", "Place for people to live (terrible)", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{2,9})),
                 "None", "0", "0", "2", "13", "3", "0", "0",
@@ -224,9 +220,6 @@ public class Building extends Global
                 new ArrayList<String>(Arrays.asList(new String[]{"R_Mudworking"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"wood"})), "None");
 
 
-
-        addOccupation("Test Occupation", "Test", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
-                new ArrayList(Arrays.asList(new String[]{"Strength"})), "1");
 
         addOccupation("Leader", "Unlocks new abilities", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
                 new ArrayList(Arrays.asList(new String[]{"Strength"})), "2");
