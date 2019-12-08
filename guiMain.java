@@ -113,6 +113,8 @@ public class guiMain extends JFrame
     private JTextField regionNameField;
     private JButton regionNameButton;
     private JComboBox buildingRegionSelectorCombo;
+    private JButton assignPeople;
+    private JButton buildingBackButton;
     private JLabel resScrollLabel;
     private JLabel regionResPanel;
     public String focusPanel = "eve";
@@ -205,23 +207,47 @@ public class guiMain extends JFrame
                 glb.playSoundEasy("click.wav");
                 if (!focusPanel.equals("majorEvent")){
                 glb.buttonClicked="5";
-                focusPanel="building";
+                glb.playSoundEasy("click.wav");
+                focusPanel="constructed";
                 String temp = "";
-                temp += "╔══════════════════════════════════════════════════════════════════════════════════════╗\n";
-                temp += "║                                                                                      ║\n";
-                temp += "║                                                                                      ║\n";
-                temp += "║   ____     _    _   _____   _        _____    _____   _    _   _____     _____       ║\n";
-                temp += "║  |  _ \\\\  | |  | | |_   _| | |      |  __ \\\\  |_  _| | \\\\ | | / ____|   / ____|      ║\n";
-                temp += "║  | |_) |  | |  | |   | |   | |      | |  | |   | |   |  \\\\| | | |__    | (___        ║\n";
-                temp += "║  |   _ <  | |  | |   | |   | |      | |  | |   | |   | .` | | | |_ |   \\\\___ \\\\      ║\n";
-                temp += "║  | |_) |  | |__| |  _| |_  | |____  | |__| |  _| |_  | |\\\\  | | |__| |  ____) |      ║\n";
-                temp += "║  |____/   \\\\____/  |_____| |______| |_____/  |_____| |_| \\\\_| \\\\_____| |_____/       ║\n";
-                temp += "║                                                                                      ║\n";
-                temp += "║                                                                                      ║\n";
-                temp += "╚══════════════════════════════════════════════════════════════════════════════════════╝\n";
-                buildingHeaderPane.setText(temp);
+                int index = 1;
+                for (Building b: Global.constructedBuildings){
+                    if(b.buildingID != 0){
+                        if (b.workNeeded == 0) {
+                            temp+="\n";
+                            temp+="======================================================";
+                            temp+="\n";
+                            temp+=index + ".";
+                            temp+="\n";
+                            temp+="Name: " + b.name;
+                            temp+="\n";
+                            temp+="Description: " + b.description;
+                            temp+="\n";
+                            temp+="Size: " + b.size;
+                            temp+="\n";
+                            temp+="Region: " + b.regionName;
+                            temp+="\n";
+                            temp+="Upkeep Cost: " + b.upkeepCost;
+                            temp+="\n";
+                            temp+="Capacity: " + b.capacity;
+                            temp+="\n";
+                            temp+="Workers: " + b.workers;
+                            temp+="\n";
+                            index++;
+                        }
+                    }
+                }
+
+                constructedBuildingsPane.setText(temp);
+                constructedBuildingsPane.invalidate();
+                constructedBuildingsPane.validate();
+                constructedBuildingsPane.repaint();
                 mainPanel.removeAll();
-                mainPanel.add(buildingPanel);
+                mainPanel.add(constructedMenuPanel);
+                mainPanel.repaint();
+                mainPanel.revalidate();
+                mainPanel.removeAll();
+                mainPanel.add(constructedMenuPanel);
                 mainPanel.repaint();
                 mainPanel.revalidate();}
             }
@@ -892,6 +918,11 @@ public class guiMain extends JFrame
                     event();
                     return;
                 }
+                if(Events.eventID == 5){
+                    Events.newStoneVillagerEffect("choice1");
+                    event();
+                    return;
+                }
                 else {
                     mainPanel.removeAll();
                     mainPanel.add(mapPanel);
@@ -918,6 +949,11 @@ public class guiMain extends JFrame
                     event();
                     return;
                 }
+                if(Events.eventID == 5){
+                    Events.newStoneVillagerEffect("choice2");
+                    event();
+                    return;
+                }
                 else {
                     mainPanel.removeAll();
                     mainPanel.add(mapPanel);
@@ -941,6 +977,50 @@ public class guiMain extends JFrame
                     regionHeader.setText("Biome: "+glb.regions.get(glb.focusRegion).biome +" | Name: "+
                             glb.regions.get(glb.focusRegion).regionName);
                 }
+                mainPanel.repaint();
+                mainPanel.revalidate();
+            }
+        });
+        buildingBackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                glb.playSoundEasy("click.wav");
+                focusPanel="constructed";
+                String temp = "";
+                int index = 1;
+                for (Building b: Global.constructedBuildings){
+                    if(b.buildingID != 0){
+                        if (b.workNeeded == 0) {
+                            temp+="\n";
+                            temp+="======================================================";
+                            temp+="\n";
+                            temp+=index + ".";
+                            temp+="\n";
+                            temp+="Name: " + b.name;
+                            temp+="\n";
+                            temp+="Description: " + b.description;
+                            temp+="\n";
+                            temp+="Size: " + b.size;
+                            temp+="\n";
+                            temp+="Region: " + b.regionName;
+                            temp+="\n";
+                            temp+="Upkeep Cost: " + b.upkeepCost;
+                            temp+="\n";
+                            temp+="Capacity: " + b.capacity;
+                            temp+="\n";
+                            temp+="Workers: " + b.workers;
+                            temp+="\n";
+                            index++;
+                        }
+                    }
+                }
+
+                constructedBuildingsPane.setText(temp);
+                constructedBuildingsPane.invalidate();
+                constructedBuildingsPane.validate();
+                constructedBuildingsPane.repaint();
+                mainPanel.removeAll();
+                mainPanel.add(constructedMenuPanel);
                 mainPanel.repaint();
                 mainPanel.revalidate();
             }

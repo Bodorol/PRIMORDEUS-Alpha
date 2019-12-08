@@ -1131,7 +1131,9 @@
                 <constraints>
                   <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-16777216"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <component id="a9334" class="javax.swing.JButton" binding="ConstructBuildingButton">
@@ -1139,6 +1141,8 @@
                       <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-16777216"/>
+                      <foreground color="-1"/>
                       <text value="Construct Building"/>
                     </properties>
                   </component>
@@ -1156,11 +1160,6 @@
                     </constraints>
                     <properties/>
                   </component>
-                  <hspacer id="41420">
-                    <constraints>
-                      <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                  </hspacer>
                   <hspacer id="1cd18">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -1171,6 +1170,16 @@
                       <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties/>
+                  </component>
+                  <component id="b7166" class="javax.swing.JButton" binding="buildingBackButton">
+                    <constraints>
+                      <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-16777216"/>
+                      <foreground color="-1"/>
+                      <text value="Back"/>
+                    </properties>
                   </component>
                 </children>
               </grid>
@@ -1420,10 +1429,12 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <grid id="282a2" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="282a2" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <background color="-16777216"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <component id="4283a" class="javax.swing.JTextPane" binding="constructedBuildingsPane">
@@ -1437,6 +1448,58 @@
                           <foreground color="-1"/>
                         </properties>
                       </component>
+                      <grid id="e3c44" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-16777216"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <component id="77691" class="javax.swing.JButton" binding="constructBuildingsButton" default-binding="true">
+                            <constraints>
+                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-15527149"/>
+                              <foreground color="-1"/>
+                              <text value="Construct Buildings"/>
+                            </properties>
+                          </component>
+                          <component id="d66b9" class="javax.swing.JButton" binding="upgradeBuildingsButton" default-binding="true">
+                            <constraints>
+                              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-15527149"/>
+                              <foreground color="-1"/>
+                              <text value="Upgrade Buildings"/>
+                            </properties>
+                          </component>
+                          <component id="e9fa2" class="javax.swing.JButton" binding="buildingQueueButton" default-binding="true">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="4" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-15527149"/>
+                              <foreground color="-1"/>
+                              <text value="Building Queue "/>
+                            </properties>
+                          </component>
+                          <component id="5f260" class="javax.swing.JButton" binding="assignPeople">
+                            <constraints>
+                              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-15527149"/>
+                              <foreground color="-1"/>
+                              <text value="Assign People To Jobs"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </grid>
                     </children>
                   </grid>
                 </children>
@@ -1483,7 +1546,7 @@
               </scrollpane>
             </children>
           </grid>
-          <grid id="278fa" binding="buildingPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="278fa" binding="buildingPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <card name="Card15"/>
@@ -1496,51 +1559,17 @@
               <grid id="d4251" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="19f6a" class="javax.swing.JButton" binding="buildingQueueButton" default-binding="true">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="4" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Building Queue "/>
-                    </properties>
-                  </component>
                   <component id="c178c" class="javax.swing.JButton" binding="constructedBuildingsButton" default-binding="true">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <text value="Constructed Buildings"/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
-              <grid id="a9c56" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children>
-                  <component id="1c010" class="javax.swing.JButton" binding="constructBuildingsButton" default-binding="true">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Construct Buildings"/>
-                    </properties>
-                  </component>
-                  <component id="2fc1c" class="javax.swing.JButton" binding="upgradeBuildingsButton" default-binding="true">
-                    <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Upgrade Buildings"/>
                     </properties>
                   </component>
                 </children>
