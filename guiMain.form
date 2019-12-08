@@ -261,7 +261,7 @@
               <background color="-16777216"/>
               <font name="Pixel UniCode" size="16"/>
               <foreground color="-1"/>
-              <text value="Abilities"/>
+              <text value="Abilities (WIP)"/>
             </properties>
           </component>
           <component id="98970" class="javax.swing.JButton" binding="mapButton" default-binding="true">
@@ -283,7 +283,7 @@
               <background color="-16777216"/>
               <font name="Pixel UniCode" size="16"/>
               <foreground color="-1"/>
-              <text value="Diplomacy"/>
+              <text value="Diplomacy (WIP)"/>
             </properties>
           </component>
           <component id="58815" class="javax.swing.JButton" binding="governmentButton" default-binding="true">
@@ -294,7 +294,7 @@
               <background color="-16777216"/>
               <font name="Pixel UniCode" size="16"/>
               <foreground color="-1"/>
-              <text value="Government"/>
+              <text value="Government (WIP)"/>
             </properties>
           </component>
           <component id="55d4f" class="javax.swing.JButton" binding="changeGameSpeedButton" default-binding="true">
