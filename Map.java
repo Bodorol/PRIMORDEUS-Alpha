@@ -952,6 +952,17 @@ public class Map extends Global{
             }
         }
 
+        if (!regions.get(find(7,15)).features.contains("river"))
+        {
+            regions.get(find(7,15)).features.add("creek");
+            regions.get(find(7,15)).resources.add("water");
+            regions.get(find(7,15)).resources.add("water");
+            regions.get(find(7,15)).resources.add("water");
+            regions.get(find(7,15)).resources.add("wild edibles");
+            regions.get(find(7,15)).resources.add("wild edibles");
+            regions.get(find(7,15)).resources.add("wild edibles");
+        }
+
         //Determine slot amount
 
         for (Region reg:regions)
@@ -1080,6 +1091,7 @@ public class Map extends Global{
 
         regions.get(find(7,15)).b2="\uD83C\uDFEF";
         regions.get(find(7,15)).slots+=10;
+
     }
 
 

@@ -139,43 +139,79 @@ public class Building extends Global
 
         addBuilding("Test Building", "For Testing", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1, 2})),
                 "Tester", "1", "1", "1", "1", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
+                new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
 
         addBuilding("Town Hall", "Allows you to have a leader", "1", "1", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Leader", "1", "1", "1", "2", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
+                new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Farm", "Produces food", "1", "1", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Farmer", "1", "1", "1", "3", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
+                new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Charcuterie", "Allows you to slaughter livestock to produce meat", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Butcher", "1", "1", "1", "4", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
+                new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Theater", "Provides happiness for your citizens", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Performer", "1", "1", "1", "5", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
+                new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
 
         addBuilding("Church", "Provides influence", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Priest", "1", "1", "1", "6", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
+                new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Hospital", "Treats sick people", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Doctor", "1", "1", "1", "7", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
+                new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Watch tower", "Provides defense", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "Guard", "1", "1", "1", "8", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
+                new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
         addBuilding("Road", "Allows you to connect regions", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{-1})),
                 "None", "1", "1", "1", "9", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
+                new ArrayList<String>(Arrays.asList(new String[]{"testing"})), new ArrayList<String>(Arrays.asList(new String[]{"Fish 1"})), new ArrayList<String>(Arrays.asList(new String[]{"Wood"})), "plains");
 
-        addBuilding("Water Gathering Station", "Allows you to gather water", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1})),
-                "None", "1", "1", "1", "10", "3", "5", "10",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
+
+
+        addBuilding("Water Gathering Spot", "Allows people to gather water", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1})),
+                "Water Collector", "0", "1", "1", "10", "3", "0", "0",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"water"})), "None");
+
+        addBuilding("Foraging Spot", "Allows people to forage for food", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{8})),
+                "Forager", "2", "0", "1", "11", "3", "0", "0",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"wild edibles"})), "None");
+
+        addBuilding("Hunting Spot", "Allows people to hunt for food", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{8,1})),
+                "Forager", "3", "0", "1", "12", "3", "0", "0",
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"small game"})), "None");
+
+        addBuilding("Hovel", "Place for people to live (terrible)", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{2,9})),
+                "None", "0", "0", "2", "13", "3", "0", "0",
+                new ArrayList<String>(Arrays.asList(new String[]{"R_Basic Shelter Construction"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 20"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
+
+        addBuilding("Hut", "Place for people to live (bad)", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{2,9})),
+                "None", "0", "0", "4", "14", "3", "0", "0",
+                new ArrayList<String>(Arrays.asList(new String[]{"R_Basic Construction"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 40","mud 40"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
+
+        addBuilding("Fish Trap", "Trap for fish", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{8})),
+                "None", "0", "0", "4", "15", "3", "0", "0",
+                new ArrayList<String>(Arrays.asList(new String[]{"R_Basic Trapping"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 25"})), new ArrayList<String>(Arrays.asList(new String[]{"fish"})), "None");
+
+        addBuilding("Shellfish Trap", "Trap for fish", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{8})),
+                "None", "0", "0", "4", "16", "3", "0", "0",
+                new ArrayList<String>(Arrays.asList(new String[]{"R_Basic Trapping"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 25"})), new ArrayList<String>(Arrays.asList(new String[]{"shellfish"})), "None");
+
+        addBuilding("Grand Hall", "Place for people to eat and be entertained", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{2})),
+                "None", "0", "0", "4", "17", "3", "0", "0",
+                new ArrayList<String>(Arrays.asList(new String[]{"R_Basic Construction"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 460","mud 80"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
+
+        addBuilding("Herbalists Hut", "Heals people and produces science", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{4})),
+                "Herbalist", "1", "0", "0", "18", "3", "0", "0",
+                new ArrayList<String>(Arrays.asList(new String[]{"R_Basic Construction","R_Herbalism"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 80","mud 45"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), "None");
+
+
 
         addOccupation("Test Occupation", "Test", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
                 new ArrayList(Arrays.asList(new String[]{"Strength"})), "1");
@@ -194,6 +230,19 @@ public class Building extends Global
 
         addOccupation("Guard", "Keeps watch over the village", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
                 new ArrayList(Arrays.asList(new String[]{"Strength"})), "6");
+
+
+
+        addOccupation("Water Collector", "Collects Water", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
+                new ArrayList(Arrays.asList(new String[]{"Strength"})), "7");
+
+        addOccupation("Forager", "Forages for Food", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
+                new ArrayList(Arrays.asList(new String[]{"Dexterity","Perception"})), "8");
+
+        addOccupation("Herbalist", "Does things with herbs", new ArrayList(Arrays.asList(new String[]{"None"})), new ArrayList(Arrays.asList(new Integer[]{2, 0, 0, 0, 0, 0})),
+                new ArrayList(Arrays.asList(new String[]{"Intelligence"})), "9");
+
+
 
         ownedResources.add(new ArrayList(Arrays.asList(new String[]{"Fish"})));
         for (ArrayList resource : ownedResources) {
@@ -662,7 +711,7 @@ public class Building extends Global
         for (int e: effects){
             if (e != -1) {
                 if (e == 1) {
-                    produceFish();
+                    produceWater();
                 }
                 if (e == 2) {
                     addHappiness();
@@ -679,6 +728,16 @@ public class Building extends Global
                 if (e == 6) {
                     produceGold();
                 }
+                if (e == 7) {
+                    produceRes(this.name);
+                }
+                if (e == 8) {
+                    produceFood(this.name);
+                }
+                if (e == 9) {
+                    //addhouse
+                }
+
             }
         }
     }
@@ -872,148 +931,59 @@ public class Building extends Global
                 this.popHappiness += modifier + efficiency*workers;
             }
 
-            private void produceClay(){
-                if(discResources.contains("Clay")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Clay")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
+            private void produceRes(String x)
+            {
+                String res="super fish";
+                if (x.equals("clay gathering spot")){res="clay";}
+                if (x.equals("Hunting Spot")){res="animal products";}
+                Boolean temp = false;
+                for (ArrayList resource : ownedResources) {
+                    if (resource.get(0).equals(res)) {
+                        resource.set(1, (double) resource.get(1) + modifier + efficiency * workers);
+                        temp=true;
+                    }
+                }
+                if (!temp)
+                {
+                    ownedResources.add(new ArrayList(Arrays.asList(new String[]{"Fish"})));
+                    for (ArrayList resource : ownedResources) {
+                        if (resource.get(0).equals(res)) {
+                            resource.add(1, modifier + efficiency * workers);
                         }
                     }
                 }
             }
 
-            private void produceWood(){
-                if(discResources.contains("Wood")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Wood")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
-                        }
-                    }
+            private void produceFood(String x)
+            {
+                String res="super fish";
+                int days = 666;
+                if (x.equals("Foraging Spot"))
+                {
+                    res="wild food";
+                    days=7;
                 }
+                if (x.equals("Hunting Spot"))
+                {
+                    res="raw meat";
+                    days=3;
+                }
+                if (x.equals("Fish Trap"))
+                {
+                    res="raw fish";
+                    days=3;
+                }
+                if (x.equals("Shellfish Trap"))
+                {
+                    res="raw shellfish";
+                    days=3;
+                }
+                Boolean temp = false;
+                addFood(res,modifier + efficiency * workers,days);
             }
 
             private void produceWater(){
                 water += modifier + efficiency*workers;
-            }
-
-            private void produceObsidian(){
-                if(discResources.contains("Obsidian")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Obsidian")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
-                        }
-                    }
-                }
-            }
-
-            private void produceGalena(){
-                if(discResources.contains("Galena")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Galena")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
-                        }
-                    }
-                }
-            }
-
-            private void produceGoethite(){
-                if(discResources.contains("Goethite")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Goethite")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
-                        }
-                    }
-                }
-            }
-
-            private void produceChalcopyrite(){
-                if(discResources.contains("Chalcopyrite")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Chalcopyrite")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
-                        }
-                    }
-                }
-            }
-
-            private void produceSphalerite(){
-                if(discResources.contains("Sphalerite")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Sphalerite")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
-                        }
-                    }
-                }
-            }
-
-            private void produceSilicaSand(){
-                if(discResources.contains("Silica Sand")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Silica Sand")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
-                        }
-                    }
-                }
-            }
-
-            private void produceQuartz(){
-                if(discResources.contains("Quartz")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Quartz")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
-                        }
-                    }
-                }
-            }
-
-            private void produceFish() {
-                    System.out.println("fish");
-                    Boolean temp = false;
-                    for (ArrayList resource : ownedResources) {
-                        if (resource.get(0).equals("Fish")) {
-                            resource.set(1, (double) resource.get(1) + modifier + efficiency * workers);
-                            temp=true;
-                        }
-                    }
-                    if (!temp)
-                    {
-                        ownedResources.add(new ArrayList(Arrays.asList(new String[]{"Fish"})));
-                        for (ArrayList resource : ownedResources) {
-                            if (resource.get(0).equals("Fish")) {
-                                resource.add(1, modifier + efficiency * workers);
-                            }
-                        }
-                    }
-                }
-
-            private void produceShellfish(){
-                if(discResources.contains("Shellfish")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Shellfish")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
-                        }
-                    }
-                }
-            }
-
-            private void produceSmallGame(){
-                if(discResources.contains("Small game")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Small game")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
-                        }
-                    }
-                }
-            }
-
-            private void produceLargeGame(){
-                if(discResources.contains("Large game")){
-                    for(ArrayList resource: ownedResources){
-                        if(resource.get(0).equals("Large game")){
-                            resource.set(1, (double)resource.get(1) + modifier + efficiency*workers);
-                        }
-                    }
-                }
             }
 
             private void addInfluence(){
