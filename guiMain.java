@@ -885,11 +885,17 @@ public class guiMain extends JFrame
                 if(Events.eventID == 2){
                     Events.fishFiascoEffect("choice1");
                     event();
-                    Events.reset();
+                    return;
                 }
-                if(Events.eventID == 0) {
+                if(Events.eventID == 3){
+                    Events.newVillagerEffect("choice1");
+                    event();
+                    return;
+                }
+                if(Events.eventID == -1) {
                     mainPanel.removeAll();
                     mainPanel.add(mapPanel);
+                    focusPanel = "map";
                     mainPanel.repaint();
                     mainPanel.revalidate();
                     glb.playSoundEasy("click.wav");
@@ -905,7 +911,12 @@ public class guiMain extends JFrame
                 if(Events.eventID == 2){
                     Events.fishFiascoEffect("choice2");
                     event();
-                    Events.reset();
+                    return;
+                }
+                if(Events.eventID == 3){
+                    Events.newVillagerEffect("choice2");
+                    event();
+                    return;
                 }
                 if(Events.eventID == -1) {
                     mainPanel.removeAll();

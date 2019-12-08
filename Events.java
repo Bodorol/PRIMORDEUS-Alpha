@@ -10,7 +10,6 @@ import java.util.Random;
 public class Events extends Global{
 
     static int eventID = -1;
-    static int choices = 0;
     static String name = "none";
     static String description = "none";
     static boolean choice1 = true;
@@ -31,7 +30,9 @@ public class Events extends Global{
     public static void initializer(){
         addEvent("Region Discovery", "Map", "0.005", "1");
 
-        addEvent("Fish Fiasco", "Fish", "0.5", "2");
+        addEvent("Fish Fiasco", "Fish", "0.0001", "2");
+
+        addEvent("Wanderer", "Population", "1", "3");
 
     }
 
@@ -60,7 +61,6 @@ public class Events extends Global{
 
     public static void reset(){
         eventID = -1;
-        choices = 0;
         name = "none";
         description = "none";
         choice2 = false;
@@ -121,6 +121,9 @@ public class Events extends Global{
                     if (eventID == 2){
                         fishFiascoEvent();
                 }
+                    if(eventID == 3){
+                        wandererEvent();
+                    }
             }
         }
     }
@@ -137,11 +140,22 @@ public class Events extends Global{
         reset();
         eventID = 2;
         name = "Fish Fiasco!";
-        System.out.println("Hi");
         choice2 = true;
         description = "The sky suddenly turns dark as thousands of fish appear in the sky and blot out the sun.\nA moment passes and the fish begin to rain down upon your village.";
         firstChoiceText = "Try to salvage what you can as food";
         secondChoiceText = "These fish are clearly cursed. Remove them from the village immediately";
+        Global.currentEvent = true;
+    }
+
+    private static void wandererEvent(){
+        reset();
+        eventID = 3;
+        System.out.println(eventID);
+        name = "Wanderer";
+        choice2 = true;
+        description = "A wayworn wanderer arrives at your village. They seem tired, and ask if they can stay for a while.";
+        firstChoiceText = "Allow them to stay at your village";
+        secondChoiceText = "Turn them away. It's hard enough to manage the people you already have.";
         Global.currentEvent = true;
     }
 
@@ -222,21 +236,39 @@ public class Events extends Global{
     }
 
     public static void fishFiascoEffect(String choice){
-        System.out.println("Hi2");
             if (choice.equals("choice1")) {
                 description = "You managed to salvage 30 fish";
-                firstChoiceText = "Ok!";
-                choice2 = false;
-                choice3 = false;
-                choice4 = false;
+                for (ArrayList resource : ownedResources) {
+                    if (resource.get(0).equals("Fish")) {
+                        resource.set(1, (double) resource.get(1) + 30);
+                    }
+                }
             } else if (choice.equals("choice2")) {
                 description = "You managed to clear the fish out of your village. The smell, however, remains.";
-                firstChoiceText = "Ok!";
-                choice2 = false;
-                choice3 = false;
-                choice4 = false;
             }
+        firstChoiceText = "Ok!";
+        choice2 = false;
+        choice3 = false;
+        choice4 = false;
+        eventID = -1;
     }
+
+    public static void newVillagerEffect(String choice){
+        if(choice.equals("choice1")){
+            Person person = new Person(People.size());
+            description = person.name + " has joined your village!";
+            People.add(person);
+        }
+        else if(choice.equals("choice2")){
+            description = "You have turned the wanderer away. They venture off, their fate unknown.";
+        }
+        firstChoiceText = "Ok";
+        choice2 = false;
+        choice3 = false;
+        choice4 = false;
+        eventID = -1;
+    }
+
 
     private void infectRandomEvent(){
         //todo
