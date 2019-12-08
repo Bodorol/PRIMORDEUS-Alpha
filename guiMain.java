@@ -1125,6 +1125,50 @@ public class guiMain extends JFrame
                 }
             }
         });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                glb.playSoundEasy("click.wav");
+                focusPanel="constructed";
+                String temp = "";
+                int index = 1;
+                for (Building b: Global.constructedBuildings){
+                    if(b.buildingID != 0){
+                        if (b.workNeeded == 0) {
+                            temp+="\n";
+                            temp+="======================================================";
+                            temp+="\n";
+                            temp+=index + ".";
+                            temp+="\n";
+                            temp+="Name: " + b.name;
+                            temp+="\n";
+                            temp+="Description: " + b.description;
+                            temp+="\n";
+                            temp+="Size: " + b.size;
+                            temp+="\n";
+                            temp+="Region: " + b.regionName;
+                            temp+="\n";
+                            temp+="Upkeep Cost: " + b.upkeepCost;
+                            temp+="\n";
+                            temp+="Capacity: " + b.capacity;
+                            temp+="\n";
+                            temp+="Workers: " + b.workers;
+                            temp+="\n";
+                            index++;
+                        }
+                    }
+                }
+
+                constructedBuildingsPane.setText(temp);
+                constructedBuildingsPane.invalidate();
+                constructedBuildingsPane.validate();
+                constructedBuildingsPane.repaint();
+                mainPanel.removeAll();
+                mainPanel.add(constructedMenuPanel);
+                mainPanel.repaint();
+                mainPanel.revalidate();
+            }
+        });
     }
 
     public void setWaterLabel(String x) {
