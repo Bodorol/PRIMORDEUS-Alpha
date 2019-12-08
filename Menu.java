@@ -321,6 +321,11 @@ public class Menu extends Global{
                 "══════════════════════════════════════════════════════════════════════════════╝");
         System.out.println("");
 
+        for (int x = 0; x < 30;x++)
+        {
+            playSoundEasy("thunderWav.wav");
+        }
+
         // allows user to display people details
 
         while (true)
