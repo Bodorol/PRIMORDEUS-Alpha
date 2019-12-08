@@ -19,7 +19,6 @@ public class Global {
     static double influence=100;
     static double influenceMade=0.01;
     static int day=1;
-    static double scienceProduction=0.0;
     static int year=1;
     static String date="";
     static double gold=0;
@@ -32,8 +31,8 @@ public class Global {
     static Boolean overridesActive;
     static Boolean turnTimer=false;
     static Boolean currentEvent = false;
-    static double productionWork;
-    static double scienceWork;
+    static double productionWork=1.0;
+    static double scienceWork=1.0;
     static int focusRegion;
     static int focusScience=-1;
     static int focusPerson=-1;
