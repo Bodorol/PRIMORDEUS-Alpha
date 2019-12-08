@@ -274,7 +274,7 @@ public class Menu extends Global{
             water+=waterProduction;
             food+=foodProduction;
             bld.updateBuildings();
-            String sciwork = sci.work(150);
+            String sciwork = sci.work(scienceProduction);
             guiMain.updateScience();
             if (sciwork!=""){lesserEvents.add(date+" "+sciwork);}
             People.feedThePeople("class");

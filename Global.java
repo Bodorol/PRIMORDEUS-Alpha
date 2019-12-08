@@ -9,7 +9,7 @@ public class Global {
     static double food=10000;
     static double water=1000;
     static double waterMade=0;
-    static double waterProduction=1000;
+    static double waterProduction=0;
     static double foodMade=0;
     static double foodProduction=0;
     static double foodPreservation=0;
@@ -19,6 +19,7 @@ public class Global {
     static double influence=100;
     static double influenceMade=0.01;
     static int day=1;
+    static double scienceProduction=0.0;
     static int year=1;
     static String date="";
     static double gold=0;
