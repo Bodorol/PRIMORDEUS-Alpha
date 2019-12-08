@@ -32,7 +32,9 @@ public class Events extends Global{
 
         addEvent("Fish Fiasco", "Fish", "0.0001", "2");
 
-        addEvent("Wanderer", "Population", "1", "3");
+        addEvent("Wanderer", "Population", "0.0005", "3");
+
+        addEvent("Herb Discovered", "Resource", "1", "4");
 
     }
 
@@ -124,6 +126,9 @@ public class Events extends Global{
                     if(eventID == 3){
                         wandererEvent();
                     }
+                    if(eventID == 4){
+                        discoveredHerbEvent();
+                    }
             }
         }
     }
@@ -156,6 +161,23 @@ public class Events extends Global{
         description = "A wayworn wanderer arrives at your village. They seem tired, and ask if they can stay for a while.";
         firstChoiceText = "Allow them to stay at your village";
         secondChoiceText = "Turn them away. It's hard enough to manage the people you already have.";
+        Global.currentEvent = true;
+    }
+
+    private static void discoveredHerbEvent(){
+        reset();
+        eventID = 4;
+        ArrayList temp = new ArrayList();
+        for(ArrayList e: events){
+            if (Integer.parseInt((String)e.get(e.size()-1)) == eventID){
+                e.set(e.size()-1,-Integer.parseInt((String)e.get(e.size()-1)));
+                e.set(e.size()-1, "" + e.get(e.size()-1));
+            }
+        }
+        name = "Herb Discovered";
+        description = "You discovered that a patch of plants growing nearby has herbal properties. This could be useful.";
+        firstChoiceText = "Ok!";
+        preRecsAttained.add("D_Herb");
         Global.currentEvent = true;
     }
 
@@ -236,6 +258,7 @@ public class Events extends Global{
     }
 
     public static void fishFiascoEffect(String choice){
+        //todo: make turning down the fish subtract unrest
             if (choice.equals("choice1")) {
                 description = "You managed to salvage 30 fish";
                 for (ArrayList resource : ownedResources) {

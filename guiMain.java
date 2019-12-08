@@ -892,7 +892,7 @@ public class guiMain extends JFrame
                     event();
                     return;
                 }
-                if(Events.eventID == -1) {
+                else {
                     mainPanel.removeAll();
                     mainPanel.add(mapPanel);
                     focusPanel = "map";
@@ -918,7 +918,7 @@ public class guiMain extends JFrame
                     event();
                     return;
                 }
-                if(Events.eventID == -1) {
+                else {
                     mainPanel.removeAll();
                     mainPanel.add(mapPanel);
                     mainPanel.repaint();
