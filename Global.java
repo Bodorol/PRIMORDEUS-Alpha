@@ -9,7 +9,7 @@ public class Global {
     static double food=10000;
     static double water=1000;
     static double waterMade=0;
-    static double waterProduction=0;
+    static double waterProduction=1000;
     static double foodMade=0;
     static double foodProduction=0;
     static double foodPreservation=0;
@@ -31,8 +31,8 @@ public class Global {
     static Boolean overridesActive;
     static Boolean turnTimer=false;
     static Boolean currentEvent = false;
-    static double productionWork=1.0;
-    static double scienceWork=1.0;
+    static double productionWork;
+    static double scienceWork;
     static int focusRegion;
     static int focusScience=-1;
     static int focusPerson=-1;
@@ -55,6 +55,7 @@ public class Global {
     static public ArrayList<ArrayList> upgrades=new ArrayList<ArrayList>();
     static public ArrayList<Building> constructedBuildings = new ArrayList<Building>(); //todo
     static public ArrayList<ArrayList> occupations = new ArrayList<ArrayList>(); //todo
+    static public ArrayList<String> availableOccupations = new ArrayList<String>();
     static public ArrayList<ArrayList> abilities = new ArrayList<ArrayList>(); //todo
     static public ArrayList<ArrayList> events = new ArrayList<ArrayList>(); //todo
     static public Clip clip1;
