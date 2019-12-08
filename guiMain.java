@@ -116,11 +116,12 @@ public class guiMain extends JFrame
     private JButton assignPeople;
     private JButton buildingBackButton;
     private JPanel jobPanel;
-    private JTextPane textPane2;
-    private JComboBox comboBox1;
-    private JComboBox comboBox3;
-    private JButton button1;
+    private JTextPane personOccupationPane;
+    private JComboBox occupationChoiceBox;
+    private JComboBox personChoiceBox;
+    private JButton assignmentButton;
     private JButton backButton;
+    private JTextArea assignmentTextArea;
     private JLabel resScrollLabel;
     private JLabel regionResPanel;
     public String focusPanel = "eve";
@@ -915,6 +916,16 @@ public class guiMain extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateMap();
+                if(Events.eventID == 1){
+                    Events.discoverTileEffect();
+                    mainPanel.removeAll();
+                    mainPanel.add(mapPanel);
+                    mainPanel.repaint();
+                    mainPanel.revalidate();
+                    glb.playSoundEasy("click.wav");
+                    focusPanel = "map";
+                    Events.reset();
+                }
                 if(Events.eventID == 2){
                     Events.fishFiascoEffect("choice1");
                     event();
@@ -927,6 +938,11 @@ public class guiMain extends JFrame
                 }
                 if(Events.eventID == 5){
                     Events.newStoneVillagerEffect("choice1");
+                    event();
+                    return;
+                }
+                if(Events.eventID ==7){
+                    Events.sickVillagerEffect("choice1");
                     event();
                     return;
                 }
@@ -946,6 +962,16 @@ public class guiMain extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateMap();
+                if(Events.eventID == 1){
+                    Events.discoverTileEffect();
+                    mainPanel.removeAll();
+                    mainPanel.add(mapPanel);
+                    mainPanel.repaint();
+                    mainPanel.revalidate();
+                    glb.playSoundEasy("click.wav");
+                    focusPanel = "map";
+                    Events.reset();
+                }
                 if(Events.eventID == 2){
                     Events.fishFiascoEffect("choice2");
                     event();
@@ -958,6 +984,11 @@ public class guiMain extends JFrame
                 }
                 if(Events.eventID == 5){
                     Events.newStoneVillagerEffect("choice2");
+                    event();
+                    return;
+                }
+                if(Events.eventID ==7){
+                    Events.sickVillagerEffect("choice2");
                     event();
                     return;
                 }
@@ -1037,10 +1068,61 @@ public class guiMain extends JFrame
             public void actionPerformed(ActionEvent actionEvent) {
                 glb.playSoundEasy("click.wav");
                 focusPanel="job";
+                String temp = "";
+                for(Person person: Global.People){
+                    if(person.health > 0){
+                        temp += person.name + "  |  Best Occupation: " + Building.bestOccupation(person) + "\n";
+                    }
+                }
+                personOccupationPane.setText(temp);
+                personChoiceBox.removeAllItems();
+                occupationChoiceBox.removeAllItems();
+                for(Person p: Global.People){
+                    if(p.health > 0) {
+                        personChoiceBox.addItem(p.name);
+                    }
+                }
+                for(String o: Global.availableOccupations){
+                    occupationChoiceBox.addItem(o);
+                }
                 mainPanel.removeAll();
                 mainPanel.add(jobPanel);
                 mainPanel.repaint();
                 mainPanel.revalidate();
+            }
+        });
+        assignmentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String personName = (String)personChoiceBox.getItemAt(personChoiceBox.getSelectedIndex());
+                String occupationName = (String)occupationChoiceBox.getItemAt(occupationChoiceBox.getSelectedIndex());
+                ArrayList occupation = new ArrayList();
+                Person person = new Person(0);
+                String temp = "";
+                for(Person p: Global.People){
+                    if(p.name == personName){
+                        person = p;
+                        break;
+                    }
+                }
+                for(ArrayList o: Global.occupations){
+                    if(occupationName.equals((String)o.get(0))){
+                        occupation = o;
+                    }
+                }
+                if(Building.assignCheck(person, occupation)){
+                    for(Building b: Global.constructedBuildings){
+                        if(occupationName.equals(b.occupation)){
+                            b.assignOccupationManual(person, occupation);
+                            temp = "Assigned " + personName + " to " + occupationName;
+                            assignmentTextArea.setText(temp);
+                        }
+                    }
+                }
+                else{
+                    temp = "This person doesn't meet the requirements for this occupation";
+                    assignmentTextArea.setText(temp);
+                }
             }
         });
     }
@@ -1595,6 +1677,7 @@ public class guiMain extends JFrame
         mainPanel.repaint();
         mainPanel.revalidate();
     }
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

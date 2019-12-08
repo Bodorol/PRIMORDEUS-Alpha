@@ -81,6 +81,9 @@ public class Building extends Global
                 }
                 this.occupation = (String)b.get(5);
                 this.capacity = Integer.parseInt((String)b.get(6));
+                if(this.capacity > 0){
+                    availableOccupations.add(occupation);
+                }
                 this.limit = Integer.parseInt((String)b.get(7));
                 this.modifier = Double.parseDouble((String)b.get(8));
                 this.maxUpgrade = Integer.parseInt((String)b.get(9));
@@ -101,7 +104,7 @@ public class Building extends Global
             }
         }
 
-        }
+    }
 
     public Building(){
         this.name = "Null";
@@ -291,7 +294,7 @@ public class Building extends Global
         out.add(biomeRestriction); //15
         out.add(buildingID); //16
         buildings.add(out);
-        }
+    }
 
     private void addUpgrade(String buildingID, String description, String newModifier, String newCapacity, String newEfficiency, String newDelay, String wokrRequired,
                             ArrayList additionalEffects, ArrayList preRecsNeeded, String upgradeNumber){
@@ -343,33 +346,33 @@ public class Building extends Global
         String occupationName = "None";
         for (ArrayList occupation : occupations) {
             ArrayList statRequirements = (ArrayList) (occupation.get(3));
-                if (assignCheck(person, occupation)) {
-                    int rank = 0;
-                    for (Object s : (ArrayList) occupation.get(4)) {
-                        String stat = (String) s;
-                        if (stat.equals("Strength")) {
-                            rank += person.strength - (int) statRequirements.get(0);
-                        }
-                        if (stat.equals("Perception")) {
-                            rank += person.perception - (int) statRequirements.get(1);
-                        }
-                        if (stat.equals("Intelligence")) {
-                            rank += person.intelligence - (int) statRequirements.get(2);
-                        }
-                        if (stat.equals("Martial")) {
-                            rank += person.martial - (int) statRequirements.get(3);
-                        }
-                        if (stat.equals("Charisma")) {
-                            rank += person.charisma - (int) statRequirements.get(4);
-                        }
-                        if (stat.equals("Dexterity")) {
-                            rank += person.dexterity - (int) statRequirements.get(5);
+            if (assignCheck(person, occupation)) {
+                int rank = 0;
+                for (Object s : (ArrayList) occupation.get(4)) {
+                    String stat = (String) s;
+                    if (stat.equals("Strength")) {
+                        rank += person.strength - (int) statRequirements.get(0);
+                    }
+                    if (stat.equals("Perception")) {
+                        rank += person.perception - (int) statRequirements.get(1);
+                    }
+                    if (stat.equals("Intelligence")) {
+                        rank += person.intelligence - (int) statRequirements.get(2);
+                    }
+                    if (stat.equals("Martial")) {
+                        rank += person.martial - (int) statRequirements.get(3);
+                    }
+                    if (stat.equals("Charisma")) {
+                        rank += person.charisma - (int) statRequirements.get(4);
+                    }
+                    if (stat.equals("Dexterity")) {
+                        rank += person.dexterity - (int) statRequirements.get(5);
                     }
                 }
-                    if(rank > maxRank){
-                        maxRank = rank;
-                        occupationName = (String)occupation.get(0);
-                    }
+                if(rank > maxRank){
+                    maxRank = rank;
+                    occupationName = (String)occupation.get(0);
+                }
             }
         }
         return occupationName;
@@ -467,7 +470,7 @@ public class Building extends Global
         tempList.add(new ArrayList(Arrays.asList(new String[]{"None"})));
         tempList.get(0).add(0);
         for(ArrayList x: bestWorkers){
-           for(int i = 0; i < tempList.size(); i++){
+            for(int i = 0; i < tempList.size(); i++){
                 if((int)x.get(1) >= (int)tempList.get(i).get(1)){
                     tempList.add(i, x);
                     break;
@@ -530,10 +533,10 @@ public class Building extends Global
     public boolean canUpgrade(){
         for(ArrayList u: upgrades){
             if (Integer.parseInt((String)u.get(0)) == this.buildingID && Integer.parseInt((String)u.get(u.size() - 1)) == this.upgradeLevel + 1){
-                    for(Object p: (ArrayList)u.get(8)){
-                        String preRec = (String)p;
-                        if(!preRecsAttained.contains(preRec)){
-                            return false;
+                for(Object p: (ArrayList)u.get(8)){
+                    String preRec = (String)p;
+                    if(!preRecsAttained.contains(preRec)){
+                        return false;
                     }
                 }
             }
@@ -541,58 +544,58 @@ public class Building extends Global
         return true;
     }
 
-     public void buildingMenu(){
+    public void buildingMenu(){
         //todo
         //temporary header until I can ask Ian how he did his, wanna make things consistent
         //also the header messes up in the actual game. Guess it doesn't matter 'cause it's temporary but it's still annoying.
-         // fix glitch where the banner keeps showing up even after making a selection (also kinda doesn't matter)
-         while (true)
-         {
-             System.out.print("\033[H\033[2J");
-             System.out.flush();
-             System.out.println("╔══════════════════════════════════════════════════════════════════════════════════════╗");
-             System.out.println("║                                                                                      ║");
-             System.out.println("║   ____     _    _   _____   _        _____    _____   _    _   _____     _____       ║");
-             System.out.println("║  |  _ \\\\  | |  | | |_   _| | |      |  __ \\\\  |_  _| | \\\\ | | / ____|   / ____|      ║");
-             System.out.println("║  | |_) |  | |  | |   | |   | |      | |  | |   | |   |  \\\\| | | |__    | (___        ║");
-             System.out.println("║  |   _ <  | |  | |   | |   | |      | |  | |   | |   | .` | | | |_ |   \\\\___ \\\\      ║");
-             System.out.println("║  | |_) |  | |__| |  _| |_  | |____  | |__| |  _| |_  | |\\\\  | | |__| |  ____) |      ║");
-             System.out.println("║  |____/   \\\\____/  |_____| |______| |_____/  |_____| |_| \\\\_| \\\\_____| |_____/       ║");
-             System.out.println("║                                                                                      ║");
-             System.out.println("║                                                                                      ║");
-             System.out.println("╚══════════════════════════════════════════════════════════════════════════════════════╝");
-             System.out.println();
-             System.out.println("    1.   Construct Buildings");
-             System.out.println();
-             System.out.println("    2.   Upgrade Buildings");
-             System.out.println();
-             System.out.println("    3.   Buildings Under Construction");
-             System.out.println();
-             System.out.println("    4.   Constructed Buildings");
-             System.out.println();
+        // fix glitch where the banner keeps showing up even after making a selection (also kinda doesn't matter)
+        while (true)
+        {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("╔══════════════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println("║                                                                                      ║");
+            System.out.println("║   ____     _    _   _____   _        _____    _____   _    _   _____     _____       ║");
+            System.out.println("║  |  _ \\\\  | |  | | |_   _| | |      |  __ \\\\  |_  _| | \\\\ | | / ____|   / ____|      ║");
+            System.out.println("║  | |_) |  | |  | |   | |   | |      | |  | |   | |   |  \\\\| | | |__    | (___        ║");
+            System.out.println("║  |   _ <  | |  | |   | |   | |      | |  | |   | |   | .` | | | |_ |   \\\\___ \\\\      ║");
+            System.out.println("║  | |_) |  | |__| |  _| |_  | |____  | |__| |  _| |_  | |\\\\  | | |__| |  ____) |      ║");
+            System.out.println("║  |____/   \\\\____/  |_____| |______| |_____/  |_____| |_| \\\\_| \\\\_____| |_____/       ║");
+            System.out.println("║                                                                                      ║");
+            System.out.println("║                                                                                      ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════════════════════════╝");
+            System.out.println();
+            System.out.println("    1.   Construct Buildings");
+            System.out.println();
+            System.out.println("    2.   Upgrade Buildings");
+            System.out.println();
+            System.out.println("    3.   Buildings Under Construction");
+            System.out.println();
+            System.out.println("    4.   Constructed Buildings");
+            System.out.println();
 
-             System.out.print("=>");
-             String inp = reader.nextLine();
-             if (inp.contains("1"))
-             {
-                 constructionMenu();
-             }
-             else if (inp.contains("2"))
-             {
-                 break; //change to upgradeMenu(); when you have that done
-             }
-             else if(inp.contains("3")){
-                 underConstructionMenu();
+            System.out.print("=>");
+            String inp = reader.nextLine();
+            if (inp.contains("1"))
+            {
+                constructionMenu();
+            }
+            else if (inp.contains("2"))
+            {
+                break; //change to upgradeMenu(); when you have that done
+            }
+            else if(inp.contains("3")){
+                underConstructionMenu();
             }
             else if(inp.contains("4")){
                 constructedMenu();
             }
             else {break;}
 
-         }
-     }
+        }
+    }
 
-     public void constructionMenu(){
+    public void constructionMenu(){
         //todo
         //actually allows you to build buildings
         //psuedocode:
@@ -616,87 +619,87 @@ public class Building extends Global
                     System.out.println(" Can Be Built: False ┃");
                 }
                 System.out.println("┗━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━┛");
+            }
+        }
+        while(true){
+            System.out.println("Enter the ID of the building you want to build:");
+            System.out.print("=>");
+            String inp = reader.next();
+            for (ArrayList b: buildings) {
+                if (inp.equals((String)b.get(b.size() - 1)) && buildCheck(Integer.parseInt(inp))) {
+                    System.out.println("Constructing Building: " + (String)b.get(0));
+                    buildingChoice = Integer.parseInt((String) b.get(b.size() - 1));
+                }
+                else if (inp.equals((String) b.get(b.size() - 1)) && !(buildCheck(Integer.parseInt(inp)))) {
+                    System.out.println("Cannot build this building yet");
                 }
             }
-        while(true){
-         System.out.println("Enter the ID of the building you want to build:");
-         System.out.print("=>");
-         String inp = reader.next();
-         for (ArrayList b: buildings) {
-             if (inp.equals((String)b.get(b.size() - 1)) && buildCheck(Integer.parseInt(inp))) {
-                 System.out.println("Constructing Building: " + (String)b.get(0));
-                 buildingChoice = Integer.parseInt((String) b.get(b.size() - 1));
-             }
-             else if (inp.equals((String) b.get(b.size() - 1)) && !(buildCheck(Integer.parseInt(inp)))) {
-                 System.out.println("Cannot build this building yet");
-             }
-         }
-         if (buildingChoice != -1){
-             for (Building b: constructedBuildings){
-                 b.focus = 0;
-             }
-             //constructedBuildings.add(new Building(buildingChoice));
-         }
-         break;
+            if (buildingChoice != -1){
+                for (Building b: constructedBuildings){
+                    b.focus = 0;
+                }
+                //constructedBuildings.add(new Building(buildingChoice));
+            }
+            break;
         }
-     }
+    }
 
-     public void underConstructionMenu(){
+    public void underConstructionMenu(){
         //todo
         //shows buildings that have had some progress or are the current focus
-         for (Building b: constructedBuildings){
-             if(b.buildingID != 0){
-                 if (b.workNeeded != 0) {
-                     System.out.println("");
-                     System.out.println("┏━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓");
-                     System.out.printf("┃ ID: %-3d ┃", b.buildingID);
-                     System.out.printf(" Name: %-23s ┃", b.name);
-                     System.out.printf(" Work Required: %-3d  ┃", b.workNeeded);
-                     System.out.println("┗━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━┛");
-                 }
-             }
-         }
-     }
+        for (Building b: constructedBuildings){
+            if(b.buildingID != 0){
+                if (b.workNeeded != 0) {
+                    System.out.println("");
+                    System.out.println("┏━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓");
+                    System.out.printf("┃ ID: %-3d ┃", b.buildingID);
+                    System.out.printf(" Name: %-23s ┃", b.name);
+                    System.out.printf(" Work Required: %-3d  ┃", b.workNeeded);
+                    System.out.println("┗━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━┛");
+                }
+            }
+        }
+    }
 
-     public void constructedMenu(){
+    public void constructedMenu(){
         //todo
         //shows buildings that have already been built
-         for (Building b: constructedBuildings){
-             if(b.buildingID != 0){
-                 if (b.workNeeded == 0) {
-                     System.out.println("");
-                     System.out.println("┏━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓");
-                     System.out.printf("┃ ID: %-3d ┃", b.buildingID);
-                     System.out.printf(" Name: %-23s ┃", b.name);
-                     System.out.println("┗━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━┛");
-                 }
-             }
-         }
-     }
+        for (Building b: constructedBuildings){
+            if(b.buildingID != 0){
+                if (b.workNeeded == 0) {
+                    System.out.println("");
+                    System.out.println("┏━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓");
+                    System.out.printf("┃ ID: %-3d ┃", b.buildingID);
+                    System.out.printf(" Name: %-23s ┃", b.name);
+                    System.out.println("┗━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━┛");
+                }
+            }
+        }
+    }
 
-     public void updateBuildings(){
-         for(Building b: constructedBuildings){
+    public void updateBuildings(){
+        for(Building b: constructedBuildings){
             if (b.workNeeded > 0 && b.focus == 1){
                 b.work(10);
-             }
-             else {
+            }
+            else {
                 //if(gold >= b.upkeepCost) {
-                    if (!b.init)
-                    {
-                        if (b.name.equals("Hovel")) { housingAvailable+=2; }
-                        if (b.name.equals("Hut")) { housingAvailable+=4; }
-                        if (b.name.equals("Herbalists Hut")) {scienceWork+=2;}
-                        b.init=true;
-                    }
-                    b.callEffect();
+                if (!b.init)
+                {
+                    if (b.name.equals("Hovel")) { housingAvailable+=2; }
+                    if (b.name.equals("Hut")) { housingAvailable+=4; }
+                    if (b.name.equals("Herbalists Hut")) {scienceWork+=2;}
+                    b.init=true;
+                }
+                b.callEffect();
 
-                    //gold -= b.upkeepCost;
+                //gold -= b.upkeepCost;
                 //}
-             }
+            }
         }
-     }
+    }
 
-     public void work(double work){
+    public void work(double work){
         //Allows work to be done on a building
         if (this.focus == 1){
             if(work <= workNeeded) {
@@ -714,14 +717,14 @@ public class Building extends Global
                 }
             }
         }
-     }
+    }
 
 
-     public void countBuildings(int buildingID){
+    public void countBuildings(int buildingID){
         //todo
         //counts the number of type of building that has been made
         //Don't really need this yet, finish it later. It's for when buildings are region-specific.
-     }
+    }
 
 
     public void callEffect(){
@@ -806,7 +809,7 @@ public class Building extends Global
                         //ASK IAN IF THIS IS RIGHT
                         else if(!region.resources.contains(resource)){
                             return false;
-                }
+                        }
                     }
                 }
                 else{
@@ -873,258 +876,258 @@ public class Building extends Global
         //make it so it checks limit
         //same for the other buildCheck
         //Do this once you have region specificity
-                for (String p : preRecsNeeded) {
-                    if (p.equals("Null")) {
-                        return true;
-                    }
-                    if (!preRecsAttained.contains(p)) {
-                        return false;
-                    }
-                }
+        for (String p : preRecsNeeded) {
+            if (p.equals("Null")) {
                 return true;
+            }
+            if (!preRecsAttained.contains(p)) {
+                return false;
+            }
         }
+        return true;
+    }
 
-            //todo
-            //add guide on how to make an effect (including how to make it unique, manual, etc.)
-            private void addRoad(){
-                this.region.hasRoad = true;
-                //todo: Should run connectMap
-                //todo: changes effect ID afterwards so effect only runs once
-            }
+    //todo
+    //add guide on how to make an effect (including how to make it unique, manual, etc.)
+    private void addRoad(){
+        this.region.hasRoad = true;
+        //todo: Should run connectMap
+        //todo: changes effect ID afterwards so effect only runs once
+    }
 
-            private void testdelayEffect(){
-                //todo
-                if (this.counter == 0%(delay+1)){
-                    this.popHappiness += modifier + efficiency * workers;
-                }
-            }
+    private void testdelayEffect(){
+        //todo
+        if (this.counter == 0%(delay+1)){
+            this.popHappiness += modifier + efficiency * workers;
+        }
+    }
 
-            private void testmanualEffect(int activated){
-                //todo
-                //make an effect to test manually activated effects (with a delay)
-                if (activated == 1 && manualCounter%manualDelay == 0){
-                    //actual effect here
-                }
-                else if(activated == 0){
-                    manualCounter++;
-                    manualCounter %= manualDelay;
-                }
-            }
+    private void testmanualEffect(int activated){
+        //todo
+        //make an effect to test manually activated effects (with a delay)
+        if (activated == 1 && manualCounter%manualDelay == 0){
+            //actual effect here
+        }
+        else if(activated == 0){
+            manualCounter++;
+            manualCounter %= manualDelay;
+        }
+    }
 
-          //  private void testuniqueEffect(){
-                //make an effect to text an effect that can only be used once
-                //Idea: make it so it changes the effect id for the unique effect to the negative of the effect id
-                //then reverseEffects checks for that negative number when it's called
-               // actualEffectHere;
-               // for (int e: effects){
-               //     if(e == effectIDforThisEffect){
-               //         e *= -1;
-              //      }
-              //  }
-          //  }
+    //  private void testuniqueEffect(){
+    //make an effect to text an effect that can only be used once
+    //Idea: make it so it changes the effect id for the unique effect to the negative of the effect id
+    //then reverseEffects checks for that negative number when it's called
+    // actualEffectHere;
+    // for (int e: effects){
+    //     if(e == effectIDforThisEffect){
+    //         e *= -1;
+    //      }
+    //  }
+    //  }
 
-            private void treatSick(){
-                //todo
-                //helps sick people recover
-            }
+    private void treatSick(){
+        //todo
+        //helps sick people recover
+    }
 
-            private void addHousing(){
-                housingAvailable += modifier;
-            }
+    private void addHousing(){
+        housingAvailable += modifier;
+    }
 
-            private void foodPreservation () {
-                foodPreservation = modifier;
-            }
+    private void foodPreservation () {
+        foodPreservation = modifier;
+    }
 
-            private void addScience () {
-                scienceWork += modifier + efficiency*workers;
-            }
+    private void addScience () {
+        scienceWork += modifier + efficiency*workers;
+    }
 
-            private void addWork () {
-                productionWork += modifier + efficiency*workers;
-            }
+    private void addWork () {
+        productionWork += modifier + efficiency*workers;
+    }
 
-            private void addHappiness () {
-                if (this.name.equals("Hovel"))
-                {
-                    hapPeople(2,-10,2,"Lives in Hovel");
-                }
-                if (this.name.equals("Hut"))
-                {
-                    hapPeople(4,-5,2,"Lives in Hut");
-                }
-                if (this.name.equals("Grand Hall"))
-                {
-                    hapPeople(10,4,3,"Wined and Dined at Grand Hall");
-                }
-            }
+    private void addHappiness () {
+        if (this.name.equals("Hovel"))
+        {
+            hapPeople(2,-10,2,"Lives in Hovel");
+        }
+        if (this.name.equals("Hut"))
+        {
+            hapPeople(4,-5,2,"Lives in Hut");
+        }
+        if (this.name.equals("Grand Hall"))
+        {
+            hapPeople(10,4,3,"Wined and Dined at Grand Hall");
+        }
+    }
 
-            private void hapPeople(int amonPep, double hap, int days,String reason)
+    private void hapPeople(int amonPep, double hap, int days,String reason)
+    {
+        Random rand = new Random();
+        int counter = 0;
+        while (true)
+        {
+            Person p = People.get(rand.nextInt(People.size()));
+            if (!p.lifestage.equals("Deceased"))
             {
-                Random rand = new Random();
-                int counter = 0;
-                while (true)
+                double decay=0;
+                if (hap>0)
                 {
-                    Person p = People.get(rand.nextInt(People.size()));
-                    if (!p.lifestage.equals("Deceased"))
-                    {
-                        double decay=0;
-                        if (hap>0)
-                        {
-                            decay=hap/days;
-                        }
-                        else
-                            {
-                                decay=0-hap/days;
-                            }
-                        p.addEffect(reason, "Happy", ""+hap,""+decay,"100","0","0","0","0","false");
-                        counter++;
-                    }
-                    if (counter>=amonPep){break;}
+                    decay=hap/days;
                 }
-            }
-
-            private void produceRes(String x)
-            {
-                String res="super fish";
-                if (x.equals("clay gathering spot")){res="clay";}
-                if (x.equals("Mud Gathering Spot")){res="mud";}
-                if (x.equals("Wood Gathering Spot")){res="wood";}
-                if (x.equals("Hunting Spot")){res="animal products";}
-                Boolean temp = false;
-                for (ArrayList resource : ownedResources) {
-                    if (resource.get(0).equals(res)) {
-                        resource.set(1, (double) resource.get(1) + modifier + efficiency * workers);
-                        temp=true;
-                    }
-                }
-                if (!temp)
+                else
                 {
-                    ownedResources.add(new ArrayList(Arrays.asList(new String[]{"Fish"})));
-                    for (ArrayList resource : ownedResources) {
-                        if (resource.get(0).equals(res)) {
-                            resource.add(1, modifier + efficiency * workers);
-                        }
-                    }
+                    decay=0-hap/days;
+                }
+                p.addEffect(reason, "Happy", ""+hap,""+decay,"100","0","0","0","0","false");
+                counter++;
+            }
+            if (counter>=amonPep){break;}
+        }
+    }
+
+    private void produceRes(String x)
+    {
+        String res="super fish";
+        if (x.equals("clay gathering spot")){res="clay";}
+        if (x.equals("Mud Gathering Spot")){res="mud";}
+        if (x.equals("Wood Gathering Spot")){res="wood";}
+        if (x.equals("Hunting Spot")){res="animal products";}
+        Boolean temp = false;
+        for (ArrayList resource : ownedResources) {
+            if (resource.get(0).equals(res)) {
+                resource.set(1, (double) resource.get(1) + modifier + efficiency * workers);
+                temp=true;
+            }
+        }
+        if (!temp)
+        {
+            ownedResources.add(new ArrayList(Arrays.asList(new String[]{"Fish"})));
+            for (ArrayList resource : ownedResources) {
+                if (resource.get(0).equals(res)) {
+                    resource.add(1, modifier + efficiency * workers);
                 }
             }
+        }
+    }
 
-            private void produceFood(String x)
-            {
-                String res="super fish";
-                int days = 666;
-                if (x.equals("Foraging Spot"))
-                {
-                    res="wild food";
-                    days=7;
-                }
-                if (x.equals("Hunting Spot"))
-                {
-                    res="raw meat";
-                    days=3;
-                }
-                if (x.equals("Fish Trap"))
-                {
-                    res="raw fish";
-                    days=3;
-                }
-                if (x.equals("Shellfish Trap"))
-                {
-                    res="raw shellfish";
-                    days=3;
-                }
-                Boolean temp = false;
-                addFood(res,modifier + efficiency * workers,days);
+    private void produceFood(String x)
+    {
+        String res="super fish";
+        int days = 666;
+        if (x.equals("Foraging Spot"))
+        {
+            res="wild food";
+            days=7;
+        }
+        if (x.equals("Hunting Spot"))
+        {
+            res="raw meat";
+            days=3;
+        }
+        if (x.equals("Fish Trap"))
+        {
+            res="raw fish";
+            days=3;
+        }
+        if (x.equals("Shellfish Trap"))
+        {
+            res="raw shellfish";
+            days=3;
+        }
+        Boolean temp = false;
+        addFood(res,modifier + efficiency * workers,days);
+    }
+
+    private void produceWater(){
+        water += modifier + efficiency*workers;
+    }
+
+    private void addInfluence(){
+        influence += modifier + workers*efficiency;
+    }
+
+
+    private void abilityCureSick(){
+        //todo
+        //Ability that allows you to spend influence to cure one sick person of any disease. Will require some sort of temple or holy building or something
+        //Probably has to take in a person as parameter
+    }
+
+    private void abilityCureAllSick(){
+        //todo
+        //Stronger version of cure sick that allows you to cure everyone in your village for a large amount of influence. Requires and upgrade probably.
+    }
+
+    private void abilityAddHappiness(){
+        //todo
+    }
+
+    private void produceGold () {
+        this.gold += modifier + efficiency*workers;
+    }
+
+    public String getName () {
+        return name;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public int getSize(){
+        return size;
+    }
+
+    public double getWorkNeeded(){
+        return workNeeded;
+    }
+
+    public void printEffects () {
+        for (int e: effects){
+            if (e == 1) {
+                System.out.println("produceResource();");
             }
-
-            private void produceWater(){
-                water += modifier + efficiency*workers;
+            if (e == 2) {
+                System.out.println("addHappiness();");
             }
-
-            private void addInfluence(){
-                influence += modifier + workers*efficiency;
+            if (e == 3) {
+                System.out.println("addWork();");
             }
-
-
-            private void abilityCureSick(){
-                //todo
-                //Ability that allows you to spend influence to cure one sick person of any disease. Will require some sort of temple or holy building or something
-                //Probably has to take in a person as parameter
+            if (e == 4) {
+                System.out.println("addScience();");
             }
-
-            private void abilityCureAllSick(){
-                //todo
-                //Stronger version of cure sick that allows you to cure everyone in your village for a large amount of influence. Requires and upgrade probably.
+            if (e == 5) {
+                System.out.println("foodPreservation();");
             }
-
-            private void abilityAddHappiness(){
-                //todo
+            if (e == 6) {
+                System.out.println("produceGold();");
             }
+        }
+    }
 
-            private void produceGold () {
-                this.gold += modifier + efficiency*workers;
-            }
+    public String getOccupation () {
+        return occupation;
+    }
 
-            public String getName () {
-                return name;
-            }
+    public int getCapacity(){
+        return capacity;
+    }
 
-            public String getDescription(){
-                return description;
-            }
+    public int getLimit(){
+        return limit;
+    }
 
-            public int getSize(){
-                return size;
-            }
+    public int getUpgradeLevel(){
+        return upgradeLevel;
+    }
 
-            public double getWorkNeeded(){
-                return workNeeded;
-            }
-
-            public void printEffects () {
-                for (int e: effects){
-                        if (e == 1) {
-                            System.out.println("produceResource();");
-                        }
-                        if (e == 2) {
-                            System.out.println("addHappiness();");
-                        }
-                        if (e == 3) {
-                            System.out.println("addWork();");
-                        }
-                        if (e == 4) {
-                            System.out.println("addScience();");
-                        }
-                        if (e == 5) {
-                            System.out.println("foodPreservation();");
-                        }
-                        if (e == 6) {
-                            System.out.println("produceGold();");
-                        }
-                    }
-            }
-
-            public String getOccupation () {
-                return occupation;
-            }
-
-            public int getCapacity(){
-                return capacity;
-            }
-
-            public int getLimit(){
-                return limit;
-            }
-
-            public int getUpgradeLevel(){
-                return upgradeLevel;
-            }
-
-            public void printPrerecs(){
-                for (String p: preRecsNeeded){
-                    System.out.println(p);
-                }
-            }
+    public void printPrerecs(){
+        for (String p: preRecsNeeded){
+            System.out.println(p);
+        }
+    }
 
     public String toString() {
         //todo
