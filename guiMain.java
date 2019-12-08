@@ -115,6 +115,12 @@ public class guiMain extends JFrame
     private JComboBox buildingRegionSelectorCombo;
     private JButton assignPeople;
     private JButton buildingBackButton;
+    private JPanel jobPanel;
+    private JTextPane textPane2;
+    private JComboBox comboBox1;
+    private JComboBox comboBox3;
+    private JButton button1;
+    private JButton backButton;
     private JLabel resScrollLabel;
     private JLabel regionResPanel;
     public String focusPanel = "eve";
@@ -619,6 +625,7 @@ public class guiMain extends JFrame
             public void actionPerformed(ActionEvent e) {
                     namedRegions.clear();
                     buildingRegionSelectorCombo.removeAll();
+                    buildingRegionSelectorCombo.removeAllItems();
                     namedRegions.add(-1);
                     buildingRegionSelectorCombo.addItem("");
                     for (Region reg:glb.regions)
@@ -1021,6 +1028,17 @@ public class guiMain extends JFrame
                 constructedBuildingsPane.repaint();
                 mainPanel.removeAll();
                 mainPanel.add(constructedMenuPanel);
+                mainPanel.repaint();
+                mainPanel.revalidate();
+            }
+        });
+        assignPeople.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                glb.playSoundEasy("click.wav");
+                focusPanel="job";
+                mainPanel.removeAll();
+                mainPanel.add(jobPanel);
                 mainPanel.repaint();
                 mainPanel.revalidate();
             }
