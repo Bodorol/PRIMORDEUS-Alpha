@@ -181,15 +181,15 @@ public class Building extends Global
 
         addBuilding("Water Gathering Spot", "Allows people to gather water", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{1})),
                 "Water Collector", "0", "1", "1", "10", "3", "0", "0",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"water"})), "None");
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 25"})), new ArrayList<String>(Arrays.asList(new String[]{"water"})), "None");
 
         addBuilding("Foraging Spot", "Allows people to forage for food", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{8})),
                 "Forager", "2", "0", "1", "11", "3", "0", "0",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"wild edibles"})), "None");
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 25"})), new ArrayList<String>(Arrays.asList(new String[]{"wild edibles"})), "None");
 
         addBuilding("Hunting Spot", "Allows people to hunt for food", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{8,1})),
                 "Forager", "3", "0", "1", "12", "3", "0", "0",
-                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"None"})), new ArrayList<String>(Arrays.asList(new String[]{"small game"})), "None");
+                new ArrayList<String>(Arrays.asList(new String[]{"Null"})), new ArrayList<String>(Arrays.asList(new String[]{"wood 25"})), new ArrayList<String>(Arrays.asList(new String[]{"small game"})), "None");
 
         addBuilding("Hovel", "Place for people to live (terrible)", "1", "0", new ArrayList<Integer>(Arrays.asList(new Integer[]{2,9})),
                 "None", "0", "0", "2", "13", "3", "0", "0",
@@ -255,15 +255,9 @@ public class Building extends Global
                 new ArrayList(Arrays.asList(new String[]{"Intelligence"})), "9");
 
 
-
-        ownedResources.add(new ArrayList(Arrays.asList(new String[]{"Fish"})));
-        for (ArrayList resource : ownedResources) {
-            if (resource.get(0).equals("Fish")) {
-                resource.add(1, 0.0);
-            }
-        }
-
     }
+
+
 
 
     private void addBuilding(String name, String description, String size, String workNeeded, ArrayList effectIDs, String occupation, String capacity, String limit,
@@ -834,6 +828,7 @@ public class Building extends Global
                         return true;
                     }
                     resourceAmount = Double.parseDouble(resource.replaceAll("[^\\d]", ""));
+                    System.out.println(resourceAmount);
                     for(ArrayList o: ownedResources){
                         if(((String)o.get(0)).equals(resourceName)){
                             if(resourceAmount > (double)o.get(1)){
@@ -857,7 +852,6 @@ public class Building extends Global
                 for(Object r: resourceCost){
                     String resource = (String)r;
                     resourceName = resource.replaceAll("[^A-Za-z]+", "");
-                    System.out.println(resourceName);
                     if(!resourceName.equals("None")){
                         resourceAmount = Double.parseDouble(resource.replaceAll("[^\\d]", ""));
                         for(ArrayList o: ownedResources){

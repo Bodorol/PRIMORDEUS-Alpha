@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -952,17 +954,6 @@ public class Map extends Global{
             }
         }
 
-        if (!regions.get(find(7,15)).features.contains("river"))
-        {
-            regions.get(find(7,15)).features.add("creek");
-            regions.get(find(7,15)).resources.add("water");
-            regions.get(find(7,15)).resources.add("water");
-            regions.get(find(7,15)).resources.add("water");
-            regions.get(find(7,15)).resources.add("wild edibles");
-            regions.get(find(7,15)).resources.add("wild edibles");
-            regions.get(find(7,15)).resources.add("wild edibles");
-        }
-
         //Determine slot amount
 
         for (Region reg:regions)
@@ -1091,7 +1082,6 @@ public class Map extends Global{
 
         regions.get(find(7,15)).b2="\uD83C\uDFEF";
         regions.get(find(7,15)).slots+=10;
-
     }
 
 
@@ -1148,6 +1138,12 @@ public class Map extends Global{
                     reg.discresources.add(res);
                     reg.discresourcesaman.add(amount);
                 }
+            }
+        }
+        Global.ownedResources.add(new ArrayList(Arrays.asList(new String[]{res})));
+        for(ArrayList o: ownedResources){
+            if (o.get(0).equals(res)) {
+                o.add(1, 0.0);
             }
         }
         Global.preRecsAttained.add("D_"+res);
