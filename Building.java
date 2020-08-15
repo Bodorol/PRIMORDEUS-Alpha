@@ -1,6 +1,13 @@
 import java.util.*;
 
-//todo:
+//todo: Refactor buildings to use strategy design
+//todo: optimize using HashSets, switch statements and removing loops when possible
+
+
+
+
+
+//old todo
 //Add some gosh-darned documentation to your methods, you slacker
 //Add region restrictions to buildings (e.g. can only be built near ocean, in forest, etc.)
 //Add a toString method
@@ -28,6 +35,26 @@ import java.util.*;
 
 public class Building extends Global
 {
+
+    interface BuildingType {
+
+    }
+
+    class TownHall implements BuildingType {
+
+    }
+
+    class Farm implements BuildingType {
+
+    }
+
+    class Charcuterie implements BuildingType {
+
+    }
+
+    class Theater implements BuildingType {
+
+    }
 
     //Takes up resource
     //Takes up a building slot
