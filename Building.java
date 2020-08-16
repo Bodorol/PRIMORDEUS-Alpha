@@ -38,22 +38,707 @@ public class Building extends Global
 
     interface BuildingType {
 
+        String getName();
+
+        int getUpgradeLevel();
+
+        boolean canUpgrade();
+
+        void effect();
+
+        void upgrade();
+
+        void destruct();
+
     }
 
     class TownHall implements BuildingType {
 
+        private String name = "Town Hall";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        public TownHall() {
+            this.upgradeLevel = 0;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
     }
 
     class Farm implements BuildingType {
 
+        private String name = "Farm";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
     }
 
     class Charcuterie implements BuildingType {
 
+        private String name = "Charcuterie";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
     }
 
     class Theater implements BuildingType {
 
+        private String name = "Theater";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class Church implements BuildingType {
+
+        private String name = "Church";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class Hospital implements BuildingType {
+
+        private String name = "Hospital";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class WatchTower implements BuildingType {
+
+        private String name = "Watch Tower";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class Road implements BuildingType {
+
+        private String name = "Road";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class WaterSpot implements BuildingType {
+
+        private String name = "Water Gathering Spot";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+            Global.water += modifier + efficiency*workers;
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class ForageSpot implements BuildingType {
+
+        private String name = "Foraging Spot";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class HuntingSpot implements BuildingType {
+
+        private String name = "Hunting Spot";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class Hovel implements BuildingType {
+
+        private String name = "Hovel";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class Hut implements BuildingType {
+
+        private String name = "Hut";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class FishSpot implements BuildingType {
+
+        private String name = "Fishing Spot";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class Herbalist implements BuildingType {
+
+        private String name = "Herbalist Hut";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class GrandHall implements BuildingType {
+
+        private String name = "Grand Hall";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class MudSpot implements BuildingType {
+
+        private String name = "Mud Gathering Spot";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
+    }
+
+    class WoodSpot implements BuildingType {
+
+        private String name = "Wood Gathering Spot";
+        private int upgradeLevel;
+        private Set<Person> workerList = new HashSet<>();
+        private double efficiency = 0.1;
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int getUpgradeLevel() {
+            return upgradeLevel;
+        }
+
+        @Override
+        public void effect() {
+
+        }
+
+        @Override
+        public boolean canUpgrade() {
+            return true;
+        }
+
+        @Override
+        public void upgrade() {
+
+        }
+
+        @Override
+        public void destruct() {
+
+        }
     }
 
     //Takes up resource
@@ -88,8 +773,6 @@ public class Building extends Global
     public ArrayList<String> resourceCost = new ArrayList<String>();
     ArrayList<Integer> effects = new ArrayList<Integer>();
     ArrayList<Person> workersList = new ArrayList<Person>();
-
-
 
 
 
